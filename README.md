@@ -117,6 +117,100 @@ Wichtig - der Unterbereich (hier "uni-siegen") muss im DataPublication.nrw vorhe
 -   Bilder in templates/universities/`<layout>`{=html}/img/\
 -   Styles in templates/universities/`<layout>`{=html}/css/
 
+---
+
+#### 🗂️ Konfiguration über `config/unis.csv`
+
+Die Datei `config/unis.csv` ist das **zentrale Steuerungselement** des Systems.
+
+Sie definiert:
+
+- welche Hochschulen berücksichtigt werden
+- wie Subdataverse-Seiten aussehen
+- welche Assets (Logo, CSS, JS, Hintergrund) geladen werden
+- ob ein Dataverse erstellt/veröffentlicht wird
+
+---
+
+#### 🧱 Aufbau der CSV
+
+``` csv
+Name,homepage,repourl,label,enabled,logo,background,css,js,txt
+```
+
+------------------------------------------------------------------------
+
+#### 🔑 Bedeutung der Spalten
+
+  -----------------------------------------------------------------------
+  Feld                               Beschreibung
+  ---------------------------------- ------------------------------------
+  `Name`                             Anzeigename der Hochschule
+
+  `homepage`                         Link zur Hochschul-Webseite
+
+  `repourl`                          Optional: externe Ziel-URL
+                                     (überschreibt interne Verlinkung)
+
+  `label`                            **Zentrale ID** (Dataverse-Alias +
+                                     URL-Pfad)
+
+  `enabled`                          `1` = aktiv, `0` = deaktiviert
+
+  `logo`                             URL oder Pfad zum Hochschullogo
+
+  `background`                       Hintergrundbild der Seite
+
+  `css`                              Pfad zu individuellem CSS
+
+  `js`                               Pfad zu individuellem JavaScript
+
+  `txt`                              optionaler Textinhalt
+  -----------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+#### ⚙️ Verwendung im System
+
+
+Beim Rendering:
+
+-   `label` → bestimmt Zielpfad (`/at/<label>/`)
+-   `logo`, `background`, `css`, `js` → werden ins Template injiziert
+-   `Name` → Anzeige auf der Seite
+
+👉 Beispiel:
+
+``` csv
+Uni Bielefeld,...,uni-bielefeld,1,...,/at/uni-bielefeld/css/main.css
+```
+
+→ erzeugt:
+
+    /at/uni-bielefeld/index.html
+
+------------------------------------------------------------------------
+
+#### 🧠 Wichtiges Konzept
+
+👉 `label` ist der wichtigste Wert im System:
+
+Er bestimmt gleichzeitig:
+
+-   Dataverse-Alias
+-   URL-Pfad (`/at/<label>/`)
+-   Template-Zuordnung (`templates/universities/<label>/`)
+-   Assets-Pfade
+
+------------------------------------------------------------------------
+
+### 💡 Best Practices
+
+-   Assets pro Hochschule sauber strukturieren\
+-   CSS/JS nur verwenden, wenn wirklich nötig\
+-   möglichst viele Hochschulen mit Standard-Template betreiben
+
+
 ### 3. Änderungen commiten
 
 ``` bash
