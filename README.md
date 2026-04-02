@@ -152,10 +152,11 @@ Name,homepage,repourl,label,enabled,logo,background,css,js,txt
   `repourl`                          Optional: externe Ziel-URL
                                      (überschreibt interne Verlinkung)
 
-  `label`                            **Zentrale ID** (Dataverse-Alias +
-                                     URL-Pfad)
+  `label`                            Dataverse-Alias, bitte nicht ändern
 
-  `enabled`                          `1` = aktiv, `0` = deaktiviert
+  `enabled`                          `1` = aktiv, `0` = deaktiviert, hat Auswirkungen auf ti Hauptseite mit Karte
+
+  Bitte erst ab hier anpassen
 
   `logo`                             URL oder Pfad zum Hochschullogo
 
