@@ -1,261 +1,382 @@
-# 🧩 DataPublication.nrw Homepages -- Nutzung für Hochschulen
+# DataPublication.nrw – Subdataverse Templates
 
+Dieses Repository enthält Vorlagen und Konfigurationsdateien zur Gestaltung von institutionellen oder fachlichen Unterbereichen („Subdataverses“) innerhalb von DataPublication.nrw.
 
-Dieses Repository stellt **Vorlagen (Templates) für DataPublication.nrw-Unterseiten** bereit.
-
-👉 Fokus: **individuell gestaltbare Bereiche innerhalb DataPublication.nrw**
-
----
-
-## 🎯 Zielgruppe
-
-Dieses Repository richtet sich an:
-
-- teilnehmende Hochschulen im Datapublication-Kontext
-- Forschungsdatenmanagement (FDM) Teams
-- Bibliotheken und IT-Abteilungen
-- Verantwortliche für Dataverse-Strukturen
-
-👉 Ziel ist es, **eigene DataPublication.nrw-Seiten anzupassen**.
+Ziel ist es, Hochschulen und Projekten eine einfache Möglichkeit zu geben, eigene Startseiten, Inhalte und Designs innerhalb der gemeinsamen Dataverse-Infrastruktur bereitzustellen — ohne die zentrale Plattform selbst verändern zu müssen.
 
 ---
 
-## 🧭 Ziel des Repositories
+# 🚀 Quickstart
 
-Dieses Repository dient dazu:
+## In wenigen Minuten zum eigenen Hochschulbereich
 
-- **standardisierte Einstiegsseiten bereitzustellen**
-- unterschiedliche **Level der Personalisierung** zu ermöglichen
-- eine einfache Integration zu gewährleisten
+### 1. Zugriff anfragen
 
-👉 Wichtig:
-Es geht **nicht um komplette Homepages**, sondern ausschließlich um:
+Für Schreibrechte wird ein SSH-Key benötigt.
 
-➡️ **Unterseiten innerhalb DataPublication.nrw (Subdataverses)**
+Siehe Abschnitt:
+👉 [🔐 Repository-Zugriff](#-repository-zugriff)
 
 ---
 
-## 🌐 Integration in DataPublication.nrw
+### 2. Repository klonen
 
-Die Templates werden in das Testsystem automatisch übernommen :
-
-👉 https://datapublication-nrw-test.hrz.uni-bonn.de/
-
-Beispiel:
-
-👉 https://datapublication-nrw-test.hrz.uni-bonn.de/at/layout-standard
-
-💡 Das bedeutet:
-- Änderungen in diesem Repository wirken sich direkt auf die Darstellung im Testsystem aus (alle 5 Minuten wird diese Repository gescannt)
-- keine manuelle HTML-Pflege im System notwendig
-
----
-
-------------------------------------------------------------------------
-
-## 🧱 Struktur des Repositories
-
-    templates/
-      └── universities/         → Beispiele für Hochschulen
-                ├──layout-standard
-                ├──layout-adapted
-                └──layout-custom
-    config/
-      └── unis.csv              → Konfiguration der Einrichtungen
-
-------------------------------------------------------------------------
-
-## 🧩 Personalisierungslevel
-
-### 🔹 Level 1: Standard-Layout
-
--   Nutzung des Basis-Templates
--   keine Anpassung
--   Beispiel: templates/universities/layout-standard/
-
-------------------------------------------------------------------------
-
-### 🔹 Level 2: Angepasstes Layout
-
--   eigene Texte und Inhalte
--   Anpassung einzelner Komponenten in den Ordnern css img js
--   Beispiel: templates/universities/layout-adapted/
-
-------------------------------------------------------------------------
-
-### 🔹 Level 3: Stark individualisiert
-
--   eigenes Layout möglich
--   eigene Struktur und Inhalte über junja Template subdataverse-homepage-jinja.html
--   vollständige Kontrolle über Darstellung
-
-------------------------------------------------------------------------
-
-
-## 🚀 Nutzung
-
-### 1. Repository klonen
-
-``` bash
-git clone https://github.com/sergejzr/subdataversehp-templates
+```bash
+git clone git@github.com:sergejzr/subdataversehp-templates.git
 cd subdataversehp-templates
 ```
 
-### 3. Funktionsprinzip
+---
 
-1.  Template auswählen und als ein neuer Ordner unter "universities" kopieren (z.B) templates/universities/layout-adapted/ -> templates/universities/uni-siegen
-2.  Inhalte anpassen\
-3.  Änderungen commiten\
-4.  Nach etwa 5 Minuten automatisch im Testsystem verfügbar https://datapublication-nrw-test.hrz.uni-bonn.de/at/uni-siegen
-Wichtig - der Unterbereich (hier "uni-siegen") muss im DataPublication.nrw vorher vorhanden sein
+### 3. Vorlage kopieren
 
-------------------------------------------------------------------------
+Beispiel für eine neue Hochschule:
 
-### 2. Inhalte anpassen
-
--   Texte in templates/universities/`<layout>/txt/\
--   Bilder in templates/universities/`<layout>/img/\
--   Styles in templates/universities/`<layout>/css/
+```bash
+cp -r templates/universities/layout-standard \
+      templates/universities/uni-siegen
+```
 
 ---
 
-#### 🗂️ Konfiguration über `config/unis.csv`
+### 4. Inhalte anpassen
 
-Die Datei `config/unis.csv` ist das **zentrale Steuerungselement** des Systems.
+Typische Anpassungen:
 
-Sie definiert:
+- Texte
+- Ansprechpartner
+- Logos
+- Bilder
+- CSS
+- Links
 
-- welche Hochschulen berücksichtigt werden
-- wie Subdataverse-Seiten aussehen
-- welche Assets (Logo, CSS, JS, Hintergrund) geladen werden
-- ob ein Dataverse erstellt/veröffentlicht wird
+Wichtige Verzeichnisse:
+
+```text
+templates/universities/uni-siegen/
+├── css/
+├── img/
+├── txt/
+└── template/
+```
 
 ---
 
-#### 🧱 Aufbau der CSV
+### 5. Hochschule registrieren
 
-``` csv
-Name,homepage,repourl,label,enabled,logo,background,css,js,txt
+Die Hochschule muss in:
+
+```text
+config/unis.csv
 ```
 
-------------------------------------------------------------------------
+eingetragen werden.
 
-#### 🔑 Bedeutung der Spalten
+Beispiel:
 
-  -----------------------------------------------------------------------
-  Feld                               Beschreibung
-  ---------------------------------- ------------------------------------
-  `Name`                             Anzeigename der Hochschule
-
-  `homepage`                         Link zur Hochschul-Webseite
-
-  `repourl`                          Optional: externe Ziel-URL
-                                     (überschreibt interne Verlinkung)
-
-  `label`                            Dataverse-Alias, bitte nicht ändern
-
-  `enabled`                          `1` = aktiv, `0` = deaktiviert, hat Auswirkungen auf ti Hauptseite mit Karte
-
-  Bitte erst ab hier anpassen
-
-  `logo`                             URL oder Pfad zum Hochschullogo
-
-  `background`                       Hintergrundbild der Seite
-
-  `css`                              Pfad zu individuellem CSS
-
-  `js`                               Pfad zu individuellem JavaScript
-
-  `txt`                              optionaler Textinhalt
-  -----------------------------------------------------------------------
-
-------------------------------------------------------------------------
-
-#### ⚙️ Verwendung im System
-
-
-Beim Rendering:
-
--   `label` → bestimmt Zielpfad (`/at/<label>/`)
--   `logo`, `background`, `css`, `js` → werden ins Template injiziert
--   `Name` → Anzeige auf der Seite
-
-👉 Beispiel:
-
-``` csv
-Uni Bielefeld,...,uni-bielefeld,1,...,/at/uni-bielefeld/css/main.css
+```csv
+Universität Siegen,https://www.uni-siegen.de,,uni-siegen,1
 ```
 
-→ erzeugt:
+---
 
-    /at/uni-bielefeld/index.html
+### 6. Änderungen committen & pushen
 
-------------------------------------------------------------------------
-
-#### 🧠 Wichtiges Konzept
-
-👉 `label` ist der wichtigste Wert im System:
-
-Er bestimmt gleichzeitig:
-
--   Dataverse-Alias
--   URL-Pfad (`/at/<label>/`)
--   Template-Zuordnung (`templates/universities/<label>/`)
--   Assets-Pfade
-
-------------------------------------------------------------------------
-
-### 💡 Best Practices
-
--   Assets pro Hochschule sauber strukturieren\
--   CSS/JS nur verwenden, wenn wirklich nötig\
--   möglichst viele Hochschulen mit Standard-Template betreiben
-
-
-### 3. Änderungen commiten
-
-``` bash
+```bash
 git add .
-git commit -m "Anpassungen im neuen Bereich - \"uni-siegen\" "
+git commit -m "Initial layout for Uni Siegen"
+git push
 ```
 
-### 4. Integration
+---
 
-👉 erfolgt automatisch im Testsystem (nach Rückspracher mit DataPublication.nrw Team dann auch im Produktivsystem)
+### 7. Ergebnis prüfen
 
-------------------------------------------------------------------------
+Nach wenigen Minuten wird die Seite automatisch auf dem Testsystem erzeugt:
 
-## 🎨 Anpassungsmöglichkeiten
+```text
+https://datapublication-nrw-test.hrz.uni-bonn.de/at/uni-siegen
+```
 
--   Inhalte (Texte, Ansprechpartner, Links)\
--   Design (Farben, Logos, Layout)\
--   Struktur (Sektionen, Komponenten)
+---
 
-------------------------------------------------------------------------
+# 🔐 Repository-Zugriff
 
-## 🧠 Best Practices
+Damit Hochschulen eigene Anpassungen vornehmen können, benötigen sie Schreibzugriff auf dieses Repository.
 
--   Basis-Templates verwenden\
--   Inhalte getrennt von Layout pflegen\
--   Templates wiederverwenden
+## SSH-Key erzeugen
 
-------------------------------------------------------------------------
+Falls noch kein SSH-Key vorhanden ist:
 
-## ⚠️ Hinweise
+```bash
+ssh-keygen -t ed25519 -C "name@hochschule.de"
+```
 
--   Änderungen wirken sich direkt auf das Dataverse aus\
--   Templates müssen valide HTML-Strukturen enthalten\
--   Assets korrekt referenzieren
--   Der entsprechende Unterbereich (muss im Testsystem vorher vorhanden sein
+Die Standardpfade können einfach bestätigt werden.
 
-------------------------------------------------------------------------
+Der öffentliche Schlüssel befindet sich anschließend typischerweise unter:
 
-## 🧾 Fazit
+```bash
+~/.ssh/id_ed25519.pub
+```
 
-👉 **strukturierte und flexible Gestaltung von Subdataverse-Seiten**
+---
 
-Vorteile:
+## Öffentlichen Schlüssel senden
 
--   einfache Anpassung eigener Bereiche\
--   konsistentes Erscheinungsbild\
--   klare Trennung von Inhalt und Technik
+Den Inhalt der `.pub` Datei bitte an das DataPublication.nrw-Team senden.
+
+Beispiel:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+---
+
+## Repository klonen
+
+Nach Freischaltung kann das Repository per SSH geklont werden:
+
+```bash
+git clone git@github.com:sergejzr/subdataversehp-templates.git
+```
+
+---
+
+## GitHub-Dokumentation
+
+SSH-Keys:
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+
+SSH-Verbindung testen:
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection
+
+---
+
+# 🧩 Grundprinzip
+
+Die Plattform basiert auf einem Template-System.
+
+Jede Hochschule oder Organisation erhält einen eigenen Bereich innerhalb von DataPublication.nrw.
+
+Die Inhalte werden aus Templates generiert und automatisch in das Dataverse-System integriert.
+
+---
+
+# 🏗️ Architektur
+
+```text
+Hochschule / Projekt
+        ↓
+Git Repository
+        ↓
+Template Rendering
+        ↓
+DataPublication.nrw Testsystem
+        ↓
+Subdataverse-Seite
+```
+
+---
+
+# 📁 Repository-Struktur
+
+```text
+.
+├── config/
+│   └── unis.csv
+│
+├── templates/
+│   ├── universities/
+│   ├── institutes/
+│   └── projects/
+│
+├── scripts/
+└── output/
+```
+
+---
+
+# 🧱 Template-Struktur
+
+Ein typisches Template sieht wie folgt aus:
+
+```text
+templates/universities/uni-bonn/
+├── css/
+├── img/
+├── txt/
+└── template/
+```
+
+## Bedeutung der Verzeichnisse
+
+| Ordner | Beschreibung |
+|---|---|
+| `css/` | Individuelle Stylesheets |
+| `img/` | Logos und Bilder |
+| `txt/` | Inhaltliche Texte |
+| `template/` | Jinja2-Templates |
+
+---
+
+# 🎨 Anpassungsmöglichkeiten
+
+## Inhalte
+
+Folgende Inhalte können individuell angepasst werden:
+
+- Begrüßungstexte
+- Ansprechpartner
+- Kontaktinformationen
+- Logos
+- Bilder
+- Links
+- Beschreibungen
+
+---
+
+## Darstellung
+
+Anpassbar sind unter anderem:
+
+- Farben
+- CSS
+- Layoutstruktur
+- Headerbilder
+- Kachelansichten
+- Landingpages
+
+---
+
+## Erweiterte Anpassungen
+
+Für größere Einrichtungen oder Projekte sind zusätzlich möglich:
+
+- Eigene Frontends
+- Spezielle Komponenten
+- Erweiterte Metadatenansichten
+- API-Integration
+- Fachspezifische Layouts
+
+Diese Anpassungen erfolgen nach technischer Abstimmung mit dem DataPublication.nrw-Team.
+
+---
+
+# ⚠️ Nicht verändert werden sollte
+
+Folgende zentrale Komponenten sollten nicht verändert werden:
+
+- Routing-Struktur
+- zentrale Dataverse-Komponenten
+- globale Templates
+- Systemkonfigurationen
+
+---
+
+# 🧪 Testsystem vs. Produktivsystem
+
+Änderungen werden zunächst ausschließlich im Testsystem angezeigt.
+
+Das Testsystem dient zur:
+
+- technischen Prüfung
+- Qualitätssicherung
+- Abstimmung mit den Standorten
+
+Die Übernahme in das Produktivsystem erfolgt nach Freigabe durch das DataPublication.nrw-Team.
+
+---
+
+# 🔄 Automatische Bereitstellung
+
+Das Repository wird regelmäßig automatisch synchronisiert.
+
+Neue Änderungen werden dadurch ohne manuelle Deployments auf dem Testsystem sichtbar.
+
+---
+
+# 📚 Personalisierungsstufen
+
+Die Templates können unterschiedlich stark angepasst werden.
+
+## Level 1 – Standardlayout
+
+- Texte
+- Logos
+- Farben
+
+Minimaler Aufwand.
+
+---
+
+## Level 2 – Erweiterte Anpassung
+
+Zusätzlich:
+
+- eigene CSS-Anpassungen
+- individuelle Komponenten
+- angepasste Startseiten
+
+---
+
+## Level 3 – Individuelle Oberfläche
+
+Für größere Projekte oder Fachcommunities:
+
+- eigene Frontends
+- API-Nutzung
+- individuelle Visualisierung
+- komplexe Integrationen
+
+Nur nach technischer Abstimmung.
+
+---
+
+# 🧠 Technische Grundlagen
+
+Verwendete Technologien:
+
+- Dataverse
+- Jinja2 Templates
+- HTML/CSS
+- Python Rendering Scripts
+- Git/GitHub
+
+---
+
+# 🛠️ Voraussetzungen
+
+Empfohlen:
+
+- grundlegende Git-Kenntnisse
+- einfacher Umgang mit Textdateien
+- HTML/CSS optional
+
+Es sind keine tiefgehenden Dataverse-Kenntnisse erforderlich.
+
+Bereits einfache Anpassungen von Texten und Bildern reichen aus.
+
+---
+
+# 🤝 Zusammenarbeit
+
+Beiträge und Verbesserungen durch teilnehmende Hochschulen sind ausdrücklich erwünscht.
+
+Bitte größere strukturelle Änderungen vorab abstimmen.
+
+---
+
+# 📬 Kontakt
+
+DataPublication.nrw  
+Servicestelle Forschungsdatenmanagement  
+Universität Bonn
+
+E-Mail:
+
+forschungsdaten@uni-bonn.de
+
+Repository:
+https://github.com/sergejzr/subdataversehp-templates
