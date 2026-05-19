@@ -103,7 +103,7 @@ cd subdataversehp-templates
 
 ### 3. Funktionsprinzip
 
-1.  Template auswählen und als ein neuer Prdner unter "universities" kopieren (z.B) templates/universities/layout-adapted/ -> templates/universities/uni-siegen
+1.  Template auswählen und als ein neuer Ordner unter "universities" kopieren (z.B) templates/universities/layout-adapted/ -> templates/universities/uni-siegen
 2.  Inhalte anpassen\
 3.  Änderungen commiten\
 4.  Nach etwa 5 Minuten automatisch im Testsystem verfügbar https://datapublication-nrw-test.hrz.uni-bonn.de/at/uni-siegen
@@ -113,9 +113,9 @@ Wichtig - der Unterbereich (hier "uni-siegen") muss im DataPublication.nrw vorhe
 
 ### 2. Inhalte anpassen
 
--   Texte in templates/universities/`<layout>`{=html}/txt/\
--   Bilder in templates/universities/`<layout>`{=html}/img/\
--   Styles in templates/universities/`<layout>`{=html}/css/
+-   Texte in templates/universities/`<layout>/txt/\
+-   Bilder in templates/universities/`<layout>/img/\
+-   Styles in templates/universities/`<layout>/css/
 
 ---
 
