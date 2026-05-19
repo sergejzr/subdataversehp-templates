@@ -70,12 +70,13 @@ Die Hochschule muss in:
 config/unis.csv
 ```
 
-eingetragen werden.
+eingetragen werden. 
 
 Beispiel:
 
 ```csv
 Universität Siegen,https://www.uni-siegen.de,,uni-siegen,1
+Es sollten bereits alle dort gelistet sein, bitte infach die entsprechende Zeile editieren (und sich am layout-standard orientieren)
 ```
 
 ---
