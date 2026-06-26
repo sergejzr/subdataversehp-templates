@@ -17,3 +17,4 @@ Universität Bonn,https://www.uni-bonn.de/,https://bonndata.uni-bonn.de/,uni-bon
 Test Layout Standard,https://www.uni-bonn.de/,,layout-standard,1,,,,,,
 Test Layout Adapted,https://www.uni-bonn.de/,,layout-adapted,1,https://upload.wikimedia.org/wikipedia/commons/a/a5/Universit%C3%A4t_Bielefeld_Logo.svg,/at/layout-adapted/img/bielefeld-bg.jpg,/at/layout-adapted/css/main.css,/at/layout-adapted/js/main.js,,
 Test Layout Custom,https://www.uni-bonn.de/,,layout-custom,1,https://upload.wikimedia.org/wikipedia/commons/6/6b/Logo_Uni_Siegen.svg,,,,,
+Musteruniversität Beispielstadt,https://www.example.org/,,mock-uni,1,/at/mock-uni/img/logo.svg,/at/mock-uni/img/bielefeld-bg.jpg,/at/mock-uni/css/main.css,/at/mock-uni/js/main.js,,

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Musteruniversität Beispielstadt Logo">
+  <rect width="64" height="64" rx="14" fill="#ff00ff"/>
+  <path d="M15 47 V19 L32 39 L49 19 V47" fill="none" stroke="#faff00" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="50" cy="15" r="4" fill="#00e5ff"/>
+</svg>
