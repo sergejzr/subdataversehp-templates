@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 560"
+     preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true">
+  <!-- UzK-Sphaeren: ueberlagernde Kreise als Symbol fuer Interdisziplinaritaet.
+       Nur CD-Farben (#005176 / #009dcc / #ea564f). Kein Foto -> lizenz-/DSGVO-sicher.
+       Dekorativ -> aria-hidden. preserveAspectRatio="slice" = deckt den Container. -->
+  <defs>
+    <clipPath id="frame"><rect x="0" y="0" width="1440" height="560"/></clipPath>
+  </defs>
+  <rect width="1440" height="560" fill="#ffffff"/>
+  <!-- mix-blend multiply: Ueberschneidungen dunkeln markentreu nach -->
+  <g clip-path="url(#frame)" style="mix-blend-mode:multiply">
+    <!-- c1: gross, Flaeche, faellt rechts/oben aus dem Format (formatabfallend) -->
+    <circle cx="1190" cy="150" r="320" fill="#005176"/>
+    <!-- c2: Flaeche Tuerkis, faellt rechts/unten ab -->
+    <circle cx="1340" cy="470" r="250" fill="#009dcc"/>
+    <!-- c3: Outline Korall, ueberschneidet c1/c2 -->
+    <circle cx="980" cy="410" r="180" fill="none" stroke="#ea564f" stroke-width="10"/>
+  </g>
+</svg>
