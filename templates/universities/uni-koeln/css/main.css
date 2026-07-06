@@ -449,8 +449,8 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
 /* --- Header-Logos (ersetzt fruehere Versuche) -----------------------------
    DP-Logo ganz aus. Nur Koeln-Logo groessen: height UND max-height, sonst
    deckelt ein geerbtes "#custom-header img { max-height }". Hoehe frei anpassen. */
-#custom-header img[src*="dataverse_logo"] { display: none !important; }
-#custom-header img[src*="uni-koeln"] {
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+img.header_logo[src*="/at/uni-koeln/img/logo.svg"] {
   height: 72px !important;
   max-height: 72px !important;
   width: auto !important;
