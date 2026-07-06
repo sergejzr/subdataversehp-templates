@@ -439,3 +439,13 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
 /* ---- Akzent-Helfer: NUR als Flaeche, Text darauf dunkel ----------------- */
 .uzk-accent-turquoise { background: var(--uzk-turquoise) !important; color: #000 !important; }
 .uzk-accent-coral     { background: var(--uzk-coral) !important;     color: #000 !important; }
+
+/* === uni-koeln Feintuning (nach dem CD-OVERRIDE-Block) === */
+/* 1) Koeln-Logo praesenter (nur Uni-Logo, nicht DP) */
+img.custom-logo[src*="/at/uni-koeln/"] { height: 64px !important; width: auto !important; }
+/* 2a) DP-/Dataverse-Logo im Kopf dezenter */
+img.custom-logo[src*="dataverse_logo"] { height: 30px !important; width: auto !important; }
+/* 4) Platzhalter-Tuerkis (#14f5b3) im Kopf neutralisieren (aus layout-adapted geerbt) */
+#custom-header { background: transparent !important; }
+/* 3) DP-Logo als Wiederhol-Icon unter "More Information" ausblenden */
+.navigate-icon[src*="dp-logo"] { display: none !important; }
