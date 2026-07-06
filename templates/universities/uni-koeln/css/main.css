@@ -441,11 +441,18 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
 .uzk-accent-coral     { background: var(--uzk-coral) !important;     color: #000 !important; }
 
 /* === uni-koeln Feintuning (nach dem CD-OVERRIDE-Block) === */
-/* 1) Koeln-Logo praesenter (nur Uni-Logo, nicht DP) */
-img.custom-logo[src*="/at/uni-koeln/"] { height: 64px !important; width: auto !important; }
-/* 2a) DP-/Dataverse-Logo im Kopf dezenter */
-img.custom-logo[src*="dataverse_logo"] { height: 30px !important; width: auto !important; }
 /* 4) Platzhalter-Tuerkis (#14f5b3) im Kopf neutralisieren (aus layout-adapted geerbt) */
 #custom-header { background: transparent !important; }
 /* 3) DP-Logo als Wiederhol-Icon unter "More Information" ausblenden */
 .navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* --- Header-Logos (ersetzt fruehere Versuche) -----------------------------
+   DP-Logo ganz aus. Nur Koeln-Logo groessen: height UND max-height, sonst
+   deckelt ein geerbtes "#custom-header img { max-height }". Hoehe frei anpassen. */
+#custom-header img[src*="dataverse_logo"] { display: none !important; }
+#custom-header img[src*="uni-koeln"] {
+  height: 72px !important;
+  max-height: 72px !important;
+  width: auto !important;
+  max-width: none !important;
+}
