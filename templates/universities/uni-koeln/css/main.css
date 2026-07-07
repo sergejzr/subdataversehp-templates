@@ -1,341 +1,88 @@
-/* ================================
-   FONT DEFINITION
-================================ */
+/* ===========================================================================
+   UNIVERSITAET ZU KOELN — main.css
+   CD-Quelle: design-profil-uni-koeln.md (Markenhandbuch Juli 2023)
+   Phase 2: komplett neu geschrieben. Ersetzt die vorherige Struktur aus
+   kopierter layout-adapted-Basis + Farb-/Font-Patch-Layern vollstaendig
+   (alte Version in der Git-Historie).
 
-@font-face {
-    font-family: "Lelo";
-    src:
-        url("/fonts/Lelo/Lelo-Regular.woff2") format("woff2"),
-        url("/fonts/Lelo/Lelo-Regular.woff") format("woff");
-    font-style: normal;
-    font-weight: 400;
-}
-.caroussel_title
-{
-font-size: 20pt;
-font-weight: semi-bold;
-color: black;
-font-family: Lelo !important;
-}
+   Ladereihenfolge (siehe tooling/visual-audit/target-spec.md §0):
+   PrimeFaces/Bootstrap-CSS -> custom-stylesheet.css (Uni-Bonn, @import,
+   liefert Exo2/Roboto) -> DIESE DATEI (<head>) -> homepage.css (<body>,
+   laedt SPAETER). Bei gleicher Spezifitaet gewinnt bei Gleichstand
+   (auch !important vs. !important) die spaeter geladene Regel, also
+   homepage.css -- nicht diese Datei. Deshalb hier wo noetig !important
+   *und*, wo homepage.css selbst !important nutzt, hoehere Spezifitaet
+   statt nur !important-Stacking.
+   ========================================================================== */
 
-.stat-text {
-    color: white;
-    font-family: Lelo;
-    font-size: 17px;
-    text-align: center;
-}
-.login-prompt {
-    font-size: 18px !important;
-    font-family: Lelo !important;
-    font-color: rgb(26, 24, 27);
-    text-align: center;
-    padding-bottom: 10px;
-}
+/* ---------------------------------------------------------------------------
+   Farb-Audit (Phase 2, Schritt 0) — jede #009dcc- und jede
+   #14f5b3-Instanz ("Platzhalter-Tuerkis", so schon im alten Kommentar
+   benannt) aus der vorherigen Datei, eine Zeile pro Fundstelle:
 
-.section-heading {
-    word-wrap: break-word;
-    box-sizing: border-box;
-    color: #1A181B !important;
-    font-family: Lelo !important;
-    font-size: 36pt;
-    font-weight: 500 !important;
-    line-height: 61px !important;
-    display: block;
-    padding-bottom: 30px;
-    padding-top: 70px;
-}
+   (a) = echte CD-Akzent-Verwendung (Hover/Linie/Deko-Flaeche) -> auf
+         #009dcc (Tuerkis) migriert bzw. dort belassen, wo bereits korrekt.
+   (b) = Sphaeren-Kreis-Deko -> gibt es in main.css NICHT: die Sphaeren-
+         Grafik laeuft als statisches SVG-Hintergrundbild ueber das
+         CSV-/Jinja-Template-Feld {{background}}, nicht ueber CSS-Variablen
+         in dieser Datei (siehe Abschnitt 6/Logo-Kommentar unten). Deshalb
+         KEINE eigene --uzk-sphere-*-Property angelegt -- es gibt nichts,
+         wovon sie den Akzent trennen muesste. Falls spaeter eine
+         CSS-gezeichnete Sphaeren-Deko dazukommt, dann dort eine eigene
+         Property vergeben.
 
-.repository-title {
-    word-wrap: break-word;
-    color: #FFFFFF;
-	font-weight: bold;
-    font-family: Lelo !important;
-    font-size: 36pt;
-    text-transform: uppercase;
-    padding-bottom: 20px;
-}
+   Bereits korrekt (kein Fund, nur zur Vollstaendigkeit):
+   - --uzk-turquoise Definition                                        (a)
+   - a:hover/a:focus text-decoration-color                             (a)
+   - .navbar-default border-bottom (Linie)                             (a)
+   - .bg-citation background (Flaeche + schwarzer Text, ~6.7:1)         (a)
+   - .uzk-accent-turquoise Helper-Klasse                                (a)
 
-.glyphicon {
-    font-size: 20px;
-    /* color: black !important; */
-}
-.text-danger {
-	font-size: 12px !important;
-    color: #ea1713;
-}
-span.glyphicon-question-sign.tooltip-icon {
-    color: #14f5b3 !important;
+   Platzhalter-Tuerkis #14f5b3 gefunden, migriert auf #009dcc:
+   - span.glyphicon-question-sign.tooltip-icon color                  (a)
+   - span.glyphicon-question-sign.tooltip-icon:hover border-color      (a)
+   - .customNavigation .glyphicon-question-sign color/border           (a)
+   - .customNavigation .glyphicon-question-sign:hover border           (a)
+   - button.btn-default/a.btn-default :hover border-color (war nie von
+     CD-Override erfasst, CD-Doc weist Hover explizit Tuerkis zu)       (a)
+   - .btn-contact/.btn-share border-color (Grundzustand)                (a)
+   - .btn-contact/.btn-share :hover background-color (Doc-Pattern wie
+     .bg-citation: Flaeche + schwarzer Text)                            (a)
 
-}
+   Platzhalter-Tuerkis #14f5b3, bereits TOT (durch CD-Override mit
+   !important ueberschrieben) -- Basis-Deklaration in dieser Version
+   ersatzlos entfernt, keine Migration noetig:
+   - .btn-primary border-color/background-color
+   - .statistics-footer background-color
+   - #custom-header background-color (Kommentar im Original nannte das
+     bereits "neutralisieren")
+   - .navbar-default border-color (Rundum-Deklaration; sichtbar war ohnehin
+     nur border-bottom, das schon per Override auf Tuerkis stand)
 
-span.glyphicon-question-sign.tooltip-icon:hover {
-    color: white !important;
-	 background-color: black !important;
-	border: solid 1px;
-	border-color:#14f5b3 !important;
-border: 1px solid #14f5b3; /* Blue border (stroke) */
-        border-radius: 50%; /* Makes it circular */
-        padding: 0px; /* Adds padding to give it space inside the circle */
+   Aktiver Leftover, der bisher NICHT von einem Override erfasst war
+   (jetzt behoben, siehe Abschnitt 4):
+   - #search-row-panel border (nur die obere Kante war schon blau,
+     rechts/unten/links waren noch Platzhalter-Tuerkis 1px) -> auf
+     einheitlich --uzk-blue konsolidiert (passt zur bereits gewaehlten
+     oberen Kante, keine dritte Akzentfarbe neu eingefuehrt).
+   --------------------------------------------------------------------------- */
 
-}
-
-.interactive-list {
-    word-wrap: break-word;
-    text-align: left;
-    font-family: 'Lelo';
-    cursor: pointer;
-    color: rgb(26, 24, 27);
-    font-size: 17px;
-}
-
-.btn-primary {
-    background-image: none;
-    border-color: #14f5b3;
-background-color:#14f5b3;
-	color:black;
-}
-
-
-        /* Style for the question mark icon */
-    .customNavigation .glyphicon-question-sign {
-        cursor: pointer; /* Changes the cursor to a pointer on hover */
-        color: #14f5b3; /* Default color */
-        background-color: #000000 !important; /* White background for the circle */
-       border: 1px solid #14f5b3; /* Blue border (stroke) */
-        border-radius: 50%; /* Makes it circular */
-        padding: 0px; /* Adds padding to give it space inside the circle */
-
-	}
-
-	    /* Hover effect for the question mark */
-    .customNavigation .glyphicon-question-sign:hover {
-        color: white; /* Changes the question mark to white */
-        border: 1px solid #14f5b3;; /* Blue border (stroke) */
-        border-radius: 50%; /* Makes it circular */
-        padding: 0px; /* Adds padding to give it space inside the circle */
-		/*background-color:white !important; *//* Default blue color */
-	}
-
-	.statistics-footer {
-    width: 100%;
-    position: relative;
-    left: 0;
-    background-color: #14f5b3 !important;
-    height: 300px;
-	color:black !important;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.stat-text {
-    color: black !important;
-    font-family: Roboto-Regular;
-    font-size: 17px;
-    text-align: center;
-}
-.stat-number {
-    color: black !important;
-}
-
-
-.navbar-default
-{
-	background-color: #fff; ! Important;
-
-    border-color: #14f5b3 !important;
-border-bottom:solid 1px;
-    /* border: none !Important; */
-	/* background-image: none; */
-}
-form-control {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #c71616;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #000000;
-}
-
-#search-row-panel {
-    border: 1px solid #14f5b3;
-    border-radius: 4px;
-    padding: 15px 0;
-}
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    font-family: "Lelo";
-    font-weight: 500;
-    line-height: 1.1;
-    color: black;
-}
-/* ================================
-   GLOBAL STYLES
-================================ */
-
-body {
-    background-color: white !important;
-    box-sizing: border-box;
-    font-family: "Lelo", sans-serif !important;
-}
-
-a.dataverseHeaderName
-{
-    color:green !important;
-}
-/* ================================
-   CUSTOM HEADER
-================================ */
-
-#custom-header {
-    width: 100%;
-    min-height: 30px;
-    background-color: #14f5b3;
-    color: white;
-    text-align: center;
-}
-
-
-/* ================================
-   LINKS
-================================ */
-
-a {
-    color: #333333;
-    border-color: #9e2d75;
-}
-
-
-/* ================================
-   NAVBAR
-================================ */
-
-.navbar-nav > li > a:hover {
-    color: #333333;
-}
-
-.ui-tabs .ui-tabs-nav.ui-widget-header li a {
-    line-height: 18px;
-    padding-bottom: 8px;
-    padding-top: 8px;
-    color: #000000;
-    font-weight: bold;
-    border: 0px none;
-}
-.icon-dataset {
-    font-size: 7.5em;
-    line-height: 1.1;
-    color: #000000 !important;
-}
-.bg-citation {
-    background: #14f5b3;
-    border: 0;
-}
-/* ================================
-   BUTTON BASE STYLE
-================================ */
-
-button.btn-default,
-a.btn-default {
-    text-shadow: none;
-    word-wrap: break-word !important;
-    line-height: 1.42857143 !important;
-    font-weight: 400 !important;
-    font-size: 15px !important;
-    text-align: left !important;
-    box-sizing: border-box !important;
-    font-family: "Lelo", sans-serif !important;
-    border: 1px solid !important;
-	border-color: white !important;
-    text-decoration: none !important;
-    display: inline-flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    cursor: pointer !important;
-    background: #14f5b3 !important;
-    padding: 12px 20px;
-    color: #000000 !important;
-    justify-content: center !important;
-    border-radius: 0 !important;
-}
-
-
-/* ================================
-   BUTTON HOVER
-================================ */
-
-button.btn-default:hover,
-a.btn-default:hover {
-    border-color: #14f5b3 !important;
-    background-color: white !important;
-    color: #000000 !important;
-}
-
-
-/* ================================
-   SPECIAL BUTTONS
-================================ */
-
-.btn-contact:hover,
-.btn-share:hover {
-    background-color: #14f5b3;
-    color: #000000;
-}
-.btn-contact, .btn-share {
-border: 1px solid;
-border-color:  #14f5b3;
-    border-radius: 0px ! Important;
-    text-decoration: none ! Important;
-}
-
-body
-{
-	/*background-color: var(--stone-25) !important;*/
-	background-color:white !important;
-	box-sizing: border-box;
-	font-family: Lelo !important;
-}
-
-.repository-action-button {
-    border: 2px solid;
-    border-color: white;
-    color: white;
-    padding: 2px 14px;
-    background-color: rgba(26, 24, 27, 0.3);
-    font-family: Lelo !important;
-    font-size: 19px;
-}
-
-/* ================================
-   INPUT GROUP / TOOLTIP BUTTONS
-================================ */
-
-a.btn-default,
-.bootstrap-button-tooltip,
-.input-group-btn > button {
-    padding: 9px 9px;
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 4px !important;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 4px !important;
+/* ===========================================================================
+   1. Custom Properties
+   ========================================================================== */
+:root {
+  --uzk-blue: #005176;
+  --uzk-blue-dark: #003f5c;
+  --uzk-turquoise: #009dcc;
+  --uzk-coral: #ea564f;
+  --uzk-ink: #1a1a1a;
+  --uzk-font-sans: "Albert Sans", system-ui, -apple-system, sans-serif;
+  --uzk-font-serif: "Source Serif 4", Georgia, serif;
 }
 
 /* ===========================================================================
-   UNIVERSITAET ZU KOELN — CD-OVERRIDE
-   An das Ende der kopierten layout-adapted/css/main.css anhaengen.
-   Basis-CSS nutzt ueberall !important -> spaetere Regel gleicher Spezifitaet
-   gewinnt durch Position. Werte aus design-profil-uni-koeln.md (CD Juli 2023).
-
-   WICHTIG (vor Freigabe gegen den CD-Leitfaden des Kontakts spiegeln):
-   - Selektoren mit (?) sind aus dem Q7-Mapping/Mock abgeleitet, nicht an der
-     echten Dataverse-Markup verifiziert -> visueller Check Phase 7.
-   - Self-hosted Fonts: die .woff2 muessen unter /fonts/<name>/ liegen
-     (Phase 2). @font-face ist hier ok (nur @import von Google waere DSGVO-Problem).
+   2. Self-hosted Fonts (kein Google-@import! DSGVO)
    ========================================================================== */
-
-/* ---- Self-hosted Fonts (kein Google-@import!) --------------------------- */
 @font-face {
   font-family: "Albert Sans"; font-style: normal; font-weight: 400;
   font-display: swap;
@@ -357,42 +104,138 @@ a.btn-default,
   src: local("Source Serif 4"), url("/at/uni-koeln/css/fonts/SourceSerif4-Regular.woff2") format("woff2");
 }
 
-/* ---- Tokens ------------------------------------------------------------- */
-:root {
-  --uzk-blue:       #005176;   /* primaer: Text/Links/Header. Weiss darauf 7.6:1 (AAA) */
-  --uzk-blue-dark:  #003f5c;   /* Hover/Active fuer blaue Flaechen, Weiss bleibt sicher */
-  --uzk-turquoise:  #009dcc;   /* Akzent NUR als Flaeche. Weiss darauf ~3.1:1 -> NICHT als Text */
-  --uzk-coral:      #ea564f;   /* Akzent NUR als Flaeche/Deko. ~3.5:1 weiss -> NICHT als Text */
-  --uzk-ink:        #1a1a1a;   /* Fliesstext */
-  --uzk-font-sans:  "Albert Sans", system-ui, -apple-system, sans-serif;
-  --uzk-font-serif: "Source Serif 4", Georgia, serif;
-}
+/* ===========================================================================
+   3. Typografie
+   Ein Regelblock pro Selektor (keine base+override+font-fix-Kaskade mehr).
+   Quelle Selektorliste: target-spec.md §2a (5 urspruenglich gefixte +
+   3 neu gefundene) + h1-h6/.repository-title/.section-heading.
+   ========================================================================== */
 
-/* ---- Basis / Typografie (app-global) ------------------------------------ */
-body {
-  font-family: var(--uzk-font-sans) !important;
-  color: var(--uzk-ink) !important;
-}
-a, a:visited { color: var(--uzk-blue) !important; }            /* Links in Blau (kontrastsicher) */
-a:hover, a:focus {
-  color: var(--uzk-blue-dark) !important;
-  text-decoration-color: var(--uzk-turquoise) !important;     /* Tuerkis nur als Linie/Deko */
-}
-
-/* Headlines: VERSALIEN, Albert Sans Semibold (CD-Merkmal) */
-h1, h2, h3, h4, h5, h6,
-.repository-title, .section-heading {                          /* (?) Landing-Selektoren */
+/* Headlines: VERSALIEN, Albert Sans Semibold, Uni-Blau (CD-Merkmal) */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: var(--uzk-font-sans) !important;
   font-weight: 600 !important;
+  line-height: 1.1;
   text-transform: uppercase !important;
   letter-spacing: .01em;
   color: var(--uzk-blue) !important;
 }
+.repository-title {
+  word-wrap: break-word;
+  font-family: var(--uzk-font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 36pt;
+  text-transform: uppercase !important;
+  letter-spacing: .01em;
+  color: var(--uzk-blue) !important;
+  padding-bottom: 20px;
+}
+.section-heading {
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-family: var(--uzk-font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 36pt;
+  line-height: 61px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .01em;
+  color: var(--uzk-blue) !important;
+  display: block;
+  padding-bottom: 30px;
+  padding-top: 70px;
+}
 
-/* ---- Buttons ------------------------------------------------------------ */
-/* Primaer: blaue Flaeche + WEISS (sicher). Hover -> dunkleres Blau, NICHT Tuerkis,
-   damit der weisse Text kontrastsicher bleibt. */
+/* Links (Fliesstext-Akzent laut CD) */
+a, a:visited { color: var(--uzk-blue) !important; }
+a:hover, a:focus {
+  color: var(--uzk-blue-dark) !important;
+  text-decoration-color: var(--uzk-turquoise) !important;     /* Tuerkis nur als Linie/Deko */
+}
+.navbar-nav > li > a:hover { color: #333333; }
+
+/* Font-only-Fixes: Albert Sans muss Exo2/Roboto/Lelo aus custom-stylesheet.css
+   bzw. homepage.css schlagen. Bestehende Farben/Groessen unveraendert
+   uebernommen, nur die Schrift korrigiert. */
+.caroussel_title {
+  font-size: 20pt;
+  font-weight: 600;                 /* war "semi-bold", kein gueltiges CSS-Keyword */
+  color: #000;
+  font-family: var(--uzk-font-sans) !important;
+}
+.stat-text {
+  font-size: 17px;
+  text-align: center;
+  font-family: var(--uzk-font-sans) !important;
+  /* Farbe: siehe Abschnitt 5 (Kontrast-Fix), nicht hier -- sitzt in
+     .statistics-footer und braucht denselben Fix wie .stat-number. */
+}
+.login-prompt {
+  font-size: 18px !important;
+  text-align: center;
+  padding-bottom: 10px;
+  color: var(--uzk-blue) !important;
+  font-family: var(--uzk-font-sans) !important;
+}
+.interactive-list {
+  word-wrap: break-word;
+  text-align: left;
+  cursor: pointer;
+  color: rgb(26, 24, 27);
+  font-size: 17px;
+  font-family: var(--uzk-font-sans) !important;
+}
+.news-title,
+.repository-title2,
+.repository-small-title {
+  /* Nur Font gefixt -- Groesse/Farbe/Transform unveraendert uebernommen aus
+     homepage.css, da unverifiziert (leere Sammlung, kein reales Rendering
+     zum Gegenpruefen, siehe target-spec.md §4). Kein Versalien-/Blau-
+     Zwang wie bei .repository-title -- nicht bestaetigt, dass dasselbe
+     Styling hier gewuenscht ist. */
+  font-family: var(--uzk-font-sans) !important;
+}
+
+/* ===========================================================================
+   4. Color-as-fill (Akzent-Flaechen/-Linien + Chrome)
+   Tuerkis/Korall NUR als Flaeche/Linie, nie als Text auf Weiss (CD §1).
+   ========================================================================== */
+
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 4px solid var(--uzk-turquoise) !important;
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--uzk-blue) !important;
+}
+.bg-citation {
+  background: var(--uzk-turquoise) !important;
+  color: #000 !important;                                     /* schwarz auf tuerkis ~6.7:1 (AA) */
+  border: 0;
+}
+.icon-dataset {
+  font-size: 7.5em;
+  line-height: 1.1;
+  color: var(--uzk-blue) !important;
+}
+#search-row-panel {
+  border: 1px solid var(--uzk-blue) !important;
+  border-top: 3px solid var(--uzk-blue) !important;
+  border-radius: 4px !important;
+  padding: 15px 0;
+}
+#custom-header {
+  width: 100%;
+  min-height: 30px;
+  text-align: center;
+  color: white;
+  background: transparent !important;   /* Platzhalter-Tuerkis neutralisiert */
+}
+
+/* Buttons: EIN Regelblock pro Selektor+Zustand statt Basis/Override/Font-Fix
+   getrennt. Struktur (Padding/Flex/Radius) unveraendert aus der Basis
+   uebernommen, nur Farbe+Font konsolidiert. */
 .btn-primary {
+  background-image: none;
   background: var(--uzk-blue) !important;
   border-color: var(--uzk-blue) !important;
   color: #fff !important;
@@ -402,57 +245,161 @@ h1, h2, h3, h4, h5, h6,
   border-color: var(--uzk-blue-dark) !important;
   color: #fff !important;
 }
-/* Sekundaer/Default: weisse Flaeche, blaue Schrift+Rahmen (Outline-Look) */
-button.btn-default, a.btn-default {                            /* (?) */
+button.btn-default, a.btn-default {
+  text-shadow: none;
+  word-wrap: break-word !important;
+  line-height: 1.42857143 !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+  border: 1px solid !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding: 12px 20px;
+  justify-content: center !important;
+  border-radius: 0 !important;
+  font-family: var(--uzk-font-sans) !important;
   background: #fff !important;
   color: var(--uzk-blue) !important;
   border-color: var(--uzk-blue) !important;
 }
+button.btn-default:hover, a.btn-default:hover {
+  background-color: white !important;
+  color: #000000 !important;                 /* unveraendert aus der Basis, nicht Teil dieses Fixes */
+  border-color: var(--uzk-turquoise) !important;   /* war Platzhalter-Tuerkis; CD weist Hover=Tuerkis zu */
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  padding: 9px 9px;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 4px !important;
+}
+.btn-contact, .btn-share {
+  border: 1px solid;
+  border-color: var(--uzk-turquoise);
+  border-radius: 0px !important;
+  text-decoration: none !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--uzk-turquoise);
+  color: #000000;
+}
+.repository-action-button {
+  border: 2px solid;
+  border-color: white;
+  color: white;
+  padding: 2px 14px;
+  background-color: rgba(26, 24, 27, 0.3);
+  font-size: 19px;
+  font-family: var(--uzk-font-sans) !important;
+}
 
-/* ---- Chrome: Navbar / Footer / Suche / Zitat / Icons (app-global) ------- */
-.navbar-default {                                              /* (?) */
-  border-bottom: 4px solid var(--uzk-turquoise) !important;    /* Tuerkis als Linie = ok */
+/* Question-mark tooltip icon (zwei parallele Implementierungen im Bestand,
+   beide auf Tuerkis migriert; Kreisform/Schwarz-Hintergrund unveraendert,
+   nicht Teil dieses Audits). */
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--uzk-turquoise) !important;
 }
-a.dataverseHeaderName, .navbar-default .navbar-brand {
-  color: var(--uzk-blue) !important;
+span.glyphicon-question-sign.tooltip-icon:hover {
+  color: white !important;
+  background-color: black !important;
+  border: 1px solid var(--uzk-turquoise) !important;
+  border-radius: 50%;
+  padding: 0px;
 }
-.statistics-footer {                                          /* (?) dunkles Band */
-  background: var(--uzk-blue) !important;
-  color: #fff !important;                                     /* weiss auf blau = 7.6:1 */
+.customNavigation .glyphicon-question-sign {
+  cursor: pointer;
+  color: var(--uzk-turquoise);
+  background-color: #000000 !important;
+  border: 1px solid var(--uzk-turquoise);
+  border-radius: 50%;
+  padding: 0px;
 }
-.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
-#search-row-panel {                                           /* (?) */
-  border-top: 3px solid var(--uzk-blue) !important;
+.customNavigation .glyphicon-question-sign:hover {
+  color: white;
+  border: 1px solid var(--uzk-turquoise);
+  border-radius: 50%;
+  padding: 0px;
 }
-.bg-citation {                                                /* (?) Tuerkis-Flaeche, dunkle Schrift */
-  background: var(--uzk-turquoise) !important;
-  color: #000 !important;                                     /* schwarz auf tuerkis ~6.7:1 (AA) */
-}
-.icon-dataset { color: var(--uzk-blue) !important; }          /* (?) */
-.login-prompt { color: var(--uzk-blue) !important; }          /* (?) Landing */
 
-/* ---- Landing-Hero --------------------------------------------------------
-   Hintergrund laeuft ueber das CSV-background-Feld (= {{background}} im
-   custom-Jinja) -> /at/uni-koeln/img/koeln-sphaeren-bg.svg. KEINE CSS-Hero-Regel hier,
-   sonst zwei Mechanismen fuers selbe Element. */
-
-/* ---- Akzent-Helfer: NUR als Flaeche, Text darauf dunkel ----------------- */
 .uzk-accent-turquoise { background: var(--uzk-turquoise) !important; color: #000 !important; }
 .uzk-accent-coral     { background: var(--uzk-coral) !important;     color: #000 !important; }
 
-/* === uni-koeln Feintuning (nach dem CD-OVERRIDE-Block) === */
-/* 4) Platzhalter-Tuerkis (#14f5b3) im Kopf neutralisieren (aus layout-adapted geerbt) */
-#custom-header { background: transparent !important; }
-/* 3) DP-Logo als Wiederhol-Icon unter "More Information" ausblenden */
-.navigate-icon[src*="dp-logo"] { display: none !important; }
+/* ===========================================================================
+   5. Kontrast-Fix — Statistik-Fussleiste
+   .statistics-footer ist dunkelblau (--uzk-blue). .stat-number UND
+   .stat-text hatten eine eigene explizite "color: black !important" aus der
+   Basis, die die geerbte weisse Footer-Farbe ueberschrieb (Vererbung
+   verliert immer gegen eine eigene Deklaration, unabhaengig von
+   Spezifitaet) -> Schwarz auf #005176 ~2.4:1, faellt durch WCAG AA (Ziel
+   >= 4.5:1) klar durch. Fix: beide explizit auf Weiss, gleiche Paarung wie
+   der Footer selbst (7.6:1, AAA, siehe design-profil-uni-koeln.md §1).
+   ========================================================================== */
+.statistics-footer {
+  width: 100%;
+  position: relative;
+  left: 0;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: var(--uzk-blue) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;             /* war schwarz -> 2.4:1; jetzt 7.6:1 (AAA) auf --uzk-blue */
+}
 
-/* --- Header-Logos (ersetzt fruehere Versuche) -----------------------------
-   DP-Logo ganz aus. Nur Koeln-Logo groessen: height UND max-height, sonst
-   deckelt ein geerbtes "#custom-header img { max-height }". Hoehe frei anpassen. */
+/* ===========================================================================
+   6. Logo
+   Hintergrund (Sphaeren-Motiv) laeuft ueber das CSV-background-Feld
+   (= {{background}} im custom-Jinja) -> /at/uni-koeln/img/koeln-sphaeren-bg.svg.
+   KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen fuers selbe Element.
+   ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/uni-koeln/img/logo.svg"] {
-  height: 72px !important;
-  max-height: 72px !important;
-  width: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  width: 110px !important;
   max-width: none !important;
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* ===========================================================================
+   7. Chrome / strukturelle Uebernahme (nicht CD-bezogen, unveraendert)
+   Reine Layout-/Funktions-Regeln ohne Farb- oder Font-Konflikt. Bewusst
+   NICHT angefasst -- ausserhalb des Scopes dieses Rewrites.
+   ========================================================================== */
+.glyphicon {
+  font-size: 20px;
+}
+.text-danger {
+  font-size: 12px !important;
+  color: #ea1713;
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+  line-height: 18px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  color: #000000;
+  font-weight: bold;
+  border: 0px none;
+}
+
+/* ===========================================================================
+   8. Global
+   ========================================================================== */
+body {
+  background-color: white !important;
+  box-sizing: border-box;
+  font-family: var(--uzk-font-sans) !important;
+  color: var(--uzk-ink) !important;
 }
