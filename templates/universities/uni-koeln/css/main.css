@@ -368,7 +368,7 @@ img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/uni-koeln/img/logo.svg"] {
   height: auto !important;
   max-height: none !important;
-  width: 110px !important;
+  width: 350px !important;
   max-width: none !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
