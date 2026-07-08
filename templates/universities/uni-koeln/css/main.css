@@ -195,6 +195,22 @@ a:hover, a:focus {
   font-family: var(--uzk-font-sans) !important;
 }
 
+/* Card-Grid ("Recent Datasets") + Collection-Header: homepage.css setzt hier
+   Roboto per !important auf Selektoren, die main.css bisher NICHT adressiert
+   (.repository-info-block, .grid-item-footer). main.css laedt vor homepage.css
+   -> ein gleich spezifischer !important-Selektor verloere den Source-Order-Tie.
+   Darum je eine Elternklasse davorziehen (Spezifitaet 0,2,0 > homepage.css
+   0,1,0), statt weiteres !important zu stapeln. .grid-item-date hat in
+   homepage.css keine eigene Font-Regel und erbt Roboto nur vom Footer;
+   direkt gesetzt (0,3,0) schlaegt die Vererbung explizit.
+   Titel/Autor/Beschreibung sind bereits Albert Sans (geerbt) und bleiben
+   unberuehrt -- siehe target-spec.md (verifiziert per CDP). */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--uzk-font-sans) !important;
+}
+
 /* ===========================================================================
    4. Color-as-fill (Akzent-Flaechen/-Linien + Chrome)
    Tuerkis/Korall NUR als Flaeche/Linie, nie als Text auf Weiss (CD §1).
