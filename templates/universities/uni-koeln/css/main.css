@@ -297,6 +297,13 @@ a.btn-default,
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 4px !important;
 }
+/* Such-Button (Submit): der generische button.btn-default-Block (0,1,1) faerbt
+   ihn weiss -> der weisse Glyph (aus homepage.css, fuer blauen Button gedacht)
+   wird unsichtbar. Eine Elternklasse davorziehen (0,2,1 > 0,1,1) gibt die
+   CD-blaue Fuellung zurueck, ohne weiteres !important zu stapeln. */
+.input-group-btn > button.btn-default {
+  background: var(--uzk-blue) !important;
+}
 .btn-contact, .btn-share {
   border: 1px solid;
   border-color: var(--uzk-turquoise);
