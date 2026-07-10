@@ -153,6 +153,21 @@ a:hover, a:focus {
 }
 .navbar-nav > li > a:hover { color: #333333; }
 
+/* Logout-Link: dezenter Coral-Hinweis beim Hover/Fokus (neue UX-Anforderung,
+   keine CD-Farbmigration). Flaeche = --uzk-coral, weisse Schrift (#fff auf
+   #ea564f ~ 3.5:1 -- reicht fuer UI-Element/Grosstext AA 3:1, unter AA 4.5:1
+   fuer Fliesstext). Attribut-Selektor, weil die JSF-ID einen dynamischen
+   Formular-Praefix traegt (<formId>:lnk_header_logout). !important, weil sowohl
+   die Basis-Regel `a{color:...!important}` als auch der spezifischere
+   `.navbar-nav > li > a:hover` (0,2,2) sonst die Coral-Farbe schlagen wuerden. */
+[id$=":lnk_header_logout"]:hover,
+[id$=":lnk_header_logout"]:focus {
+  background-color: var(--uzk-coral) !important;
+  color: #fff !important;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
 /* Font-only-Fixes: Albert Sans muss Exo2/Roboto/Lelo aus custom-stylesheet.css
    bzw. homepage.css schlagen. Bestehende Farben/Groessen unveraendert
    uebernommen, nur die Schrift korrigiert. */
