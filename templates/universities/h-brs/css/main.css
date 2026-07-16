@@ -1,0 +1,380 @@
+/* ===========================================================================
+   HOCHSCHULE BONN-RHEIN-SIEG (h-brs) — main.css
+   CD source: design-profil-h-brs.md (contact's written CD values, 2026-07).
+   Derived from uni-koeln/css/main.css as the STRUCTURAL reference (selector
+   map, specificity strategy), not copied: H-BRS CD differs in two hard rules:
+   - NO uppercase headlines (Koeln's text-transform rules must not carry over)
+   - Cyan #0BA1E2 is surface/decoration ONLY (2.9:1 on white, fails for text
+     and for white-on-cyan). Text/links/buttons use dark blue #005980
+     (7.7:1 AAA on white). Text placed ON a cyan surface is black (7.2:1).
+
+   Load order (same trap as Koeln): PrimeFaces/Bootstrap ->
+   custom-stylesheet.css (@import in <head>, sets .header_logo max-width
+   200px/height 45px) -> THIS FILE (appended to <head> at page load by
+   /jslibs/hrz/gui.js) -> homepage.css (<body>, loads LAST). On equal
+   specificity homepage.css wins every tie, including !important vs
+   !important. Where homepage.css itself uses !important, the only counter
+   is HIGHER SPECIFICITY (parent-class prefix), never more !important.
+   ========================================================================== */
+
+/* ===========================================================================
+   1. Custom properties
+   Tonal steps: CD allows 10% increments. --hbrs-darkblue-shade is the 10%
+   step of #005980 towards black (hover state for buttons/links).
+   ========================================================================== */
+:root {
+  --hbrs-cyan: #0BA1E2;            /* surface / decoration ONLY, never text on white */
+  --hbrs-darkblue: #005980;        /* text, links, headers, buttons (7.7:1 AAA) */
+  --hbrs-darkblue-shade: #005073;  /* 10% tonal step of darkblue, hover */
+  --hbrs-ink: #1a1a1a;             /* body copy */
+  --hbrs-font-sans: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
+}
+
+/* ===========================================================================
+   2. Self-hosted fonts (GDPR: never @import/link fonts.googleapis.com)
+   Source Sans 3 v3.052R static WOFF2, github.com/adobe-fonts/source-sans,
+   SIL OFL 1.1 — OFL.txt ships next to the files. Weights follow the Koeln
+   precedent: Regular 400, Semibold 600, Bold 700. No serif: the H-BRS CD
+   names exactly one family.
+   ========================================================================== */
+@font-face {
+  font-family: "Source Sans 3"; font-style: normal; font-weight: 400;
+  font-display: swap;
+  src: local("Source Sans 3"), url("/at/h-brs/css/fonts/SourceSans3-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3"; font-style: normal; font-weight: 600;
+  font-display: swap;
+  src: local("Source Sans 3 Semibold"), url("/at/h-brs/css/fonts/SourceSans3-Semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3"; font-style: normal; font-weight: 700;
+  font-display: swap;
+  src: local("Source Sans 3 Bold"), url("/at/h-brs/css/fonts/SourceSans3-Bold.woff2") format("woff2");
+}
+
+/* ===========================================================================
+   3. Typography
+   One rule block per selector (Koeln structure). !important is needed to
+   beat the Exo2/Roboto font stacks from custom-stylesheet.css/homepage.css.
+   Deliberately NO text-transform anywhere: H-BRS CD has no uppercase rule
+   (unlike Koeln — do not reintroduce it when comparing the two files).
+   ========================================================================== */
+
+/* Headlines: Source Sans 3 Semibold, dark blue, mixed case */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--hbrs-font-sans) !important;
+  font-weight: 600 !important;
+  line-height: 1.1;
+  color: var(--hbrs-darkblue) !important;
+}
+.repository-title {
+  word-wrap: break-word;
+  font-family: var(--hbrs-font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 36pt;
+  color: var(--hbrs-darkblue) !important;
+  padding-bottom: 20px;
+  /* homepage.css sets uppercase directly on this class (plain rule, loads
+     later) — !important is what beats it, an omitted declaration would not.
+     Same pattern for the other title classes below. */
+  text-transform: none !important;
+}
+.section-heading {
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-family: var(--hbrs-font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 36pt;
+  line-height: 61px !important;
+  color: var(--hbrs-darkblue) !important;
+  display: block;
+  padding-bottom: 30px;
+  padding-top: 70px;
+}
+
+/* Links: dark blue text; cyan only as the decoration line under the hover */
+a, a:visited { color: var(--hbrs-darkblue) !important; }
+a:hover, a:focus {
+  color: var(--hbrs-darkblue-shade) !important;
+  text-decoration-color: var(--hbrs-cyan) !important;
+}
+.navbar-nav > li > a:hover { color: #333333; }
+
+/* Font-only fixes: Source Sans 3 must beat Exo2/Roboto/Lelo coming from
+   custom-stylesheet.css and homepage.css. Sizes/colors kept as in the base. */
+.caroussel_title {
+  font-size: 20pt;
+  font-weight: 600;
+  color: #000;
+  font-family: var(--hbrs-font-sans) !important;
+}
+.stat-text {
+  font-size: 17px;
+  text-align: center;
+  font-family: var(--hbrs-font-sans) !important;
+  /* color: see section 5 (statistics footer contrast fix) */
+}
+.login-prompt {
+  font-size: 18px !important;
+  text-align: center;
+  padding-bottom: 10px;
+  color: var(--hbrs-darkblue) !important;
+  font-family: var(--hbrs-font-sans) !important;
+}
+.interactive-list {
+  word-wrap: break-word;
+  text-align: left;
+  cursor: pointer;
+  color: var(--hbrs-ink);
+  font-size: 17px;
+  font-family: var(--hbrs-font-sans) !important;
+}
+.news-title,
+.repository-title2,
+.repository-small-title {
+  font-family: var(--hbrs-font-sans) !important;
+  text-transform: none !important;   /* homepage.css sets uppercase on title2/small-title */
+}
+/* Carousel card titles: homepage.css sets Roboto-Bold + uppercase (plain
+   rules). Color/size/clamping stay untouched. */
+.dataverse-item-title {
+  font-family: var(--hbrs-font-sans) !important;
+  font-weight: 700 !important;       /* keeps the bold intent of Roboto-Bold */
+  text-transform: none !important;
+}
+/* Hero/card description text: homepage.css sets Exo2-Light. The H-BRS CD
+   names exactly one family for everything, so only the family is corrected;
+   size/color/layout stay as delivered. */
+.repository-description,
+.repository-description2,
+.repository-small-description {
+  font-family: var(--hbrs-font-sans) !important;
+}
+
+/* Card grid ("Recent Datasets") + collection header: homepage.css sets
+   Roboto with !important on .repository-info-block and .grid-item-footer.
+   This file loads BEFORE homepage.css, so an equally specific !important
+   rule loses the source-order tie. A parent class raises specificity
+   (0,2,0 > 0,1,0) and wins without stacking more !important.
+   .grid-item-date has no own font rule in homepage.css and only inherits
+   Roboto from the footer; setting it directly (0,3,0) beats inheritance.
+   (Verified live in the Koeln pilot, uni-koeln-issues.md section 2.) */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--hbrs-font-sans) !important;
+}
+
+/* ===========================================================================
+   4. Color-as-fill (cyan as surface/line, never as text on white)
+   ========================================================================== */
+
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 4px solid var(--hbrs-cyan) !important;  /* cyan as line = OK */
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--hbrs-darkblue) !important;
+}
+.bg-citation {
+  background: var(--hbrs-cyan) !important;
+  color: #000 !important;          /* black on cyan 7.2:1 — white would fail (2.9:1) */
+  border: 0;
+}
+.icon-dataset {
+  font-size: 7.5em;
+  line-height: 1.1;
+  color: var(--hbrs-darkblue) !important;
+}
+#search-row-panel {
+  border: 1px solid var(--hbrs-darkblue) !important;
+  border-top: 3px solid var(--hbrs-darkblue) !important;
+  border-radius: 4px !important;
+  padding: 15px 0;
+}
+#custom-header {
+  width: 100%;
+  min-height: 30px;
+  text-align: center;
+  color: white;
+  background: transparent !important;
+}
+
+/* Buttons: one block per selector+state (Koeln structure). Structure
+   (padding/flex/radius) carried over unchanged; colors are H-BRS CD. */
+.btn-primary {
+  background-image: none;
+  background: var(--hbrs-darkblue) !important;
+  border-color: var(--hbrs-darkblue) !important;
+  color: #fff !important;          /* white on darkblue 7.7:1 (AAA) */
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--hbrs-darkblue-shade) !important;
+  border-color: var(--hbrs-darkblue-shade) !important;
+  color: #fff !important;
+}
+button.btn-default, a.btn-default {
+  text-shadow: none;
+  word-wrap: break-word !important;
+  line-height: 1.42857143 !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+  border: 1px solid !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding: 12px 20px;
+  justify-content: center !important;
+  border-radius: 0 !important;
+  font-family: var(--hbrs-font-sans) !important;
+  background: #fff !important;
+  color: var(--hbrs-darkblue) !important;
+  border-color: var(--hbrs-darkblue) !important;
+}
+button.btn-default:hover, a.btn-default:hover {
+  background-color: white !important;
+  color: #000000 !important;
+  border-color: var(--hbrs-cyan) !important;  /* cyan as line on hover */
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  padding: 9px 9px;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 4px !important;
+}
+/* Search submit button: the generic button.btn-default block (0,1,1) paints
+   it white, which makes the white glyph from homepage.css invisible
+   (white-on-white, Koeln finding). The parent class (0,2,1) restores the
+   dark blue fill without stacking !important. */
+.input-group-btn > button.btn-default {
+  background: var(--hbrs-darkblue) !important;
+}
+.btn-contact, .btn-share {
+  border: 1px solid;
+  border-color: var(--hbrs-cyan);
+  border-radius: 0px !important;
+  text-decoration: none !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--hbrs-cyan);
+  color: #000000;                  /* black on cyan, see .bg-citation */
+}
+.repository-action-button {
+  border: 2px solid;
+  border-color: white;
+  color: white;
+  padding: 2px 14px;
+  background-color: rgba(26, 24, 27, 0.3);
+  font-size: 19px;
+  font-family: var(--hbrs-font-sans) !important;
+}
+
+/* Question-mark tooltip icons: cyan as glyph accent on black (7.2:1). */
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--hbrs-cyan) !important;
+}
+span.glyphicon-question-sign.tooltip-icon:hover {
+  color: white !important;
+  background-color: black !important;
+  border: 1px solid var(--hbrs-cyan) !important;
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign {
+  cursor: pointer;
+  color: var(--hbrs-cyan);
+  background-color: #000000 !important;
+  border: 1px solid var(--hbrs-cyan);
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign:hover {
+  color: white;
+  border: 1px solid var(--hbrs-cyan);
+  border-radius: 50%;
+  padding: 0px;
+}
+
+/* ===========================================================================
+   5. Contrast fix — statistics footer (same trap as Koeln)
+   .statistics-footer becomes dark blue; .stat-number/.stat-text carry an
+   explicit "color: black" in the base which would sit at ~2.6:1 on
+   #005980. Both set to white explicitly (7.7:1, AAA).
+   ========================================================================== */
+.statistics-footer {
+  width: 100%;
+  position: relative;
+  left: 0;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: var(--hbrs-darkblue) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+  /* homepage.css gives .stat-number its own Roboto-Regular (plain rule);
+     without this line the big statistic digits are the only Roboto element
+     left on the page (verified in the local preview probe). */
+  font-family: var(--hbrs-font-sans) !important;
+}
+
+/* ===========================================================================
+   6. Logo
+   The hero background (circle motif) runs through the CSV background column
+   -> /at/h-brs/img/hero-circles.svg. NO CSS hero rule here — one mechanism
+   per element (Koeln precedent).
+   custom-stylesheet.css caps .header_logo at max-width 200px/height 45px;
+   overridden below. Width 350px: logo-700w.png is exactly 2x at 350px
+   (integer downscale keeps the circle edges crisp on HiDPI), and it is the
+   proven Koeln width value. At 5.56:1 that renders ~63px tall.
+   Clear space (CD): one circle diameter (~63px at this size) — enforced to
+   the right, where navbar items can approach; above/below the navbar band
+   itself provides the separation. */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }  /* Koeln precedent: uni logo stands alone on its own landing */
+img.header_logo[src*="/at/h-brs/img/logo-700w.png"] {
+  height: auto !important;
+  max-height: none !important;
+  width: 350px !important;
+  max-width: none !important;
+  margin: 12px 63px 12px 0;
+}
+
+/* ===========================================================================
+   7. Chrome / structural carry-over (not CD-related, unchanged from base)
+   ========================================================================== */
+.glyphicon {
+  font-size: 20px;
+}
+.text-danger {
+  font-size: 12px !important;
+  color: #ea1713;
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+  line-height: 18px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  color: #000000;
+  font-weight: bold;
+  border: 0px none;
+}
+
+/* ===========================================================================
+   8. Global
+   ========================================================================== */
+body {
+  background-color: white !important;
+  box-sizing: border-box;
+  font-family: var(--hbrs-font-sans) !important;
+  color: var(--hbrs-ink) !important;
+}

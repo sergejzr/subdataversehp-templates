@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
+     width="1600" height="900" preserveAspectRatio="xMidYMid slice"
+     role="img" aria-label="Dekoratives Kreismotiv in den Farben der Hochschule Bonn-Rhein-Sieg">
+  <!--
+    Titelbild-Entwurf Hochschule Bonn-Rhein-Sieg  ·  DataPublication.nrw
+    Ziel: templates/universities/h-brs/img/hero-circles.svg
+    CSV:  background = /at/h-brs/img/hero-circles.svg
+
+    CD-Regeln, die hier eingehalten sind:
+      - Kreise ausschliesslich in Cyan #0BA1E2 und Dunkelblau #005980
+      - Abstufungen ausschliesslich in 10-%-Schritten (opacity 0.1 ... 1.0)
+      - kein Paar aus Ring + gefuelltem Kreis in Logo-Proportion/-Abstand
+      - Komposition randbeschnitten und ohne Fokuspunkt, damit sie unter
+        background-size: cover aus jeder Richtung sauber croppt
+      - obere linke Zone bewusst ruhig gehalten (Schutzzone Header-Logo)
+  -->
+  <defs>
+    <clipPath id="frame"><rect x="0" y="0" width="1600" height="900"/></clipPath>
+  </defs>
+
+  <rect width="1600" height="900" fill="#ffffff"/>
+
+  <g clip-path="url(#frame)" fill="none">
+    <!-- grosse, ruhige Flaechen: randbeschnitten -->
+    <circle cx="1320" cy="170" r="380" fill="#0BA1E2" opacity="0.2"/>
+    <circle cx="200"  cy="830" r="270" fill="#005980" opacity="0.1"/>
+    <circle cx="60"   cy="300" r="130" fill="#0BA1E2" opacity="0.1"/>
+
+    <!-- Ringe: Strichstaerken bewusst ungleich, damit kein Logo-Echo entsteht -->
+    <circle cx="990"  cy="770" r="300" stroke="#0BA1E2" stroke-width="42" opacity="0.3"/>
+    <circle cx="1510" cy="620" r="185" stroke="#0BA1E2" stroke-width="26" opacity="0.6"/>
+    <circle cx="430"  cy="520" r="145" stroke="#005980" stroke-width="18" opacity="0.3"/>
+    <circle cx="800"  cy="140" r="62"  stroke="#0BA1E2" stroke-width="12" opacity="0.4"/>
+
+    <!-- wenige Akzente in voller Saettigung, klein gehalten -->
+    <circle cx="620"  cy="300" r="88"  fill="#0BA1E2" opacity="1"/>
+    <circle cx="1150" cy="515" r="44"  fill="#0BA1E2" opacity="0.6"/>
+    <circle cx="1180" cy="880" r="70"  fill="#0BA1E2" opacity="0.2"/>
+  </g>
+</svg>

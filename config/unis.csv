@@ -11,7 +11,7 @@ Fernuniversität Hagen,https://www.fernuni-hagen.de/,,fernuni-hagen,1,,,,,,https
 TH Köln,https://www.th-koeln.de/,,th-koeln,1,,,,,,https://qa-login.th-koeln.de/nidp/saml2/metadata
 Universität zu Köln,https://www.uni-koeln.de/,,uni-koeln,1,/at/uni-koeln/img/logo.svg,/at/uni-koeln/img/koeln-sphaeren-bg.svg,/at/uni-koeln/css/main.css,/at/uni-koeln/js/main.js,,https://idptest.rrz.uni-koeln.de/idp/shibboleth
 Universität Siegen,https://www.uni-siegen.de/,,uni-siegen,1,,,,,,https://login.zimt-test.uni-siegen.de/idp/shibboleth
-Hochschule Bonn Rhein Sieg,https://www.h-brs.de/,,h-brs,1,,,,,,
+Hochschule Bonn-Rhein-Sieg,https://www.h-brs.de/,,h-brs,1,/at/h-brs/img/logo-700w.png,/at/h-brs/img/hero-circles.svg,/at/h-brs/css/main.css,/at/h-brs/js/main.js,,
 RWTH Aachen,https://www.rwth-aachen.de/,https://publications.rwth-aachen.de/collection/Dataset?ln=de,rwth-aachen,1,,,,,,https://login-test.rz.rwth-aachen.de/shibboleth
 Universität Bonn,https://www.uni-bonn.de/,https://bonndata.uni-bonn.de/,uni-bonn,1,,,,,,https://shibboleth-test.rhrz.uni-bonn.de/idp/shibboleth
 Test Layout Standard,https://www.uni-bonn.de/,,layout-standard,1,,,,,,
