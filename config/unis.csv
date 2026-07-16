@@ -1,7 +1,7 @@
 Name,homepage,repourl,label,enabled,logo,background,css,js,txt,shib_entityid
 Uni Münster,https://www.uni-muenster.de/,,uni-muenster,1,,,,,,https://zividptest.uni-muenster.de/idp/shibboleth
 Uni Wuppertal,https://www.uni-wuppertal.de/,,uni-wuppertal,1,,,,,,https://idp-test.uni-wuppertal.de/idp/shibboleth
-Hochschule Münster,https://www.fh-muenster.de/,,fh-muenster,1,,,,,,https://idp-test.fh-muenster.de/idp/shibboleth
+Fachhochschule Münster,https://www.fh-muenster.de/,,fh-muenster,1,,,,,,https://idp-test.fh-muenster.de/idp/shibboleth
 Uni Bielefeld,https://www.uni-bielefeld.de/,,uni-bielefeld,1,,,,,,https://shibboleth-test.uni-bielefeld.de/idp/shibboleth
 Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,1,,,,,,
 Hochschule Rhein Waal,https://www.hochschule-rhein-waal.de/,,hochschule-rhein-waal,1,,,,,,
