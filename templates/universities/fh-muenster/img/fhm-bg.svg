@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Dekorativer Hintergrund im Muster der FH Muenster">
+  <title>FH Muenster - Hintergrundmuster</title>
+  <!-- Diagonalmuster nach dem Webauftritt der FH Muenster.
+       Vermessen: 45 Grad, Balkendicke 81px senkrecht zur Achse,
+       Grundton #f8f8f8, Balken #0014a0 (CD S.8, FH Muenster Blau).
+       Entspricht Pattern 10 bei grosser Skalierung (CD S.9, dort sind
+       Skalierung und freie Ausschnittwahl ausdruecklich zugelassen).
+       Frame-Kante bei 57% der Breite. Lueckenschnitte im rechten
+       Winkel zur Balkenachse, lotrecht fluchtend auf x=1100. -->
+  <rect width="1440" height="560" fill="#f8f8f8"/>
+  <g fill="#0014a0" clip-path="url(#f)">
+  <path d="M 293.0,560.0 L 1713.3,-860.3 L 1770.6,-803.0 L 350.3,617.3 Z"/>
+  <path d="M 640.0,560.0 L 1053.6,146.4 L 1110.9,203.7 L 697.3,617.3 Z"/>
+  <path d="M 1146.4,53.6 L 2060.3,-860.3 L 2117.6,-803.0 L 1203.7,110.9 Z"/>
+  <path d="M 987.0,560.0 L 1053.6,493.4 L 1110.9,550.7 L 1044.3,617.3 Z"/>
+  <path d="M 1146.4,400.6 L 2407.3,-860.3 L 2464.6,-803.0 L 1203.7,457.9 Z"/>
+  <path d="M 1334.0,560.0 L 2754.3,-860.3 L 2811.6,-803.0 L 1391.3,617.3 Z"/>
+  </g>
+  <defs><clipPath id="f"><rect x="821" y="0" width="619" height="560"/></clipPath></defs>
+</svg>

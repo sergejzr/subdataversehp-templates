@@ -1,0 +1,13 @@
+[PLATZHALTER — finaler Begrüßungstext der FH Münster steht noch aus.
+Dieser Text ist NICHT freigegeben und wird ersetzt, sobald der
+Uni-Kontakt den echten Text liefert.]
+
+Forschungsdaten der Fachhochschule Münster
+
+Willkommen auf der Datenpublikations-Seite der Fachhochschule Münster. Im
+Rahmen des Konsortiums DataPublication.nrw entsteht hier ein zentraler Zugang
+zu den publizierten Forschungsdaten der Hochschule – auffindbar, zitierbar und
+langfristig verfügbar.
+
+Die Seite befindet sich derzeit im Aufbau. Veröffentlichte Datensätze und
+weitere Informationen zur Forschungsdatenpublikation folgen in Kürze.

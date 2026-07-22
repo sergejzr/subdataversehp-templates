@@ -1,0 +1,420 @@
+/* ===========================================================================
+   FACHHOCHSCHULE MUENSTER — main.css
+   CD-Quelle: FH Muenster Corporate Design, S.8 (Farben/Schriften).
+   Struktur uebernommen von uni-koeln/css/main.css (Referenz-Skeleton),
+   Werte FH-Muenster-spezifisch. Drei bewusste Abweichungen von Koeln:
+   1. KEIN text-transform: uppercase — das FH-Muenster-CD ist durchgehend
+      gemischte Schreibweise. homepage.css setzt uppercase selbst (plain)
+      auf .repository-title/-title2/-small-title/.dataverse-item-title,
+      deshalb hier aktiv `text-transform: none !important` noetig —
+      Weglassen der Deklaration wuerde NICHT reichen.
+   2. KEINE @font-face-Bloecke: die CD-Schriften (Brown, Celeste) sind
+      kommerziell, Web-Lizenz ungeklaert. Arial ist der im CD selbst
+      benannte Fallback; Stack liegt in --fhm-font-sans, spaeterer
+      Font-Tausch = Ein-Zeilen-Diff.
+   3. Keine Koeln-Farbnamen/Sphaeren-Deko.
+
+   Ladereihenfolge (siehe tooling/visual-audit/target-spec.md §0):
+   PrimeFaces/Bootstrap-CSS -> custom-stylesheet.css (@import, <head>) ->
+   DIESE DATEI (client-seitig via gui.js in den <head> injiziert) ->
+   homepage.css (<body>, laedt SPAETER). Bei gleicher Spezifitaet UND
+   gleicher Wichtigkeit gewinnt die spaeter geladene Regel, also
+   homepage.css. Wo homepage.css selbst !important nutzt (font-family auf
+   .repository-info-block/.grid-item-footer u. a.), hilft nur HOEHERE
+   SPEZIFITAET, kein weiteres !important-Stapeln (siehe Abschnitt 2 unten).
+   ========================================================================== */
+
+/* ===========================================================================
+   1. Custom Properties — Werte woertlich aus dem FH-Muenster-CD, S.8.
+   Kontrast (gemessen): blue/weiss 13.06:1, black/weiss 16.88:1,
+   weiss/blue 13.06:1, black/cyan 6.97:1, black/yellow 11.63:1,
+   red/weiss 4.56:1 (AA ab 16px), grey/weiss 3.64:1 (nur Border/Grosstext).
+   Cyan (2.42:1) und Yellow (1.45:1) NIE als Text auf Weiss — nur Flaeche.
+   ========================================================================== */
+:root {
+  --fhm-blue:   #0014a0;  /* Primaer: Text, Links, Header, Flaechen */
+  --fhm-cyan:   #00b4e6;  /* Akzent: Hover, dekorative Flaechen — NIE Text auf Weiss */
+  --fhm-yellow: #ffd200;  /* Highlight, nur Flaeche */
+  --fhm-red:    #eb0041;  /* Highlight, sparsam */
+  --fhm-black:  #1d1d1b;  /* Fliesstext — NICHT #000 */
+  --fhm-grey:   #868686;  /* Borders, Meta */
+  --fhm-font-sans:  Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --fhm-font-serif: Georgia, "Times New Roman", serif;
+}
+
+/* ===========================================================================
+   2. Typografie
+   Gemischte Schreibweise (CD), Blau als Headline-Farbe (13.06:1 auf Weiss).
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--fhm-font-sans) !important;
+  font-weight: 600 !important;
+  line-height: 1.1;
+  text-transform: none !important;
+  color: var(--fhm-blue) !important;
+}
+.repository-title {
+  word-wrap: break-word;
+  font-family: var(--fhm-font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 36pt;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) — !important schlaegt es */
+  color: var(--fhm-blue) !important; /* homepage.css: #FFFFFF (plain) — !important schlaegt es */
+  padding-bottom: 20px;
+}
+.section-heading {
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-family: var(--fhm-font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 36pt;
+  line-height: 61px !important;
+  text-transform: none !important;
+  color: var(--fhm-blue) !important;
+  display: block;
+  padding-bottom: 30px;
+  padding-top: 70px;
+}
+/* Hero-Beschreibung: homepage.css setzt #FFFFFF (fuer dunkle Foto-
+   Hintergruende gedacht) — auf dem hellen fhm-bg unlesbar. Zusatz
+   gegenueber der Koeln-Vorlage (dort ist die Beschreibung leer, das
+   Problem tritt nie auf; h-brs fixt hier ebenfalls die Schrift).
+   Blau wie der Titel: robust, falls das Overlay je entfaellt
+   (13.06:1 auf #f8f8f8; Weiss waere dort 1.07:1). */
+.repository-description {
+  color: var(--fhm-blue) !important;
+  font-family: var(--fhm-font-sans) !important;
+}
+
+/* Links: Blau, Hover unveraendert Blau mit Cyan-Unterstreichung (Cyan nur
+   als Linie — als Textfarbe auf Weiss faellt es mit 2.42:1 durch). Das CD
+   nennt keinen dunkleren Blau-Ton; bewusst KEINE Hover-Farbe erfunden. */
+a, a:visited { color: var(--fhm-blue) !important; }
+a:hover, a:focus {
+  color: var(--fhm-blue) !important;
+  text-decoration-color: var(--fhm-cyan) !important;
+}
+.navbar-nav > li > a:hover { color: #333333; }
+
+/* Logout-Link: Hover/Fokus-Hinweis in Rot (CD: Highlight, sparsam).
+   Weiss auf #eb0041 = 4.56:1 (AA). Attribut-Selektor wegen dynamischem
+   JSF-Formular-Praefix; !important, weil sonst die Basis-Regel
+   `a{color:...!important}` und `.navbar-nav > li > a:hover` gewinnen. */
+[id$=":lnk_header_logout"]:hover,
+[id$=":lnk_header_logout"]:focus {
+  background-color: var(--fhm-red) !important;
+  color: #fff !important;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Font-only-Fixes: Arial muss Exo2/Roboto aus custom-stylesheet.css bzw.
+   homepage.css schlagen. Farben/Groessen aus der Basis unveraendert. */
+.caroussel_title {
+  font-size: 20pt;
+  font-weight: 600;
+  color: #000;
+  font-family: var(--fhm-font-sans) !important;
+}
+.stat-text {
+  font-size: 17px;
+  text-align: center;
+  font-family: var(--fhm-font-sans) !important;
+  /* Farbe: siehe Abschnitt 4 (sitzt in .statistics-footer). */
+}
+.login-prompt {
+  font-size: 18px !important;
+  text-align: center;
+  padding-bottom: 10px;
+  color: var(--fhm-blue) !important;
+  font-family: var(--fhm-font-sans) !important;
+}
+.interactive-list {
+  word-wrap: break-word;
+  text-align: left;
+  cursor: pointer;
+  color: rgb(26, 24, 27);
+  font-size: 17px;
+  font-family: var(--fhm-font-sans) !important;
+}
+/* title2/small-title/dataverse-item-title: homepage.css setzt hier uppercase
+   (plain) — fuer das Mixed-Case-CD aktiv neutralisieren (Muster wie h-brs;
+   Koeln liess den Transform stehen, weil dort Versalien CD-konform sind). */
+.news-title,
+.repository-title2,
+.repository-small-title {
+  font-family: var(--fhm-font-sans) !important;
+  text-transform: none !important;
+}
+.dataverse-item-title {
+  font-family: var(--fhm-font-sans) !important;
+  text-transform: none !important;
+}
+
+/* Card-Grid + Collection-Header: homepage.css setzt Roboto per !important
+   auf .repository-info-block und .grid-item-footer. Diese Datei laedt VOR
+   homepage.css -> gleich spezifisches !important verloere den
+   Source-Order-Tie. Darum Elternklasse davor (0,2,0 bzw. 0,3,0 schlaegt
+   homepage.css' 0,1,0) statt !important-Stapeln. */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--fhm-font-sans) !important;
+}
+
+/* ===========================================================================
+   3. Color-as-fill (Akzent-Flaechen/-Linien + Chrome)
+   Cyan/Yellow/Red NUR als Flaeche/Linie; Text darauf immer --fhm-black
+   (cyan 6.97:1, yellow 11.63:1) bzw. Weiss auf Rot (4.56:1).
+   ========================================================================== */
+
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 4px solid var(--fhm-cyan) !important;   /* Cyan als Linie */
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--fhm-blue) !important;
+}
+.bg-citation {
+  background: var(--fhm-cyan) !important;
+  color: var(--fhm-black) !important;                    /* 6.97:1 (AA) */
+  border: 0;
+}
+.icon-dataset {
+  font-size: 7.5em;
+  line-height: 1.1;
+  color: var(--fhm-blue) !important;
+}
+#search-row-panel {
+  border: 1px solid var(--fhm-blue) !important;
+  border-top: 3px solid var(--fhm-blue) !important;
+  border-radius: 4px !important;
+  padding: 15px 0;
+}
+#custom-header {
+  width: 100%;
+  min-height: 30px;
+  text-align: center;
+  color: white;
+  background: transparent !important;
+}
+
+/* Buttons. Primaer: Blau + Weiss (13.06:1). Hover: Cyan-Flaeche + dunkler
+   Text (6.97:1) — Cyan ist laut CD genau dafuer da (Hover/Flaeche). */
+.btn-primary {
+  background-image: none;
+  background: var(--fhm-blue) !important;
+  border-color: var(--fhm-blue) !important;
+  color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--fhm-cyan) !important;
+  border-color: var(--fhm-cyan) !important;
+  color: var(--fhm-black) !important;
+}
+button.btn-default, a.btn-default {
+  text-shadow: none;
+  word-wrap: break-word !important;
+  line-height: 1.42857143 !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+  border: 1px solid !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding: 12px 20px;
+  justify-content: center !important;
+  border-radius: 0 !important;
+  font-family: var(--fhm-font-sans) !important;
+  background: #fff !important;
+  color: var(--fhm-blue) !important;
+  border-color: var(--fhm-blue) !important;
+}
+button.btn-default:hover, a.btn-default:hover {
+  background-color: white !important;
+  color: var(--fhm-black) !important;
+  border-color: var(--fhm-cyan) !important;              /* Hover-Akzent = Cyan (Linie) */
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  padding: 9px 9px;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 4px !important;
+}
+/* Such-Button (Submit): der generische button.btn-default-Block (0,1,1)
+   faerbt ihn weiss -> der weisse Glyph aus homepage.css wuerde unsichtbar.
+   Elternklasse davor (0,2,1) gibt die blaue Fuellung zurueck. */
+.input-group-btn > button.btn-default {
+  background: var(--fhm-blue) !important;
+}
+.btn-contact, .btn-share {
+  border: 1px solid;
+  border-color: var(--fhm-cyan);
+  border-radius: 0px !important;
+  text-decoration: none !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--fhm-cyan);
+  color: var(--fhm-black);                               /* 6.97:1 auf Cyan */
+}
+/* Hero-Buttons: die halbtransparente Fuellung der Vorlage (weiss auf
+   rgba(26,24,27,.3)) war nur durch das Overlay lesbar — nach dessen
+   Neutralisierung (Abschnitt 5) laege Weiss auf ~#b5b4b5 bei 2.05:1.
+   Opak Blau + Weiss = 13.06:1. Hover: Cyan-Flaeche + dunkler Text
+   (6.97:1), Konvention dieser Datei. Spezifitaet: homepage.css setzt
+   .repository-action-button (0,1,0) und :hover (0,2,0) jeweils plain und
+   laedt SPAETER — ein gleich spezifischer Block hier verloere den
+   Source-Order-Tie. Deshalb button.-Praefix: (0,1,1) bzw. (0,2,1). */
+button.repository-action-button {
+  border: 2px solid;
+  border-color: var(--fhm-blue);
+  color: #fff;
+  padding: 2px 14px;
+  background-color: var(--fhm-blue);
+  font-size: 19px;
+  font-family: var(--fhm-font-sans) !important;
+}
+button.repository-action-button:hover,
+button.repository-action-button:focus {
+  cursor: pointer;
+  background-color: var(--fhm-cyan);
+  border-color: var(--fhm-cyan);
+  color: var(--fhm-black);
+}
+
+/* Question-mark-Tooltip-Icons (zwei parallele Implementierungen im
+   Bestand, Struktur aus der Referenz uebernommen, Akzent = Cyan;
+   Cyan auf Schwarz ~8:1, unkritisch). */
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--fhm-cyan) !important;
+}
+span.glyphicon-question-sign.tooltip-icon:hover {
+  color: white !important;
+  background-color: black !important;
+  border: 1px solid var(--fhm-cyan) !important;
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign {
+  cursor: pointer;
+  color: var(--fhm-cyan);
+  background-color: #000000 !important;
+  border: 1px solid var(--fhm-cyan);
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign:hover {
+  color: white;
+  border: 1px solid var(--fhm-cyan);
+  border-radius: 50%;
+  padding: 0px;
+}
+
+/* Helper-Klassen: dokumentieren die einzig zulaessigen Text-auf-Akzent-
+   Paarungen. Yellow ist bewusst sonst nirgends im Einsatz (CD: sparsam). */
+.fhm-accent-cyan   { background: var(--fhm-cyan) !important;   color: var(--fhm-black) !important; }  /* 6.97:1 */
+.fhm-accent-yellow { background: var(--fhm-yellow) !important; color: var(--fhm-black) !important; }  /* 11.63:1 */
+
+/* ===========================================================================
+   4. Kontrast-Fix — Statistik-Fussleiste
+   Basis setzt color: black auf .stat-number/.stat-text — auf --fhm-blue
+   waere das unlesbar. Beides explizit Weiss (13.06:1 auf #0014a0, AAA).
+   ========================================================================== */
+.statistics-footer {
+  width: 100%;
+  position: relative;
+  left: 0;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: var(--fhm-blue) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+}
+
+/* ===========================================================================
+   5. Hero — bewusste, fh-muenster-scoped Abweichungen von der Koeln-Vorlage
+   (wirken nur auf Seiten, auf denen diese Datei injiziert ist).
+
+   a) Overlay neutralisieren: homepage.css legt zwei dunkle 40%-Gradienten
+      (.repository-header-overlay, plain, 0,1,0) zwischen Hintergrundbild
+      und Text — gedacht fuer Foto-Heros mit weisser Schrift. fhm-bg.svg
+      ist eine helle gestaltete Flaeche mit dunkler Schrift; das Overlay
+      drueckte den Headline-Kontrast von ~12.3:1 auf ~3.3:1. Der
+      ID-Elternselektor (1,1,0) schlaegt die spaeter geladene plain-Regel
+      ohne !important. uni-koeln/h-brs overriden hier bewusst NICHT —
+      beide haben keinen hellen Design-Hintergrund mit dunkler Schrift.
+   b) Textblock begrenzen: homepage.css setzt .repository-info-block auf
+      80% Breite — die Headline lief in die blauen Balken (Balkenkante bei
+      ~57-60.5% der Herobreite, 1024-1920px). 52% laesst den Titel
+      umbrechen statt hineinzulaufen und traegt auch die geplante
+      Collection-Umbenennung ("Fachhochschule Muenster", +4 Zeichen).
+      (0,2,0) schlaegt (0,1,0) ohne !important. Headline/Beschreibung
+      sind Block-Elemente mit word-wrap im Info-Block — sie koennen den
+      Container nicht ueberlaufen, die Breite greift also fuer beide.
+   ========================================================================== */
+#repository-header .repository-header-overlay {
+  background: none;
+}
+.repository-header-content .repository-info-block {
+  width: 52%;
+}
+
+/* ===========================================================================
+   6. Logo
+   Hintergrund (Diagonalmuster) laeuft ueber das CSV-background-Feld
+   (fhm-bg.svg) — KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen fuers
+   selbe Element. Logo: fhm_Logo_Kurz_RGB.png (Original-CD-Dateiname),
+   1174x201 px = 5.84:1 — bei 180px Breite ~31px hoch. NICHT die 350px der
+   Koeln-Vorlage uebernehmen: das Koeln-Logo ist 2.2:1, das FH-Muenster-
+   Wortmarken-Logo wuerde bei gleicher Breite den Header sprengen.
+   ========================================================================== */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+img.header_logo[src*="/at/fh-muenster/img/logo.png"] {
+  height: auto !important;
+  max-height: none !important;
+  width: 180px !important;
+  max-width: none !important;
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* ===========================================================================
+   7. Chrome / strukturelle Uebernahme (nicht CD-bezogen, unveraendert aus
+   der Referenz — reine Layout-/Funktionsregeln ohne Farb-/Font-Konflikt).
+   ========================================================================== */
+.glyphicon {
+  font-size: 20px;
+}
+.text-danger {
+  font-size: 12px !important;
+  color: #ea1713;
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+  line-height: 18px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  color: #000000;
+  font-weight: bold;
+  border: 0px none;
+}
+
+/* ===========================================================================
+   8. Global
+   ========================================================================== */
+body {
+  background-color: white !important;
+  box-sizing: border-box;
+  font-family: var(--fhm-font-sans) !important;
+  color: var(--fhm-black) !important;
+}
