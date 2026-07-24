@@ -1,0 +1,493 @@
+/* ===========================================================================
+   TH KOELN — main.css
+   CD-Quelle: TH-Koeln-Farbblatt, sRGB-"Webdef"-Zeile (authoritativ).
+   Farben bewusst NICHT aus dem Logo-PNG gesampelt — das PNG folgt der
+   MS-Office-Konvertierungslinie und weicht leicht ab.
+   Struktur uebernommen von fh-muenster/css/main.css (naechster Fall:
+   heller gestalteter Hintergrund + Mixed-Case-CD), Font-Bloecke nach
+   h-brs-Muster (gleiche Schrift, dort aber unsubsettete Dateien).
+
+   Ladereihenfolge (siehe tooling/visual-audit/target-spec.md §0):
+   PrimeFaces/Bootstrap-CSS -> custom-stylesheet.css (@import, <head>) ->
+   DIESE DATEI (client-seitig via gui.js in den <head> injiziert) ->
+   homepage.css (<body>, laedt SPAETER). Bei gleicher Spezifitaet UND
+   gleicher Wichtigkeit gewinnt die spaeter geladene Regel, also
+   homepage.css. Wo homepage.css selbst !important nutzt, hilft nur
+   HOEHERE SPEZIFITAET, kein !important-Stapeln (Abschnitt 3/4 unten).
+   ========================================================================== */
+
+/* ===========================================================================
+   1. Custom Properties — Werte woertlich aus der Webdef-Zeile.
+   Kontrast (gemessen): red/weiss 5.76:1 (AA), violet/weiss 5.56:1 (AA),
+   black/weiss 17.0:1, weiss/red 5.76:1, weiss/violet 5.56:1,
+   black/orange 4.85:1, weiss/orange 3.52:1.
+   Orange NIE als Fliesstext auf Weiss (3.52:1) — nur Flaeche/Grosstext,
+   Text auf Orange immer --thk-black (4.85:1).
+   ========================================================================== */
+:root {
+  --thk-red:    #c81e0f;  /* Primaer: Links, Buttons, Headlines */
+  --thk-violet: #b43092;  /* Sekundaer-Akzent, fliesstext-tauglich */
+  --thk-orange: #ea5a00;  /* NUR Flaeche/Grosstext, nie Fliesstext auf Weiss */
+  --thk-black:  #1c1c1b;  /* Fliesstext — NICHT #000 */
+  --thk-font-sans: "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif;
+}
+
+/* ===========================================================================
+   2. Self-hosted Fonts (kein Google-@import! DSGVO)
+   Source Sans 3 v3.052R, github.com/adobe-fonts/source-sans (OFL 1.1,
+   Lizenz liegt in fonts/OFL.txt). Latin-Subset 400/600/700, nur WOFF2
+   (~66 KB gesamt, gehintet).
+   ========================================================================== */
+@font-face {
+  font-family: "Source Sans 3"; font-style: normal; font-weight: 400;
+  font-display: swap;
+  src: local("Source Sans 3"), url("/at/th-koeln/css/fonts/SourceSans3-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3"; font-style: normal; font-weight: 600;
+  font-display: swap;
+  src: local("Source Sans 3 Semibold"), url("/at/th-koeln/css/fonts/SourceSans3-Semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3"; font-style: normal; font-weight: 700;
+  font-display: swap;
+  src: local("Source Sans 3 Bold"), url("/at/th-koeln/css/fonts/SourceSans3-Bold.woff2") format("woff2");
+}
+
+/* ===========================================================================
+   3. Typografie
+   Mixed Case (CD) — homepage.css setzt uppercase (plain) auf
+   .repository-title/-title2/-small-title/.dataverse-item-title, deshalb
+   aktiv `text-transform: none !important` (Weglassen reichte nicht).
+   Headlines in CD-Rot (5.76:1 auf Weiss).
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--thk-font-sans) !important;
+  font-weight: 600 !important;
+  line-height: 1.1;
+  text-transform: none !important;
+  color: var(--thk-red) !important;
+}
+/* Hero-Titel + -Beschreibung: CD-Rot. background.jpg ist die GESPIEGELTE
+   Fassung des CD-Motivs (Farbbaender rechts, ruhiges Grau links) — die
+   Original-Orientierung legte 29.8% Bandflaeche unter den linken
+   52%-Textblock, und keine Textfarbe haelt AA ueber alle drei Baender
+   (#1c1c1b: 2.96:1 auf Rot, 3.07:1 auf Violett). Auf dem ruhigen Grau
+   misst CD-Rot 4.92:1 (AA). Weiss (homepage.css-Default) faellt auf dem
+   Grau mit 1.2:1 durch. */
+.repository-title {
+  word-wrap: break-word;
+  /* min-width:0 + max-width:100%: der Titel ist Flex-Item im Info-Block —
+     ohne min-width:0 gewinnt die min-content-Breite (laengstes Wort, z.B.
+     "Forschungsdatenrepositorium" bei 48px ~624px) gegen die 52%-Grenze
+     und der Titel laeuft in die Baender (gemessen: 1.24:1 bei 768px).
+     Erst mit schrumpffaehigem Item greift word-wrap:break-word. */
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--thk-font-sans) !important;
+  font-weight: 600 !important;
+  /* min(48px, 8vw): identisch 36pt (=48px) ab 600px Viewport (8vw*600=48);
+     darunter fluid (375px -> 30px), damit "Welcome" (~220px bei 48px) im
+     schmalen Block nicht mitten im Wort bricht — Folge des
+     min-width:0-Containments oben. !important noetig: Konkurrenzregel ist
+     homepage.css `.repository-title{font-size:36pt}` — PLAIN, gleiche
+     Spezifitaet (0,1,0), laedt spaeter. Die Kaskadenregel im Dateikopf
+     ("spaeter gewinnt, auch !important vs !important") gilt nur bei
+     GLEICHER Wichtigkeit; !important gegen plain gewinnt unabhaengig von
+     Reihenfolge und Spezifitaet (gleicher Mechanismus wie color/
+     text-transform in diesem Block). Ohne !important verloere (0,1,0)
+     plain den Source-Order-Tie -> immer 36pt. custom-stylesheet.css hat
+     keine .repository-title-Regel (geprueft). */
+  font-size: min(48px, 8vw) !important;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) */
+  color: var(--thk-red) !important;  /* homepage.css: #FFFFFF (plain) */
+  padding-bottom: 20px;
+}
+.repository-description {
+  min-width: 0;
+  max-width: 100%;
+  color: var(--thk-red) !important;
+  font-family: var(--thk-font-sans) !important;
+  /* min(24px, 5.5vw): identisch 24px (= 18pt der homepage.css) ab 437px
+     Viewport; darunter fluid (375px -> 20.6px). Der kuerzere, unten
+     verankerte Block rueckt damit unter die weichen Bandauslaeufer am
+     Hero-Oberrand (gemessen bei 375px: erste Textzeile lag in der
+     Auslaeuferzone, 1.0% der Pixel unter 4.5:1 -> danach 0%).
+     !important noetig: homepage.css setzt 18pt PLAIN und laedt spaeter —
+     die "later wins"-Regel gilt nur bei GLEICHER Wichtigkeit; !important
+     gegen plain gewinnt unabhaengig von Reihenfolge/Spezifitaet. */
+  font-size: min(24px, 5.5vw) !important;
+}
+.section-heading {
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-family: var(--thk-font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 36pt;
+  line-height: 61px !important;
+  text-transform: none !important;
+  color: var(--thk-red) !important;
+  display: block;
+  padding-bottom: 30px;
+  padding-top: 70px;
+}
+
+/* Links: CD-Rot. Hover unveraendert Rot mit Violett-Unterstreichung
+   (Violett als Linie/Sekundaer-Akzent). Das CD nennt keinen dunkleren
+   Rot-Ton; bewusst KEINE Hover-Farbe erfunden. */
+a, a:visited { color: var(--thk-red) !important; }
+a:hover, a:focus {
+  color: var(--thk-red) !important;
+  text-decoration-color: var(--thk-violet) !important;
+}
+.navbar-nav > li > a:hover { color: #333333; }
+
+/* Logout-Link: Hover/Fokus-Hinweis in CD-Rot, weisse Schrift (5.76:1, AA).
+   Attribut-Selektor wegen dynamischem JSF-Formular-Praefix; !important,
+   weil sonst `a{color:...!important}` und `.navbar-nav > li > a:hover`
+   gewinnen. */
+[id$=":lnk_header_logout"]:hover,
+[id$=":lnk_header_logout"]:focus {
+  background-color: var(--thk-red) !important;
+  color: #fff !important;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Font-only-Fixes: Source Sans 3 muss Exo2/Roboto aus custom-stylesheet.css
+   bzw. homepage.css schlagen. Farben/Groessen aus der Basis unveraendert. */
+.caroussel_title {
+  font-size: 20pt;
+  font-weight: 600;
+  color: #000;
+  font-family: var(--thk-font-sans) !important;
+}
+.stat-text {
+  font-size: 17px;
+  text-align: center;
+  font-family: var(--thk-font-sans) !important;
+  /* Farbe: siehe Abschnitt 5 (sitzt in .statistics-footer). */
+}
+.login-prompt {
+  font-size: 18px !important;
+  text-align: center;
+  padding-bottom: 10px;
+  color: var(--thk-red) !important;
+  font-family: var(--thk-font-sans) !important;
+}
+.interactive-list {
+  word-wrap: break-word;
+  text-align: left;
+  cursor: pointer;
+  color: rgb(26, 24, 27);
+  font-size: 17px;
+  font-family: var(--thk-font-sans) !important;
+}
+.news-title,
+.repository-title2,
+.repository-small-title {
+  font-family: var(--thk-font-sans) !important;
+  text-transform: none !important;
+}
+.dataverse-item-title {
+  font-family: var(--thk-font-sans) !important;
+  text-transform: none !important;
+}
+
+/* Card-Grid + Collection-Header: homepage.css setzt Roboto per !important
+   auf .repository-info-block und .grid-item-footer. Diese Datei laedt VOR
+   homepage.css -> gleich spezifisches !important verloere den
+   Source-Order-Tie. Darum Elternklasse davor (0,2,0 bzw. 0,3,0 schlaegt
+   homepage.css' 0,1,0) statt !important-Stapeln. */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--thk-font-sans) !important;
+}
+
+/* ===========================================================================
+   4. Color-as-fill (Akzent-Flaechen/-Linien + Chrome)
+   Orange NUR als Flaeche/Linie; Text auf Orange immer --thk-black
+   (4.85:1). Violett als Flaeche traegt weisse Schrift (5.56:1).
+   ========================================================================== */
+
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 4px solid var(--thk-orange) !important;   /* Orange als Linie */
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--thk-red) !important;
+}
+.bg-citation {
+  background: var(--thk-orange) !important;
+  color: var(--thk-black) !important;                      /* 4.85:1 (AA) */
+  border: 0;
+}
+.icon-dataset {
+  font-size: 7.5em;
+  line-height: 1.1;
+  color: var(--thk-red) !important;
+}
+#search-row-panel {
+  border: 1px solid var(--thk-red) !important;
+  border-top: 3px solid var(--thk-red) !important;
+  border-radius: 4px !important;
+  padding: 15px 0;
+}
+#custom-header {
+  width: 100%;
+  min-height: 30px;
+  text-align: center;
+  color: white;
+  background: transparent !important;
+}
+
+/* Buttons. Primaer: Rot + Weiss (5.76:1). Hover: Violett-Flaeche + Weiss
+   (5.56:1) — Violett ist der designierte Sekundaer-Akzent. */
+.btn-primary {
+  background-image: none;
+  background: var(--thk-red) !important;
+  border-color: var(--thk-red) !important;
+  color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--thk-violet) !important;
+  border-color: var(--thk-violet) !important;
+  color: #fff !important;
+}
+button.btn-default, a.btn-default {
+  text-shadow: none;
+  word-wrap: break-word !important;
+  line-height: 1.42857143 !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+  border: 1px solid !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding: 12px 20px;
+  justify-content: center !important;
+  border-radius: 0 !important;
+  font-family: var(--thk-font-sans) !important;
+  background: #fff !important;
+  color: var(--thk-red) !important;
+  border-color: var(--thk-red) !important;
+}
+button.btn-default:hover, a.btn-default:hover {
+  background-color: white !important;
+  color: var(--thk-black) !important;
+  border-color: var(--thk-violet) !important;              /* Hover-Akzent = Violett (Linie) */
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  padding: 9px 9px;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 4px !important;
+}
+/* Such-Button (Submit): der generische button.btn-default-Block (0,1,1)
+   faerbt ihn weiss -> der weisse Glyph aus homepage.css wuerde unsichtbar.
+   Elternklasse davor (0,2,1) gibt die rote Fuellung zurueck. */
+.input-group-btn > button.btn-default {
+  background: var(--thk-red) !important;
+}
+.btn-contact, .btn-share {
+  border: 1px solid;
+  border-color: var(--thk-violet);
+  border-radius: 0px !important;
+  text-decoration: none !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--thk-violet);
+  color: #fff;                                             /* 5.56:1 auf Violett */
+}
+/* Hero-Buttons: opake Fuellung, NICHT auf das Overlay verlassen — das
+   Overlay ist hier neutralisiert (Abschnitt 6); die halbtransparente
+   Fuellung der Basis (weiss auf rgba(26,24,27,.3)) laege auf dem hellen
+   Grau bei ~2:1. Opak Rot + Weiss = 5.76:1. Hover: Violett + Weiss
+   (5.56:1). Spezifitaet: homepage.css setzt .repository-action-button
+   (0,1,0) und :hover (0,2,0) jeweils plain und laedt SPAETER — deshalb
+   button.-Praefix: (0,1,1) bzw. (0,2,1). */
+button.repository-action-button {
+  border: 2px solid;
+  border-color: var(--thk-red);
+  color: #fff;
+  padding: 2px 14px;
+  background-color: var(--thk-red);
+  font-size: 19px;
+  font-family: var(--thk-font-sans) !important;
+}
+button.repository-action-button:hover,
+button.repository-action-button:focus {
+  cursor: pointer;
+  background-color: var(--thk-violet);
+  border-color: var(--thk-violet);
+  color: #fff;
+}
+
+/* Question-mark-Tooltip-Icons (zwei parallele Implementierungen im
+   Bestand, Struktur aus der Referenz uebernommen). Akzent = Orange auf
+   schwarzem Kreis (~6.8:1, Flaechen-/Grosstext-Einsatz, CD-konform). */
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--thk-orange) !important;
+}
+span.glyphicon-question-sign.tooltip-icon:hover {
+  color: white !important;
+  background-color: black !important;
+  border: 1px solid var(--thk-orange) !important;
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign {
+  cursor: pointer;
+  color: var(--thk-orange);
+  background-color: #000000 !important;
+  border: 1px solid var(--thk-orange);
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign:hover {
+  color: white;
+  border: 1px solid var(--thk-orange);
+  border-radius: 50%;
+  padding: 0px;
+}
+
+/* Feedback-Tab (a.btn-feedback in #feedbackTab): eigener Orange-Grund
+   #c55b28 aus dem Bestand (structure.css, nicht diese Datei). Die globale
+   Link-Regel `a{color:red !important}` faerbte das Label rot-auf-orange
+   (~1.6:1). Weiss = 4.8:1 (AA); (0,1,1)+!important schlaegt (0,0,1). */
+a.btn-feedback {
+  color: #fff !important;
+}
+
+/* Helper-Klassen: dokumentieren die einzig zulaessigen Text-auf-Akzent-
+   Paarungen. */
+.thk-accent-orange { background: var(--thk-orange) !important; color: var(--thk-black) !important; }  /* 4.85:1 */
+.thk-accent-violet { background: var(--thk-violet) !important; color: #fff !important; }              /* 5.56:1 */
+
+/* ===========================================================================
+   5. Kontrast-Fix — Statistik-Fussleiste
+   Basis setzt color: black auf .stat-number/.stat-text — auf --thk-red
+   waere das ~2.9:1. Beides explizit Weiss (5.76:1 auf #c81e0f, AA).
+   ========================================================================== */
+.statistics-footer {
+  width: 100%;
+  position: relative;
+  left: 0;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: var(--thk-red) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+}
+
+/* ===========================================================================
+   6. Hero — th-koeln-scoped Abweichungen (Muster fh-muenster, dort als
+   bewusste Abweichung dokumentiert und verifiziert; wirken nur auf Seiten
+   mit dieser Datei).
+
+   a) Overlay neutralisieren: homepage.css legt zwei dunkle 40%-Gradienten
+      (.repository-header-overlay, plain, 0,1,0) zwischen Hintergrundbild
+      und Text — gedacht fuer Foto-Heros mit weisser Schrift.
+      background.jpg ist eine helle gestaltete Flaeche (CD-Farbbaender
+      links, rechts bewusst leeres Grau) mit dunkler Schrift; das Overlay
+      wuerde genau das leere Grau verschmutzen. Der ID-Elternselektor
+      (1,1,0) schlaegt die spaeter geladene plain-Regel ohne !important.
+   b) Textblock auf 52% begrenzen: homepage.css setzt 80% — der Text sitzt
+      links auf der ruhigen Grauflaeche (gespiegeltes Motiv, Baender
+      rechts): der Titel soll dort umbrechen, statt nach rechts in die
+      Baender zu laufen. (0,2,0) schlaegt (0,1,0) ohne !important.
+   ========================================================================== */
+#repository-header .repository-header-overlay {
+  background: none;
+}
+.repository-header-content .repository-info-block {
+  width: 52%;
+}
+/* c) Schmale Viewports: unter 960px beginnt background-size:cover horizontal
+      zu beschneiden (Bildbreite bei height-bound scale 600/1200 = 960px) und
+      die zentrierte Position schiebt die Baender unter den Text — gemessen
+      am Titel-Backdrop: bei 375px fallen 16.5% der Pixel unter 4.5:1
+      (schlechtester Pixel 4.32:1). Links verankert bleibt das ruhige Grau
+      hinter dem Text: 4.83-5.10:1, 0% unter 4.5:1. Ab 960px ist die
+      Position wirkungslos (kein Crop) — Messung: center und left identisch.
+      (1,2,0) schlaegt homepage.css' media-scoped (0,1,0); lozad setzt nur
+      background-image inline, nicht die Position. */
+@media (max-width: 959px) {
+  #repository-header.repository-header-background {
+    background-position: left center;
+  }
+}
+/* d) Unter 600px (homepage.css' eigener Mobile-Breakpoint) zeigt der
+      links verankerte Crop nur das ruhige Grau — die 52%-Grenze hat dort
+      keine Kontrastfunktion mehr und wuergt die Beschreibung ab (gemessen
+      bei 375px: 120px-Spalte -> 877px hoher Textblock, laeuft oben aus dem
+      Hero in die Navbar). Zurueck auf die 80% der homepage.css-Basis;
+      gleiche Selektor-Spezifitaet wie die 52%-Regel oben, spaeter in
+      DIESER Datei -> gewinnt den internen Source-Order-Tie. */
+@media (max-width: 600px) {
+  .repository-header-content .repository-info-block {
+    width: 80%;
+  }
+}
+
+/* ===========================================================================
+   7. Logo
+   Hintergrund (Farbbaender) laeuft ueber das CSV-background-Feld
+   (background.jpg) — KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen
+   fuers selbe Element. Logo: dreizeilige Wortmarke 521x282 px = 1.85:1 —
+   voellig anderes Seitenverhaeltnis als uni-koeln (2.2:1 bei 350px) oder
+   fh-muenster (5.84:1 bei 180px), deren Breiten NICHT uebernehmen.
+   120px Breite -> ~65px Hoehe, gegen die reale Navbar-Hoehe im Preview
+   vermessen (siehe Onboarding-Verifikation).
+   ========================================================================== */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+img.header_logo[src*="/at/th-koeln/img/logo.png"] {
+  height: auto !important;
+  max-height: none !important;
+  width: 120px !important;
+  max-width: none !important;
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* ===========================================================================
+   8. Chrome / strukturelle Uebernahme (nicht CD-bezogen, unveraendert aus
+   der Referenz — reine Layout-/Funktionsregeln ohne Farb-/Font-Konflikt).
+   ========================================================================== */
+.glyphicon {
+  font-size: 20px;
+}
+.text-danger {
+  font-size: 12px !important;
+  color: #ea1713;
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+  line-height: 18px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  color: #000000;
+  font-weight: bold;
+  border: 0px none;
+}
+
+/* ===========================================================================
+   9. Global
+   ========================================================================== */
+body {
+  background-color: white !important;
+  box-sizing: border-box;
+  font-family: var(--thk-font-sans) !important;
+  color: var(--thk-black) !important;
+}
