@@ -68,13 +68,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-transform: none !important;
   color: var(--thk-red) !important;
 }
-/* Hero-Titel + -Beschreibung: CD-Rot. background.jpg ist die GESPIEGELTE
-   Fassung des CD-Motivs (Farbbaender rechts, ruhiges Grau links) — die
-   Original-Orientierung legte 29.8% Bandflaeche unter den linken
-   52%-Textblock, und keine Textfarbe haelt AA ueber alle drei Baender
-   (#1c1c1b: 2.96:1 auf Rot, 3.07:1 auf Violett). Auf dem ruhigen Grau
-   misst CD-Rot 4.92:1 (AA). Weiss (homepage.css-Default) faellt auf dem
-   Grau mit 1.2:1 durch. */
+/* Hero-Titel + -Beschreibung: CD-Rot. background.svg ist ein Rebuild des
+   CD-Motivs (2400x640; Baender rechts, Einblendung ab x=1300, ruhiges
+   Grau links) — der Text sitzt links auf der ruhigen Zone. Gemessen:
+   CD-Rot >=4.79:1 (AA) auf dem Grau ueber alle Viewports; Weiss
+   (homepage.css-Default) fiele mit ~1.2:1 durch. */
 .repository-title {
   word-wrap: break-word;
   /* min-width:0 + max-width:100%: der Titel ist Flex-Item im Info-Block —
@@ -406,9 +404,9 @@ a.btn-feedback {
       wuerde genau das leere Grau verschmutzen. Der ID-Elternselektor
       (1,1,0) schlaegt die spaeter geladene plain-Regel ohne !important.
    b) Textblock auf 52% begrenzen: homepage.css setzt 80% — der Text sitzt
-      links auf der ruhigen Grauflaeche (gespiegeltes Motiv, Baender
-      rechts): der Titel soll dort umbrechen, statt nach rechts in die
-      Baender zu laufen. (0,2,0) schlaegt (0,1,0) ohne !important.
+      links auf der ruhigen Grauflaeche (Baender rechts): der Titel soll
+      dort umbrechen, statt nach rechts in die Baender zu laufen.
+      (0,2,0) schlaegt (0,1,0) ohne !important.
    ========================================================================== */
 #repository-header .repository-header-overlay {
   background: none;
@@ -416,20 +414,18 @@ a.btn-feedback {
 .repository-header-content .repository-info-block {
   width: 52%;
 }
-/* c) Schmale Viewports: unter 960px beginnt background-size:cover horizontal
-      zu beschneiden (Bildbreite bei height-bound scale 600/1200 = 960px) und
-      die zentrierte Position schiebt die Baender unter den Text — gemessen
-      am Titel-Backdrop: bei 375px fallen 16.5% der Pixel unter 4.5:1
-      (schlechtester Pixel 4.32:1). Links verankert bleibt das ruhige Grau
-      hinter dem Text: 4.83-5.10:1, 0% unter 4.5:1. Ab 960px ist die
-      Position wirkungslos (kein Crop) — Messung: center und left identisch.
-      (1,2,0) schlaegt homepage.css' media-scoped (0,1,0); lozad setzt nur
-      background-image inline, nicht die Position. */
-@media (max-width: 959px) {
-  #repository-header.repository-header-background {
-    background-position: left center;
-  }
-}
+/* c) KEINE background-position-Regel mehr: die fruehere left-Verankerung
+      unter 960px beruhte auf der JPEG-Geometrie (1.6:1, Crop ab 960px).
+      Das SVG (3.75:1, cover haelt die 600px-Hoehe -> 2250px Bildbreite)
+      wird zwar an allen Breiten <2250px beschnitten, aber die ruhige Zone
+      (bis x=1300 im viewBox, ~54% der Bildbreite) ist breit genug, dass
+      die zentrierte homepage.css-Position ueberall reicht — gemessen:
+      Titel >=4.87:1, Beschreibung >=4.79:1, 0% unter den Schwellwerten.
+      preserveAspectRatio greift unter background-size:cover NICHT
+      (gemessen: nur die CSS-Position verschiebt den Ausschnitt).
+      Band-Schnittpunkt (~x=1695 von 2250) ist ab ~1140px Viewport im
+      Bild; darunter schliessen sich Schnittpunkt-Sichtbarkeit und
+      Textkontrast gegenseitig aus (right-Anker gemessen: Titel min 1.0). */
 /* d) Unter 600px (homepage.css' eigener Mobile-Breakpoint) zeigt der
       links verankerte Crop nur das ruhige Grau — die 52%-Grenze hat dort
       keine Kontrastfunktion mehr und wuergt die Beschreibung ab (gemessen
@@ -446,7 +442,7 @@ a.btn-feedback {
 /* ===========================================================================
    7. Logo
    Hintergrund (Farbbaender) laeuft ueber das CSV-background-Feld
-   (background.jpg) — KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen
+   (background.svg) — KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen
    fuers selbe Element. Logo: dreizeilige Wortmarke 521x282 px = 1.85:1 —
    voellig anderes Seitenverhaeltnis als uni-koeln (2.2:1 bei 350px) oder
    fh-muenster (5.84:1 bei 180px), deren Breiten NICHT uebernehmen.

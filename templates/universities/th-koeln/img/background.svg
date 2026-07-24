@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 640" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="TH Koeln Baender-Motiv">
+<defs>
+<linearGradient id="ground" x1="0" y1="0" x2="1" y2="0.4"><stop offset="0" stop-color="#f8f8f8"/><stop offset="0.5" stop-color="#efefef"/><stop offset="1" stop-color="#e4e4e4"/></linearGradient>
+<linearGradient id="f0" gradientUnits="userSpaceOnUse" x1="1300" y1="0" x2="1850" y2="0"><stop offset="0" stop-color="#ea5a00" stop-opacity="0"/><stop offset="1" stop-color="#ea5a00" stop-opacity="0.92"/></linearGradient>
+<linearGradient id="f1" gradientUnits="userSpaceOnUse" x1="1300" y1="0" x2="1850" y2="0"><stop offset="0" stop-color="#b43092" stop-opacity="0"/><stop offset="1" stop-color="#b43092" stop-opacity="0.92"/></linearGradient>
+<linearGradient id="f2" gradientUnits="userSpaceOnUse" x1="1300" y1="0" x2="1850" y2="0"><stop offset="0" stop-color="#c81e0f" stop-opacity="0"/><stop offset="1" stop-color="#c81e0f" stop-opacity="0.92"/></linearGradient>
+</defs>
+<rect width="2400" height="640" fill="url(#ground)"/>
+<g clip-path="none">
+<polygon points="5163.2,-648.4 5134.4,-748.3 -1783.2,1248.4 -1754.4,1348.3" fill="url(#f0)"/>
+<polygon points="4387.9,2793.7 4460.0,2718.8 -727.9,-2273.7 -800.0,-2198.8" fill="url(#f1)"/>
+<polygon points="2685.3,-3102.1 2584.3,-3127.1 854.7,3862.1 955.7,3887.1" fill="url(#f2)"/>
+</g>
+</svg>

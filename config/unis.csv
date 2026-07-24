@@ -8,7 +8,7 @@ Hochschule Rhein Waal,https://www.hochschule-rhein-waal.de/,,hochschule-rhein-wa
 Hochschule Bochum,https://www.hochschule-bochum.de/,,hs-bochum,1,,,,,,https://idp0.hs-bochum.de/idp/shibboleth,
 Fachhochschule Südwestfalen,https://www.fh-swf.de/,,fh-swf,1,,,,,,https://idp-devel02.fh-swf.de/idp/shibboleth,
 Fernuniversität Hagen,https://www.fernuni-hagen.de/,,fernuni-hagen,1,,,,,,https://login-test.fernuni-hagen.de/idp/shibboleth,
-TH Köln,https://www.th-koeln.de/,,th-koeln,1,/at/th-koeln/img/logo.png,/at/th-koeln/img/background.jpg,/at/th-koeln/css/main.css,/at/th-koeln/js/main.js,,https://qa-login.th-koeln.de/nidp/saml2/metadata,/at/th-koeln/img/favicon-64.png
+TH Köln,https://www.th-koeln.de/,,th-koeln,1,/at/th-koeln/img/logo.png,/at/th-koeln/img/background.svg,/at/th-koeln/css/main.css,/at/th-koeln/js/main.js,,https://qa-login.th-koeln.de/nidp/saml2/metadata,/at/th-koeln/img/favicon-64.png
 Universität zu Köln,https://www.uni-koeln.de/,,uni-koeln,1,/at/uni-koeln/img/logo.svg,/at/uni-koeln/img/koeln-sphaeren-bg.svg,/at/uni-koeln/css/main.css,/at/uni-koeln/js/main.js,,https://idptest.rrz.uni-koeln.de/idp/shibboleth,/at/uni-koeln/img/favicon-64.png
 Universität Siegen,https://www.uni-siegen.de/,,uni-siegen,1,,,,,,https://login.zimt-test.uni-siegen.de/idp/shibboleth,
 Hochschule Bonn-Rhein-Sieg,https://www.h-brs.de/,,h-brs,1,/at/h-brs/img/logo-700w.png,/at/h-brs/img/hero-circles.svg,/at/h-brs/css/main.css,/at/h-brs/js/main.js,,,/at/h-brs/img/favicon-32.png
