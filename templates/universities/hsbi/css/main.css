@@ -58,6 +58,16 @@
      Bloecke unten aktiviert werden, greift Lausanne ohne weiteren Diff. */
   --hsbi-font-sans: "HSBI Lausanne", Arial, "Helvetica Neue", Helvetica, sans-serif;
 
+  /* Logo-Masse. Aus der Breite folgt die Hoehe zwingend, weil logo.png ein
+     fester Beschnitt ist: 754 x 242 px = 3.1157:1. Beides hier ablegen,
+     damit der Navbar-Abstand (Abschnitt 7) sich rechnerisch an der
+     DARGESTELLTEN Logohoehe orientiert und nicht an einem festen px-Wert.
+     Wird --hsbi-logo-w geaendert, zieht der Abstand automatisch mit. */
+  --hsbi-logo-w:      130px;
+  --hsbi-logo-ratio:  3.1157;
+  --hsbi-logo-h:      calc(var(--hsbi-logo-w) / var(--hsbi-logo-ratio));
+  --hsbi-logo-gap:    calc(var(--hsbi-logo-h) * 0.18);
+
   /* Kap. 19.6 Schriftgroessen-Skala der HSBI-Webseite */
   --hsbi-fs-xxl: 34px;    /* Seitentitel / H1 */
   --hsbi-fs-xl:  21px;    /* Ueberschriften / H2 */
@@ -353,20 +363,40 @@ a.btn-default,
   color: var(--hsbi-white) !important;
   border-color: var(--hsbi-black) !important;
 }
-.btn-contact, .btn-share {
+/* Contact/Share sind <a>-Elemente, die als Secondary Buttons rendern
+   (Icon + Text, Kap. 19.9). Deshalb a.-Praefix ueberall: die generischen
+   Link-Regeln oben tragen !important und wuerden sonst gewinnen.
+     `a, a:visited { color: #555555 !important }`  ist (0,0,1)
+     `a:hover      { color: #5c4d3d !important }`  ist (0,1,1)
+   Die frueheren Regeln hier waren (0,1,0)/(0,2,0) OHNE !important. Gegen
+   ein !important verliert plain unabhaengig von Spezifitaet und
+   Reihenfolge — im Hover blieb der Text deshalb auf #5c4d3d, waehrend der
+   Grund auf Schwarz sprang: 2.58:1, klar unter AA. Mit a.-Praefix (0,2,1)
+   plus !important gewinnt diese Datei sauber. */
+a.btn-contact, a.btn-share {
   border: 1px solid;
-  border-color: var(--hsbi-black);
+  border-color: var(--hsbi-black) !important;
   border-radius: 0 !important;
   text-decoration: none !important;
   /* Audit /dataverse/hsbi: loesten auf "Helvetica Neue" auf — die beiden
      Buttons stehen in structure.css mit eigenem Font-Stack und wurden von
      keiner der Regeln oben erfasst. */
   font-family: var(--hsbi-font-sans) !important;
+  /* Kap. 19.9 Secondary Button: Text #000000, nicht die Linkfarbe
+     #555555. 21:1 auf Weiss. */
+  background: var(--hsbi-white) !important;
+  color: var(--hsbi-black) !important;
 }
-.btn-contact:hover, .btn-share:hover {
-  background-color: var(--hsbi-black);
-  color: var(--hsbi-white);
+a.btn-contact:hover, a.btn-share:hover,
+a.btn-contact:focus, a.btn-share:focus {
+  background-color: var(--hsbi-black) !important;
+  color: var(--hsbi-white) !important;            /* 21:1 statt 2.58:1 */
+  border-color: var(--hsbi-black) !important;
+  text-decoration: none !important;
 }
+/* Die Glyphicons sitzen als <span> IM Link und erben color — explizit
+   mitgezogen, damit Icon und Label nie auseinanderlaufen. */
+a.btn-contact .glyphicon, a.btn-share .glyphicon { color: inherit !important; }
 /* Hero-Buttons: opake Fuellung, NICHT auf das Overlay verlassen — das
    Overlay ist hier neutralisiert (Abschnitt 6). Die halbtransparente
    Basisfuellung (weiss auf rgba(...,.3)) laege auf Weiss bei ~1.3:1.
@@ -405,8 +435,13 @@ span.glyphicon-question-sign.tooltip-icon:hover {
   border-radius: 50%;
   padding: 0px;
 }
+/* cursor:help, NICHT pointer. Das Element ist ein Tooltip-Trigger
+   (data-toggle="tooltip"), kein Link und kein Button — pointer versprach
+   eine Navigation, die es nicht gibt. Der Tooltip-Text steht im Markup
+   (data-original-title), die Bootstrap-Initialisierung fehlte auf der
+   statischen Landing; sie wird in js/main.js nachgezogen. */
 .customNavigation .glyphicon-question-sign {
-  cursor: pointer;
+  cursor: help;
   color: var(--hsbi-white);
   background-color: var(--hsbi-black) !important;
   border: 1px solid var(--hsbi-black);
@@ -513,10 +548,34 @@ a.btn-feedback {
    ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/hsbi/img/logo.png"] {
+  /* display:block statt inline. Zwei Gruende:
+     a) Ein inline-<img> sitzt auf der Textbasislinie; der Unterlaengen-
+        Raum der Zeilenbox erscheint als Luecke UNTER dem Bild.
+     b) Nur als Block wirken margin-top/-bottom hier symmetrisch.
+     Das Markup gibt uns keinen brauchbaren Container: das <img> traegt
+     ZWEI class-Attribute (`header_logo` und `navbar-brand custom-logo`),
+     HTML5 verwirft das zweite. Das Bild ist also NICHT .navbar-brand und
+     bekommt dessen Padding nie; der umschliessende <a> hat gar keine
+     Klasse. Deshalb muss die Zentrierung ueber das Bild selbst laufen. */
+  display: block !important;
   height: auto !important;
   max-height: none !important;
-  width: 130px !important;
+  width: var(--hsbi-logo-w) !important;
   max-width: none !important;
+  /* Symmetrischer Abstand, abgeleitet aus der dargestellten Logohoehe
+     (18 % davon), nicht als fester px-Wert.
+     Rechnung bei 130px Breite: Hoehe 41.7px, Abstand 7.5px, Gesamthoehe
+     der Logobox 56.7px. Das liegt UEBER Bootstraps
+     `.navbar { min-height: 50px }` — und genau darauf kommt es an: solange
+     die Box niedriger als 50px ist, bestimmt die min-height die Zeile, das
+     Bild sitzt oben und die gesamte Restluecke faellt nach UNTEN. Das war
+     die ungleiche Luecke im Desktop-Header. Ueberschreitet die Box die
+     min-height, greift sie nicht mehr und die beiden margins bestimmen den
+     Abstand — symmetrisch, per Konstruktion.
+     Untergrenze: --hsbi-logo-w darf nicht unter ~112px fallen, sonst
+     rutscht die Box wieder unter 50px und die Asymmetrie kommt zurueck. */
+  margin-top: var(--hsbi-logo-gap) !important;
+  margin-bottom: var(--hsbi-logo-gap) !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 
