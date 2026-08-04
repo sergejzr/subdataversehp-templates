@@ -1,0 +1,552 @@
+/* ===========================================================================
+   HOCHSCHULE BIELEFELD (HSBI) — main.css
+   CD-Quelle: "HSBI Corporate Design Manual", Stand 2023-04.
+   Autoritativ fuer diese Datei ist Kapitel 19 "Website" (G. Digitale
+   Medien) — nicht das Basiskapitel 3.3. Das ist der wesentliche
+   Unterschied zu uni-koeln/th-koeln/fh-muenster:
+
+     Kap. 3.3 (Basis, alle Medien) nennt sechs Naturtoene, darunter den
+     Barolo-Rotton #78232d. Kap. 19.5 reduziert das Spektrum fuer die
+     Webseite ausdruecklich auf DREI Werte — Schwarz, Weiss, HSBI Sand —
+     und Kap. 19.6 haelt fest: "Schrift, egal ob Fliesstext oder
+     Ueberschrift, ist in der Regel nicht farbig."
+
+   Daraus folgt bewusst: KEINE farbigen Headlines, KEIN Rot, kein zweiter
+   Akzent. Der Akzent ist Sand und wird laut Kap. 19.5 "in der Regel
+   vollflaechig, ohne Farbverlaeufe" eingesetzt. Kap. 19.7 verlangt
+   zusaetzlich hohen Weissanteil und schwarze Begrenzungslinien statt
+   farbiger Hintergrundflaechen. Diese Datei ist deshalb absichtlich
+   zurueckhaltender als die drei bisherigen Unis — das ist CD-konform,
+   kein Versehen.
+
+   Ladereihenfolge (siehe tooling/visual-audit/target-spec.md §0):
+   PrimeFaces/Bootstrap-CSS -> custom-stylesheet.css (@import, <head>) ->
+   DIESE DATEI (client-seitig via gui.js in den <head> injiziert) ->
+   homepage.css (<body>, laedt SPAETER). Bei gleicher Spezifitaet UND
+   gleicher Wichtigkeit gewinnt die spaeter geladene Regel, also
+   homepage.css. Wo homepage.css selbst !important nutzt, hilft nur
+   HOEHERE SPEZIFITAET, kein !important-Stapeln.
+   ========================================================================== */
+
+/* ===========================================================================
+   1. Custom Properties — Werte woertlich aus Kap. 19.5 und 19.6.
+   Kontrast (gerechnet, sRGB/WCAG 2.1):
+     black/weiss 21.0:1, black/sand 13.9:1, weiss/black 21.0:1,
+     #555555/weiss 7.46:1, #555555/sand 4.93:1,
+     #5c4d3d/weiss 8.13:1, #5c4d3d/sand 5.38:1,
+     #856b47/weiss 5.01:1  — aber /sand nur 3.32:1 und /black nur 4.19:1.
+   Deshalb ist --hsbi-hover-light NUR auf Weiss zulaessig; auf Sandflaechen
+   wird durchgaengig --hsbi-hover-dark verwendet. Sand selbst hat auf Weiss
+   1.51:1 und ist daher ausschliesslich Flaeche, nie Text und nie Rahmen
+   ohne zweite Begrenzung.
+   ========================================================================== */
+:root {
+  --hsbi-black:       #000000;  /* Kap. 19.5 Primaerfarbe der Seitenelemente */
+  --hsbi-white:       #ffffff;  /* Kap. 19.5 Hintergrund */
+  --hsbi-sand:        #d7d2c3;  /* Kap. 19.5 einzige Akzentfarbe, vollflaechig */
+  --hsbi-link:        #555555;  /* Kap. 19.6 "Link / Text inaktiv" */
+  --hsbi-hover-dark:  #5c4d3d;  /* Kap. 19.6 "hover / aktiv dunkel" */
+  --hsbi-hover-light: #856b47;  /* Kap. 19.6 "hover / aktiv hell" — nur auf Weiss */
+
+  /* Kap. 19.6: Hausschrift "HSBI Lausanne" (Nizar Kazan, kommerziell ueber
+     weltkern.com). Das CD benennt Arial selbst als die "zusaetzlich zu den
+     Webfonts ... in den Stylesheets angegebene Ersatzschrift" (Kap. 19.6)
+     und fuehrt sie als Systemschrift (Kap. 2.3). Bis eine Weblizenz + die
+     woff2-Dateien von der HSBI vorliegen, laeuft die Seite auf Arial —
+     gleiche Vorgehensweise wie bei fh-muenster (Brown/Celeste).
+     Der Font-Name steht bereits vorn im Stack: sobald die @font-face-
+     Bloecke unten aktiviert werden, greift Lausanne ohne weiteren Diff. */
+  --hsbi-font-sans: "HSBI Lausanne", Arial, "Helvetica Neue", Helvetica, sans-serif;
+
+  /* Kap. 19.6 Schriftgroessen-Skala der HSBI-Webseite */
+  --hsbi-fs-xxl: 34px;    /* Seitentitel / H1 */
+  --hsbi-fs-xl:  21px;    /* Ueberschriften / H2 */
+  --hsbi-fs-l:   20px;    /* Newstitel / H3 */
+  --hsbi-fs-m:   18.5px;  /* Funktionstitel / H4 */
+  --hsbi-fs-s:   16px;    /* Standardgroesse Fliesstext */
+  --hsbi-fs-xs:  14px;    /* Marginaltext gross */
+  --hsbi-fs-xxs: 13px;    /* Marginaltext klein */
+}
+
+/* ===========================================================================
+   2. Self-hosted Fonts — VORBEREITET, NICHT AKTIV.
+   "HSBI Lausanne" ist lizenzpflichtig; ohne Weblizenz der HSBI duerfen wir
+   keine Font-Dateien ausliefern. Kein Google-Fonts-@import (DSGVO), kein
+   CDN. Zum Aktivieren: woff2 nach css/fonts/ legen, Lizenznachweis
+   danebenlegen, diesen Block einkommentieren. Kap. 19.6 nennt genau zwei
+   Schnitte fuer den Webauftritt: 300 (Fliesstext, Buttontexte, Links,
+   Bildunterschriften, Marginaltexte) und 700 (Ueberschriften, Titel von
+   Textboxen/Akkordeons, Hervorhebungen).
+   ---------------------------------------------------------------------------
+   @font-face {
+     font-family: "HSBI Lausanne"; font-style: normal; font-weight: 300;
+     font-display: swap;
+     src: url("/at/hsbi/css/fonts/Lausanne-300.woff2") format("woff2");
+   }
+   @font-face {
+     font-family: "HSBI Lausanne"; font-style: normal; font-weight: 700;
+     font-display: swap;
+     src: url("/at/hsbi/css/fonts/Lausanne-700.woff2") format("woff2");
+   }
+   ========================================================================== */
+
+/* ===========================================================================
+   3. Typografie
+   Gemischte Schreibweise: das HSBI-CD kennt kein Versal-Prinzip.
+   homepage.css setzt uppercase (plain) auf .repository-title/-title2/
+   -small-title/.dataverse-item-title — Weglassen der Deklaration reicht
+   NICHT, es braucht aktiv `text-transform: none !important`.
+   Farbe: Schwarz. Kap. 19.6 schliesst farbige Schrift explizit aus; die
+   Akzentfarbe wirkt nur als Flaeche (Abschnitt 4).
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--hsbi-font-sans) !important;
+  font-weight: 700 !important;            /* Kap. 19.6: Ueberschriften = Schnitt 700 */
+  line-height: 1.2;
+  text-transform: none !important;
+  color: var(--hsbi-black) !important;
+}
+h1, .h1 { font-size: var(--hsbi-fs-xxl); }
+h2, .h2 { font-size: var(--hsbi-fs-xl); }
+h3, .h3 { font-size: var(--hsbi-fs-l); }
+h4, .h4 { font-size: var(--hsbi-fs-m); }
+
+/* Hero-Titel + -Beschreibung.
+   hsbi-bg.svg ist ein Rebuild des Versatzprinzips (Kap. 7.2) in Sand auf
+   Weiss; die linken 54 % der Flaeche bleiben leer. Der Text sitzt dort in
+   Schwarz: 21:1 auf Weiss, 13.9:1 falls der cover-Crop Sand nach links
+   schiebt — beide Faelle weit ueber AA. homepage.css setzt hier #FFFFFF
+   (plain), das laege auf Weiss bei 1:1. */
+.repository-title {
+  word-wrap: break-word;
+  /* min-width:0 + max-width:100%: der Titel ist Flex-Item im Info-Block.
+     Ohne min-width:0 gewinnt die min-content-Breite (laengstes Wort) gegen
+     die 52-%-Grenze unten und der Titel laeuft nach rechts in die
+     Sandflaechen. Erst mit schrumpffaehigem Item greift word-wrap. */
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--hsbi-font-sans) !important;
+  font-weight: 700 !important;
+  /* Kap. 19.6 Seitentitel = 34px; Kap. 19.3 skaliert Seitentitel
+     "schrittweise" mit der Viewport-Breite. min(34px, 7vw) haelt exakt
+     34px ab 486px Viewport und wird darunter fluid (375px -> 26px).
+     !important noetig: homepage.css setzt `.repository-title{font-size:36pt}`
+     PLAIN bei gleicher Spezifitaet (0,1,0) und laedt spaeter; die
+     "spaeter gewinnt"-Regel gilt nur bei GLEICHER Wichtigkeit. */
+  font-size: min(34px, 7vw) !important;
+  text-transform: none !important;          /* homepage.css: uppercase (plain) */
+  color: var(--hsbi-black) !important;      /* homepage.css: #FFFFFF (plain) */
+  padding-bottom: 20px;
+}
+.repository-description {
+  min-width: 0;
+  max-width: 100%;
+  color: var(--hsbi-black) !important;
+  font-family: var(--hsbi-font-sans) !important;
+  font-weight: 300;
+  /* Kap. 19.6 Standardgroesse 16px; homepage.css setzt 18pt (=24px) plain.
+     Eine Stufe ueber der Standardgroesse (XL, 21px) haelt den Hero-Block
+     lesbar, ohne die Skala zu verlassen. */
+  font-size: var(--hsbi-fs-xl) !important;
+}
+.section-heading {
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-family: var(--hsbi-font-sans) !important;
+  font-weight: 700 !important;
+  font-size: var(--hsbi-fs-xxl);
+  line-height: 1.2 !important;
+  text-transform: none !important;
+  color: var(--hsbi-black) !important;
+  display: block;
+  padding-bottom: 30px;
+  padding-top: 70px;
+}
+
+/* Links. Kap. 19.6 gibt drei Zustaende vor: inaktiv #555555 (7.46:1),
+   hover/aktiv dunkel #5c4d3d (8.13:1). #856b47 ("hover/aktiv hell",
+   5.01:1 auf Weiss) bleibt hier ungenutzt: auf Sand faellt er mit 3.32:1
+   durch AA, und ein Zustand, der je nach Untergrund die Farbe wechselt,
+   waere in einer einzigen main.css nicht sauber trennbar.
+   Unterstreichung im Hover statt Farbflaeche — Kap. 19.7 (schwarze
+   Linien, wenig Flaeche). */
+a, a:visited {
+  color: var(--hsbi-link) !important;
+  font-family: var(--hsbi-font-sans);
+}
+a:hover, a:focus {
+  color: var(--hsbi-hover-dark) !important;
+  text-decoration: underline;
+  text-decoration-color: var(--hsbi-hover-dark) !important;
+}
+.navbar-nav > li > a:hover { color: var(--hsbi-black) !important; }
+
+/* Logout-Link: Hover/Fokus als schwarze Flaeche mit weisser Schrift
+   (21:1) — genau das Button-Hover-Muster aus Kap. 19.9. Attribut-Selektor
+   wegen dynamischem JSF-Formular-Praefix; !important, weil sonst
+   `a{color:...!important}` gewinnt. */
+[id$=":lnk_header_logout"]:hover,
+[id$=":lnk_header_logout"]:focus {
+  background-color: var(--hsbi-black) !important;
+  color: var(--hsbi-white) !important;
+  border-radius: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Font-only-Fixes: der Stack muss Exo2/Roboto aus custom-stylesheet.css
+   bzw. homepage.css schlagen. Groessen auf die 19.6er-Skala gezogen,
+   Farben schwarz/neutral. */
+.caroussel_title {
+  font-size: var(--hsbi-fs-xl);
+  font-weight: 700;
+  color: var(--hsbi-black);
+  font-family: var(--hsbi-font-sans) !important;
+}
+.stat-text {
+  font-size: var(--hsbi-fs-s);
+  text-align: center;
+  font-family: var(--hsbi-font-sans) !important;
+  /* Farbe: siehe Abschnitt 5 (sitzt in .statistics-footer). */
+}
+.login-prompt {
+  font-size: var(--hsbi-fs-m) !important;
+  text-align: center;
+  padding-bottom: 10px;
+  color: var(--hsbi-black) !important;
+  font-family: var(--hsbi-font-sans) !important;
+}
+.interactive-list {
+  word-wrap: break-word;
+  text-align: left;
+  cursor: pointer;
+  /* !important noetig: homepage.css setzt hier rgb(26,24,27) PLAIN bei
+     gleicher Spezifitaet (0,1,0) und laedt spaeter -> gewann den
+     Source-Order-Tie. Im Audit als computed #1a181b aufgefallen. */
+  color: var(--hsbi-black) !important;
+  font-size: var(--hsbi-fs-s);
+  font-family: var(--hsbi-font-sans) !important;
+}
+.news-title,
+.repository-title2,
+.repository-small-title {
+  font-family: var(--hsbi-font-sans) !important;
+  text-transform: none !important;
+  color: var(--hsbi-black) !important;
+}
+.dataverse-item-title {
+  font-family: var(--hsbi-font-sans) !important;
+  text-transform: none !important;
+}
+
+/* Card-Grid + Collection-Header: homepage.css setzt Roboto per !important
+   auf .repository-info-block und .grid-item-footer. Diese Datei laedt VOR
+   homepage.css -> gleich spezifisches !important verloere den
+   Source-Order-Tie. Darum Elternklasse davor (0,2,0 bzw. 0,3,0 schlaegt
+   homepage.css' 0,1,0) statt !important-Stapeln. */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--hsbi-font-sans) !important;
+}
+
+/* ===========================================================================
+   4. Flaechen und Linien (Kap. 19.5 / 19.7)
+   Regel: Akzent nur vollflaechig als Sand, Text darauf immer Schwarz
+   (13.9:1). Struktur sonst ueber schwarze Linien, nicht ueber Farbe.
+   ========================================================================== */
+
+.navbar-default {
+  background-color: var(--hsbi-white);
+  border-bottom: 2px solid var(--hsbi-black) !important;   /* Kap. 19.7: schwarze Linie */
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--hsbi-black) !important;
+  font-family: var(--hsbi-font-sans) !important;
+}
+.bg-citation {
+  background: var(--hsbi-sand) !important;
+  color: var(--hsbi-black) !important;                     /* 13.9:1 */
+  border: 0;
+  /* Audit /dataverse/hsbi: loeste auf Roboto-Regular auf (custom-stylesheet.css).
+     Der Zitierblock ist die sichtbarste Flaeche der Dataset-View — er darf
+     nicht als einziges Element in der Fremdschrift stehen. */
+  font-family: var(--hsbi-font-sans) !important;
+}
+.icon-dataset {
+  font-size: 7.5em;
+  line-height: 1.1;
+  color: var(--hsbi-black) !important;
+}
+#search-row-panel {
+  border: 1px solid var(--hsbi-black) !important;
+  border-top: 2px solid var(--hsbi-black) !important;
+  border-radius: 0 !important;                             /* CD kennt keine Rundungen */
+  padding: 15px 0;
+}
+#custom-header {
+  width: 100%;
+  min-height: 30px;
+  text-align: center;
+  color: var(--hsbi-black);
+  background: transparent !important;
+}
+
+/* Buttons — woertlich Kap. 19.9.
+     Primary   Hintergrund #d7d2c3, Rahmen #d7d2c3, Text #000000
+     Secondary Hintergrund #FFFFFF, Rahmen #000000, Text #000000
+     Hover     schwarzer Hintergrund, weisser Text (beide Typen)
+   Kein border-radius: die CD-Buttons sind rechteckig eingefasst. */
+.btn-primary {
+  background-image: none;
+  background: var(--hsbi-sand) !important;
+  border-color: var(--hsbi-sand) !important;
+  color: var(--hsbi-black) !important;                     /* 13.9:1 */
+  border-radius: 0 !important;
+  font-family: var(--hsbi-font-sans) !important;
+  font-weight: 300;
+  text-shadow: none;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--hsbi-black) !important;
+  border-color: var(--hsbi-black) !important;
+  color: var(--hsbi-white) !important;                     /* 21:1 */
+}
+button.btn-default, a.btn-default {
+  text-shadow: none;
+  word-wrap: break-word !important;
+  line-height: 1.42857143 !important;
+  font-weight: 300 !important;                             /* Kap. 19.6: Buttontexte = Schnitt 300 */
+  font-size: var(--hsbi-fs-s) !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+  border: 1px solid !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding: 12px 20px;
+  justify-content: center !important;
+  border-radius: 0 !important;
+  font-family: var(--hsbi-font-sans) !important;
+  background: var(--hsbi-white) !important;                /* Secondary Button */
+  color: var(--hsbi-black) !important;
+  border-color: var(--hsbi-black) !important;
+}
+button.btn-default:hover, a.btn-default:hover,
+button.btn-default:focus, a.btn-default:focus {
+  background-color: var(--hsbi-black) !important;
+  color: var(--hsbi-white) !important;
+  border-color: var(--hsbi-black) !important;
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  padding: 9px 9px;
+  border-radius: 0 !important;
+}
+/* Such-Button (Submit): der generische button.btn-default-Block (0,1,1)
+   faerbt ihn weiss -> der weisse Glyph aus homepage.css waere unsichtbar.
+   Elternklasse davor (0,2,1) gibt ihm die schwarze Fuellung. */
+.input-group-btn > button.btn-default {
+  background: var(--hsbi-black) !important;
+  color: var(--hsbi-white) !important;
+  border-color: var(--hsbi-black) !important;
+}
+.btn-contact, .btn-share {
+  border: 1px solid;
+  border-color: var(--hsbi-black);
+  border-radius: 0 !important;
+  text-decoration: none !important;
+  /* Audit /dataverse/hsbi: loesten auf "Helvetica Neue" auf — die beiden
+     Buttons stehen in structure.css mit eigenem Font-Stack und wurden von
+     keiner der Regeln oben erfasst. */
+  font-family: var(--hsbi-font-sans) !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--hsbi-black);
+  color: var(--hsbi-white);
+}
+/* Hero-Buttons: opake Fuellung, NICHT auf das Overlay verlassen — das
+   Overlay ist hier neutralisiert (Abschnitt 6). Die halbtransparente
+   Basisfuellung (weiss auf rgba(...,.3)) laege auf Weiss bei ~1.3:1.
+   Primary-Muster aus Kap. 19.9: Sandflaeche, schwarzer Text (13.9:1),
+   Hover schwarz auf weiss (21:1). Spezifitaet: homepage.css setzt
+   .repository-action-button (0,1,0) und :hover (0,2,0) plain und laedt
+   SPAETER — deshalb button.-Praefix: (0,1,1) bzw. (0,2,1). */
+button.repository-action-button {
+  border: 1px solid;
+  border-color: var(--hsbi-sand);
+  color: var(--hsbi-black);
+  padding: 4px 16px;
+  background-color: var(--hsbi-sand);
+  border-radius: 0;
+  font-size: var(--hsbi-fs-m);
+  font-weight: 300;
+  font-family: var(--hsbi-font-sans) !important;
+}
+button.repository-action-button:hover,
+button.repository-action-button:focus {
+  cursor: pointer;
+  background-color: var(--hsbi-black);
+  border-color: var(--hsbi-black);
+  color: var(--hsbi-white);
+}
+
+/* Question-mark-Tooltip-Icons (zwei parallele Implementierungen im
+   Bestand). Schwarz statt Akzentfarbe — Sand haette auf Weiss 1.51:1. */
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--hsbi-black) !important;
+}
+span.glyphicon-question-sign.tooltip-icon:hover {
+  color: var(--hsbi-white) !important;
+  background-color: var(--hsbi-black) !important;
+  border: 1px solid var(--hsbi-black) !important;
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign {
+  cursor: pointer;
+  color: var(--hsbi-white);
+  background-color: var(--hsbi-black) !important;
+  border: 1px solid var(--hsbi-black);
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign:hover {
+  color: var(--hsbi-sand);
+  border: 1px solid var(--hsbi-black);
+  border-radius: 50%;
+  padding: 0px;
+}
+
+/* Feedback-Tab (a.btn-feedback in #feedbackTab): eigener Orange-Grund
+   #c55b28 aus dem Bestand (structure.css, nicht diese Datei). Die globale
+   Link-Regel faerbte das Label grau-auf-orange (~2.6:1). Weiss = 4.8:1
+   (AA); (0,1,1)+!important schlaegt (0,0,1). */
+a.btn-feedback {
+  color: var(--hsbi-white) !important;
+}
+
+/* ===========================================================================
+   5. Statistik-Fussleiste
+   Sandflaeche mit schwarzem Text (13.9:1) — die einzige grosse
+   Akzentflaeche der Seite, genau der "vollflaechige" Einsatz aus
+   Kap. 19.5. Die Basis setzt hier color:black auf .stat-number/.stat-text,
+   das passt bereits; explizit gesetzt, damit ein Basis-Update es nicht
+   unbemerkt auf Weiss zieht (waere 1.51:1).
+   ========================================================================== */
+.statistics-footer {
+  width: 100%;
+  position: relative;
+  left: 0;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: var(--hsbi-sand) !important;
+  color: var(--hsbi-black) !important;
+  border-top: 2px solid var(--hsbi-black);
+}
+.statistics-footer a, .statistics-footer a:visited {
+  color: var(--hsbi-hover-dark) !important;                /* 5.38:1 auf Sand */
+  text-decoration: underline;
+}
+.stat-number, .statistics-footer .stat-text {
+  color: var(--hsbi-black) !important;
+  /* Audit /at/hsbi: .stat-number loeste auf Roboto-Regular auf. Der
+     .stat-text-Block weiter oben deckte nur die Beschriftung ab, nicht die
+     Zahl — die grosse Zahl stand als einziges Element der Fussleiste in der
+     Fremdschrift. */
+  font-family: var(--hsbi-font-sans) !important;
+}
+
+/* ===========================================================================
+   6. Hero — hsbi-scoped Abweichungen (Muster fh-muenster/th-koeln).
+   Wirken nur auf Seiten, die diese Datei laden.
+
+   a) Overlay neutralisieren: homepage.css legt zwei dunkle 40-%-Gradienten
+      (.repository-header-overlay, plain, 0,1,0) zwischen Hintergrundbild
+      und Text — gedacht fuer Foto-Heros mit weisser Schrift. hsbi-bg.svg
+      ist eine helle gestaltete Flaeche mit schwarzer Schrift; das Overlay
+      wuerde die weisse Ruhezone verschmutzen und den Kontrast von 21:1
+      auf ~7:1 druecken. Der ID-Elternselektor (1,1,0) schlaegt die
+      spaeter geladene plain-Regel ohne !important.
+   b) Textblock auf 52 % begrenzen: homepage.css setzt 80 %. Der Text sitzt
+      links auf der weissen Ruhezone (Sandflaechen ab x=1300 von 2400,
+      also 54 %); der Titel soll dort umbrechen statt nach rechts zu
+      laufen. (0,2,0) schlaegt (0,1,0) ohne !important.
+   ========================================================================== */
+#repository-header .repository-header-overlay {
+  background: none;
+}
+.repository-header-content .repository-info-block {
+  width: 52%;
+}
+/* c) Unter 600px (der Mobile-Breakpoint der homepage.css) zeigt der Crop
+      praktisch nur noch die Ruhezone — die 52-%-Grenze hat dort keine
+      Kontrastfunktion mehr und wuergt den Text in eine schmale Spalte.
+      Zurueck auf die 80 % der Basis; gleiche Spezifitaet wie die Regel
+      darueber, aber spaeter in DIESER Datei -> gewinnt den internen
+      Source-Order-Tie. */
+@media (max-width: 600px) {
+  .repository-header-content .repository-info-block {
+    width: 80%;
+  }
+}
+
+/* ===========================================================================
+   7. Logo
+   Ausgeliefert wird logo.png = die Wort-Bild-Marke OHNE den zweizeiligen
+   Untertitel, freigestellt aus HSBI_Logo_RGB_schwarz.svg (Schnitt bei
+   x=754 von 1181; der Untertitelblock beginnt bei x=844). Ergebnis
+   754x242 = 3.12:1 — praktisch das Seitenverhaeltnis der CD-eigenen
+   Schmalviewport-Variante aus Kap. 19.4 (154x50 = 3.08:1). Der volle
+   Lockup (4.88:1) haette bei navbar-tauglicher Breite einen Untertitel
+   von ~5px Zeilenhoehe; Kap. 1.5 fordert mindestens 30 % Logogroesse fuer
+   Lesbarkeit. Das Logo wird laut Kap. 3.1/3.4 NICHT eingefaerbt — deshalb
+   hier keine filter-/color-Regel, nur Groesse.
+   130px Breite -> ~42px Hoehe. Gegen die reale Navbar-Hoehe im Preview
+   gegenpruefen und ggf. nachziehen.
+   Hintergrund laeuft ueber das CSV-background-Feld (hsbi-bg.svg), NICHT
+   ueber eine CSS-Hero-Regel — sonst zwei Mechanismen fuers selbe Element.
+   ========================================================================== */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+img.header_logo[src*="/at/hsbi/img/logo.png"] {
+  height: auto !important;
+  max-height: none !important;
+  width: 130px !important;
+  max-width: none !important;
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* ===========================================================================
+   8. Chrome / strukturelle Uebernahme (nicht CD-bezogen, unveraendert aus
+   der Referenz — reine Layout-/Funktionsregeln ohne Farb-/Font-Konflikt).
+   ========================================================================== */
+.glyphicon {
+  font-size: 20px;
+}
+.text-danger {
+  font-size: var(--hsbi-fs-xxs) !important;
+  color: #a4262c;                   /* Fehlerfarbe: funktional, nicht CD */
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+  line-height: 18px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  color: var(--hsbi-black);
+  font-weight: 700;
+  border: 0px none;
+}
+
+/* ===========================================================================
+   9. Global
+   ========================================================================== */
+body {
+  background-color: var(--hsbi-white) !important;
+  box-sizing: border-box;
+  font-family: var(--hsbi-font-sans) !important;
+  font-size: var(--hsbi-fs-s);
+  color: var(--hsbi-black) !important;
+}

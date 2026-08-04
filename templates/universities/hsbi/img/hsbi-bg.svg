@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  HSBI Hero-Hintergrund, Rebuild nach CD-Manual 2023-04.
+
+  ACHTUNG beim Editieren: XML verbietet zwei aufeinanderfolgende Bindestriche
+  innerhalb eines Kommentars. Trennlinien deshalb aus "=", nicht aus "-".
+  Eine SVG mit solchen Linien ist nicht wohlgeformt, laedt als CSS-Background
+  gar nicht, und der Hero faellt auf seinen dunklen Grund zurueck: schwarzer
+  Text auf schwarzer Flaeche, 1:1. Genau so einmal passiert, im Audit-Lauf
+  vom Pixelkontrast-Check aufgedeckt. onboard-proxy.py prueft das jetzt beim
+  Ausliefern und meldet es als FEHLER.
+
+  ===========================================================================
+  BELEGLAGE: was aus dem CD kommt, was Ableitung ist
+  ===========================================================================
+  Belegt:
+    Kap. 7.1  Bildraster, 12 Spalten. Textraster vertikal 24 Spalten.
+    Kap. 7.2  Versatzprinzip: "Innerhalb des Bildrasters koennen Grafiken
+              und Bilder im Versatz angeordnet werden. Das Versatzprinzip
+              ist aus dem Logo abgeleitet und bildet das Corporate Design
+              System."
+    Kap. 19.5 Web-Farbspektrum: Schwarz, Weiss, HSBI Sand #d7d2c3.
+              "Die Anwendung der Akzentfarbe erfolgt in der Regel
+              vollflaechig, ohne Farbverlaeufe."
+    Kap. 19.7 hoher Weissanteil, wenig farbige Hintergrundflaechen.
+    Angewandtes Beispiel: die Kapitel-Trennseiten des Manuals selbst
+    (etwa S. 105 "G. Digitale Medien / 19.0 Website") benutzen genau
+    dieses Idiom, dort in Blau: mehrere Vertikalflaechen unterschiedlicher
+    Hoehe, eine grosse dazwischen, oben bzw. unten angeschnitten.
+
+  Ableitung (nicht woertlich im CD):
+    Kapitel 19 zeigt fuer die Website KEIN Flaechenmuster, sondern
+    Reportagefotografie (Buehnenbild 2:1). Dieses Motiv ist ein Ersatz,
+    solange kein Bildmaterial vorliegt. Es kombiniert das Versatzprinzip
+    aus Kap. 7.2 mit dem auf Sand reduzierten Web-Spektrum aus Kap. 19.5.
+    Beide Bausteine sind belegt, ihre Kombination ist es nicht.
+    Steht als expliziter Freigabepunkt im Design-Profil, Abschnitt 8.
+
+  ===========================================================================
+  RHYTHMUS: gerichtet, nicht gespiegelt
+  ===========================================================================
+  Die Verankerung wechselt streng: unten, oben, unten, oben. Das ist der
+  gerichtete Versprung aus dem "I" der Wort-Bild-Marke (oberer Balken nach
+  rechts versetzt, unterer nach links) und NICHT symmetrisch.
+
+  Eine Zwischenfassung war low / high / low, also gespiegelt um die grosse
+  Flaeche. Das las sich als Klammer oder Rahmen und nahm dem Versatz seine
+  Richtung. Verworfen.
+
+  Die grosse Flaeche steht am Ende und blutet ueber den rechten Rand aus.
+  Das ist Absicht und entspricht den Trennseiten des Manuals, wo Flaechen
+  vom Seitenrand angeschnitten werden. Praktischer Nebeneffekt: ein
+  Bleed-Element vertraegt Beschnitt, ohne dass etwas "fehlt" wirkt.
+
+  ===========================================================================
+  GEOMETRIE: 2400 x 1000 = 2.40:1
+  ===========================================================================
+  Der Hero rendert 1440 x 600 = 2.40:1 (im Playwright-Audit gemessen:
+  .repository-title bei y=497, .repository-description bis y=585, Navbar
+  ca. 70px, Hero-Unterkante ca. 712). Bei gleichem Seitenverhaeltnis
+  beschneidet `background-size: cover` auf der Desktop-Referenzbreite gar
+  nicht.
+
+  Nicht von th-koeln uebernehmen: dort ist das Motiv 3.75:1, weil ein
+  anderes Problem geloest wurde (breite ruhige Zone erhalten). Cover
+  skalierte diese Fassung hier auf Hoehe 600, also 2250 Breite, und schnitt
+  auf 1440 zurecht. 36 % der Breite fielen weg, genau die aeusseren Balken.
+
+  Beschnitt bei abweichenden Breiten, Hero-Hoehe konstant 600:
+
+    1440 (2.40:1)  kein Beschnitt. A, B, C vollstaendig, Block bis zum Rand.
+    1280 (2.13:1)  seitlich je 80px, Bildbereich x 133 bis 2267.
+                   A, B, C vollstaendig, Block ab x=2000 sichtbar (267 von
+                   400 px) und weiterhin als grosse Randflaeche lesbar.
+    1024 (1.71:1)  seitlich je 208px, Bildbereich x 347 bis 2053.
+                   A, B, C vollstaendig, Block nur noch als Randstreifen.
+                   Akzeptiert: die drei Balken tragen den Rhythmus allein.
+    1920 (3.20:1)  vertikal je 100px, Bildbereich y 125 bis 875. Jede
+                   Flaeche behaelt ihr verankertes Ende: die unten
+                   verankerten beginnen bei y=200 (sichtbar), die oben
+                   verankerten enden bei y=800 (sichtbar). Der Versatz
+                   bleibt lesbar.
+
+  preserveAspectRatio wirkt unter `background-size: cover` NICHT (bei
+  th-koeln gemessen), den Ausschnitt bestimmt allein die CSS-Position. Das
+  Attribut steht nur fuer den Fall, dass die Datei als <img> oder <object>
+  eingebunden wird.
+
+  ===========================================================================
+  RASTER
+  ===========================================================================
+  2400 / 12 = 200 pro Spalte, Halbspalte 100. Jede Kante liegt auf einer
+  Halbspaltenlinie, es gibt keine frei gewaehlten Modulbreiten mehr.
+
+    Ruhezone  0    bis 1400   Spalten 1 bis 7 (58.3 %), bleibt weiss
+    A         1400 bis 1500   Spalte 8, linke Haelfte    unten verankert
+    Fuge      1500 bis 1600
+    B         1600 bis 1700   Spalte 9, linke Haelfte    oben verankert
+    Fuge      1700 bis 1800
+    C         1800 bis 1900   Spalte 10, linke Haelfte   unten verankert
+    Fuge      1900 bis 2000
+    Block     2000 bis 2400   Spalten 11 und 12, voll    oben verankert
+
+  Vertikal: unten verankert y 200 bis 1000, oben verankert y 0 bis 800.
+  Das sind die Zwanzigstel 4 und 16 des 24er-Textrasters, gerundet auf die
+  naechste Zehnerlinie.
+
+  Der Hero-Textblock ist per main.css Abschnitt 6b auf 52 % der
+  Containerbreite begrenzt, endet bei 1440 also bei Bildschirm-x 749 =
+  Bild-x 1248, mit rund 150 Bild-px Abstand zu A. Hero-Text steht in
+  Schwarz: 21:1 auf Weiss, 13.9:1 falls ein Crop Sand nach links schoebe.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1000"
+     width="2400" height="1000" preserveAspectRatio="xMidYMid slice"
+     role="img" aria-label="HSBI Versatzflaechen">
+  <title>HSBI Versatzprinzip</title>
+
+  <!-- Grundflaeche: Weiss (CD 19.5 Primaerhintergrund) -->
+  <rect x="0" y="0" width="2400" height="1000" fill="#ffffff"/>
+
+  <!-- Akzentflaechen, vollflaechig HSBI Sand, ohne Verlauf.
+       Verankerung wechselt: unten, oben, unten, oben. -->
+  <g fill="#d7d2c3">
+    <rect x="1400" y="200" width="100" height="800"/>
+    <rect x="1600" y="0"   width="100" height="800"/>
+    <rect x="1800" y="200" width="100" height="800"/>
+    <rect x="2000" y="0"   width="400" height="800"/>
+  </g>
+</svg>

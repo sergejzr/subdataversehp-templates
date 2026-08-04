@@ -3,7 +3,7 @@ Uni Münster,https://www.uni-muenster.de/,,uni-muenster,1,,,,,,https://zividptes
 Uni Wuppertal,https://www.uni-wuppertal.de/,,uni-wuppertal,1,,,,,,https://idp-test.uni-wuppertal.de/idp/shibboleth,
 Fachhochschule Münster,https://www.fh-muenster.de/,,fh-muenster,1,/at/fh-muenster/img/logo.png,/at/fh-muenster/img/fhm-bg.svg,/at/fh-muenster/css/main.css,/at/fh-muenster/js/main.js,,https://idp-test.fh-muenster.de/idp/shibboleth,
 Uni Bielefeld,https://www.uni-bielefeld.de/,,uni-bielefeld,1,,,,,,https://shibboleth-test.uni-bielefeld.de/idp/shibboleth,
-Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,1,,,,,,,
+Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,1,/at/hsbi/img/logo.png,/at/hsbi/img/hsbi-bg.svg,/at/hsbi/css/main.css,/at/hsbi/js/main.js,,,/at/hsbi/img/favicon-64.png
 Hochschule Rhein Waal,https://www.hochschule-rhein-waal.de/,,hochschule-rhein-waal,1,,,,,,,
 Hochschule Bochum,https://www.hochschule-bochum.de/,,hs-bochum,1,,,,,,https://idp0.hs-bochum.de/idp/shibboleth,
 Fachhochschule Südwestfalen,https://www.fh-swf.de/,,fh-swf,1,,,,,,https://idp-devel02.fh-swf.de/idp/shibboleth,
