@@ -293,13 +293,11 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-radius: 0 !important;                             /* CD kennt keine Rundungen */
   padding: 15px 0;
 }
-#custom-header {
-  width: 100%;
-  min-height: 30px;
-  text-align: center;
-  color: var(--hsbi-black);
-  background: transparent !important;
-}
+/* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
+   instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
+   /csslibs/custom-stylesheet.css, dvmode-gegated im Ansible-Repo).
+   Ein per-Uni "background: transparent !important" wuerde gewinnen
+   (main.css laedt spaeter) und das Ribbon aushoehlen — nicht neu anlegen. */
 
 /* Buttons — woertlich Kap. 19.9.
      Primary   Hintergrund #d7d2c3, Rahmen #d7d2c3, Text #000000

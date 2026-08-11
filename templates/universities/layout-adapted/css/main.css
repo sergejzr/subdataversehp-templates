@@ -189,13 +189,11 @@ a.dataverseHeaderName
    CUSTOM HEADER
 ================================ */
 
-#custom-header {
-    width: 100%;
-    min-height: 30px;
-    background-color: #14f5b3;
-    color: white;
-    text-align: center;
-}
+/* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
+   instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
+   /csslibs/custom-stylesheet.css, dvmode-gegated im Ansible-Repo).
+   Ein per-Uni "background: transparent !important" wuerde gewinnen
+   (main.css laedt spaeter) und das Ribbon aushoehlen — nicht neu anlegen. */
 
 
 /* ================================
