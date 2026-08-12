@@ -1,0 +1,332 @@
+/* ===========================================================================
+   FERNUNIVERSITAET IN HAGEN — main.css
+   CD-Quelle: design-profil-fernuni-hagen.md (Farb-/Schriftliste des Kontakts)
+
+   Ladereihenfolge (identisch zu Uni Koeln, siehe dortigen Header):
+   PrimeFaces/Bootstrap -> custom-stylesheet.css -> DIESE DATEI (<head>)
+   -> homepage.css (<body>, laedt SPAETER und gewinnt bei Gleichstand,
+   auch !important vs. !important). Daher hier !important und, wo
+   homepage.css selbst !important nutzt, hoehere Spezifitaet.
+
+   Selektorliste uebernommen aus dem Q7-Mapping (uni-koeln/main.css), damit
+   die Theming-Abdeckung Landing + native Views gleich bleibt.
+
+   Unterschiede zur Koelner Datei, bewusst:
+   - KEIN text-transform: uppercase (Koeln-CD fordert Versalien, Hagen nicht).
+   - Nur eine Akzentfamilie (drei Blautoene), kein zweiter Kontrastton
+     (kein Aequivalent zu Koral).
+   - Fonts kommen instanzweit aus /fonts/Roboto/
+     (TTF, Apache 2.0) statt aus einem uni-eigenen css/fonts/-Ordner.
+   ========================================================================== */
+
+/* ===========================================================================
+   1. Custom Properties
+   --fuh-blue-light ist DEKO-ONLY: 3.20:1 auf Weiss, faellt fuer normalen
+   Text durch WCAG AA. Nur Flaeche, Border, Trennlinie.
+   ========================================================================== */
+:root {
+  --fuh-blue:       #004C97;  /* 8.47:1 auf Weiss — AAA, fliesstexttauglich */
+  --fuh-blue-mid:   #2F6DAA;  /* 5.40:1 auf Weiss — AA                      */
+  --fuh-blue-light: #6694C1;  /* 3.20:1 — NUR Flaeche/Border                */
+  --fuh-ink:        #454545;  /* 9.59:1 — Fliesstext                        */
+  --fuh-muted:      #666666;  /* 5.74:1 — Meta/Captions                     */
+  --fuh-surface:    #F5F5F5;  /* Panel-Flaeche                              */
+  --fuh-font-sans:  "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ===========================================================================
+   2. Fonts — Dataverse-eigenes Roboto (kein Google-@import! DSGVO)
+
+   Quelle: /fonts/Roboto/ — das von Dataverse selbst mitgelieferte Roboto
+   (v2.137, Apache 2.0, Copyright Google Inc.). Empirisch verifiziert am
+   2026-08-12, alle drei genutzten Schnitte per GET gemessen:
+   Regular 168260, Bold 167336, Black 168060 Byte, je TrueType.
+
+   NICHT /at/webcontent/pagedata/fonts/Roboto/ verwenden. Der Pfad existiert
+   und antwortet mit 200 + Content-Type font/ttf, liefert aber einen
+   LEEREN Body (size_download=0). Ursache: im Generator-Repo sind 2166 von
+   2175 Dateien unter templates/assets/ leere Blobs (kein git-lfs), und der
+   Build kopiert die leeren Dateien unveraendert aus. Ein HEAD auf diesen
+   Pfad meldet trotzdem eine plausible Content-Length -- nicht darauf
+   verlassen, immer per GET die tatsaechlich empfangenen Bytes messen.
+   (Gleicher Defekt trifft uni-siegen, das diesen Pfad referenziert.)
+
+   Abweichung zum Hausmuster: uni-koeln/th-koeln/h-brs self-hosten uni-eigen
+   unter <uni>/css/fonts/. Hier nicht noetig, weil die Schrift ohnehin auf
+   der Instanz liegt -- spart 3 Binaerdateien im Repo, bleibt DSGVO-konform
+   (gleiche Origin), und die Apache-Attribution traegt Dataverse.
+   ========================================================================== */
+@font-face {
+  font-family: "Roboto"; font-style: normal; font-weight: 400;
+  font-display: swap;
+  src: local("Roboto"),
+       url("/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Roboto"; font-style: normal; font-weight: 700;
+  font-display: swap;
+  src: local("Roboto Bold"),
+       url("/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+}
+@font-face {                                /* Display-Schnitt laut CD */
+  font-family: "Roboto"; font-style: normal; font-weight: 900;
+  font-display: swap;
+  src: local("Roboto Black"),
+       url("/fonts/Roboto/Roboto-Black.ttf") format("truetype");
+}
+
+/* ===========================================================================
+   3. Typografie
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--fuh-font-sans) !important;
+  font-weight: 700 !important;
+  line-height: 1.2;
+  color: var(--fuh-blue) !important;
+}
+.repository-title {                          /* Landing-Haupttitel: Black */
+  word-wrap: break-word;
+  font-family: var(--fuh-font-sans) !important;
+  font-weight: 900 !important;
+  font-size: 36pt;
+  line-height: 1.1;
+  color: var(--fuh-blue) !important;
+}
+.section-heading {
+  font-family: var(--fuh-font-sans) !important;
+  font-weight: 700 !important;
+  color: var(--fuh-blue) !important;
+}
+a, a:visited { color: var(--fuh-blue) !important; }
+a:hover, a:focus {
+  color: var(--fuh-blue-mid) !important;
+  text-decoration-color: var(--fuh-blue-mid) !important;
+}
+.navbar-nav > li > a:hover { color: #333333; }
+
+/* Logout-Link: Hover/Fokus-Hinweis in CD-Blau, weisse Schrift (8.47:1).
+   Attribut-Selektor wegen dynamischem JSF-Formular-Praefix; !important,
+   weil sonst `a{color:...!important}` und `.navbar-nav > li > a:hover`
+   gewinnen. */
+[id$=":lnk_header_logout"]:hover,
+[id$=":lnk_header_logout"]:focus {
+  background-color: var(--fuh-blue) !important;
+  color: #fff !important;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.caroussel_title {
+  font-family: var(--fuh-font-sans) !important;
+  font-weight: 700 !important;
+  color: var(--fuh-blue) !important;
+}
+.stat-text {
+  font-family: var(--fuh-font-sans) !important;
+  color: var(--fuh-ink) !important;
+}
+.login-prompt {
+  font-family: var(--fuh-font-sans) !important;
+  color: var(--fuh-ink) !important;
+}
+.interactive-list {
+  font-family: var(--fuh-font-sans) !important;
+  color: var(--fuh-ink) !important;
+}
+.news-title,
+.repository-title2,
+.repository-small-title {
+  font-family: var(--fuh-font-sans) !important;
+  font-weight: 700 !important;
+  color: var(--fuh-blue) !important;
+}
+.repository-description {
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--fuh-font-sans) !important;
+}
+.dataverse-item-title {
+  font-family: var(--fuh-font-sans) !important;
+}
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--fuh-font-sans) !important;
+  color: var(--fuh-muted) !important;
+}
+
+/* ===========================================================================
+   4. Color-as-fill — Akzentflaechen, Linien, Chrome
+   Regel: --fuh-blue-light nur als Flaeche/Border. Text auf blauer Flaeche
+   immer #fff (Weiss auf --fuh-blue = 8.47:1).
+   ========================================================================== */
+/* #custom-header: BEWUSST KEINE Regel. Das 30px-Band bei y=0 traegt
+   instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER, in
+   /csslibs/custom-stylesheet.css, dvmode-gegated im Ansible-Repo).
+   Die Ribbon-Regeln nutzen den Selektor "html body #custom-header" (0,1,2),
+   damit eine Per-Uni-Regel "#custom-header { ... !important }" (0,1,0) sie
+   NICHT aushoehlt. Hier trotzdem nichts anlegen -- gleiche Entscheidung wie
+   bei uni-koeln (Regel dort am 2026-08-05 entfernt). */
+
+.navbar-default {
+  border-bottom: 3px solid var(--fuh-blue) !important;
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--fuh-blue) !important;
+}
+.bg-citation {
+  background-color: var(--fuh-surface) !important;
+  border-left: 4px solid var(--fuh-blue-light) !important;
+  color: #000 !important;
+}
+.icon-dataset {
+  color: var(--fuh-blue) !important;
+}
+#search-row-panel {
+  border: 1px solid var(--fuh-blue) !important;
+}
+
+.btn-primary {
+  background-color: var(--fuh-blue) !important;
+  border-color: var(--fuh-blue) !important;
+  color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: var(--fuh-blue-mid) !important;
+  border-color: var(--fuh-blue-mid) !important;
+  color: #fff !important;
+}
+
+button.btn-default, a.btn-default {
+  background-color: #fff !important;
+  border-color: var(--fuh-blue) !important;
+  color: var(--fuh-blue) !important;
+  font-family: var(--fuh-font-sans) !important;
+}
+button.btn-default:hover, a.btn-default:hover {
+  background-color: var(--fuh-blue) !important;
+  border-color: var(--fuh-blue) !important;
+  color: #fff !important;
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  font-family: var(--fuh-font-sans) !important;
+}
+.input-group-btn > button.btn-default {
+  border-color: var(--fuh-blue) !important;
+}
+
+.btn-contact, .btn-share {
+  border-color: var(--fuh-blue) !important;
+  color: var(--fuh-blue) !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--fuh-blue) !important;
+  color: #fff !important;
+}
+.repository-action-button {
+  background-color: var(--fuh-blue) !important;
+  border-color: var(--fuh-blue) !important;
+  color: #fff !important;
+}
+
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--fuh-blue) !important;
+}
+span.glyphicon-question-sign.tooltip-icon:hover {
+  border-color: var(--fuh-blue-mid) !important;
+  color: var(--fuh-blue-mid) !important;
+}
+.customNavigation .glyphicon-question-sign {
+  color: var(--fuh-blue) !important;
+  border-color: var(--fuh-blue) !important;
+}
+.customNavigation .glyphicon-question-sign:hover {
+  color: var(--fuh-blue-mid) !important;
+  border-color: var(--fuh-blue-mid) !important;
+}
+
+/* ===========================================================================
+   5. Statistik-Fussleiste
+   Weiss auf --fuh-blue = 8.47:1 (AAA).
+   ========================================================================== */
+.statistics-footer {
+  background-color: var(--fuh-blue) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited {
+  color: #fff !important;
+  text-decoration: underline;
+}
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+}
+
+/* ===========================================================================
+   6. Hero (Muster th-koeln/fh-muenster, dort als bewusste Abweichung
+   dokumentiert; wirkt nur auf Seiten mit dieser Datei).
+
+   Overlay neutralisieren: homepage.css legt zwei dunkle 40%-Gradienten
+   (.repository-header-overlay, plain, Spezifitaet 0,1,0) zwischen
+   Hintergrundbild und Text -- gedacht fuer Foto-Heros mit weisser Schrift.
+   img/background.svg ist eine helle Flaeche mit dunkelblauer Schrift; das
+   Overlay wuerde sie vergrauen und den Titelkontrast unter die gemessenen
+   8.47:1 druecken. Der ID-Elternselektor (1,1,0) schlaegt die spaeter
+   geladene plain-Regel ohne !important.
+   ========================================================================== */
+#repository-header .repository-header-overlay {
+  background: none;
+}
+
+/* ===========================================================================
+   6. Logo
+   img/logo.svg: offizielle Wortmarke, Adobe-Illustrator-Export, 357x67px
+   (Seitenverhaeltnis 5.33:1), reine Pfade (kein <text> -> keine
+   Font-Abhaengigkeit), Fuellfarbe durchgaengig #004C97 = CD Blau 1, RGB
+   (kein CMYK). Laeuft unveraendert durch: svg_manipulator.py fasst nur
+   assets/pagedata/DP.svg an, keine Uni-Logos.
+
+   Kein Negativ-Logo vorhanden -> auf dunklen Flaechen (z.B. dem Hero, falls
+   ein dunkles Motiv gewaehlt wird) waere es nicht lesbar. Siehe §4/§7.5 im
+   Design-Profil.
+
+   Breite 320px -> ca. 60px Hoehe. Nach der ersten Sichtpruefung anpassen
+   (Referenz: uni-koeln 350px).
+   ========================================================================== */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+img.header_logo[src*="/at/fernuni-hagen/img/logo.svg"] {
+  height: auto !important;
+  max-height: none !important;
+  width: 320px !important;
+  max-width: none !important;
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* ===========================================================================
+   7. Chrome / strukturelle Uebernahme (nicht CD-bezogen)
+   ========================================================================== */
+.glyphicon {
+  font-size: 20px;
+}
+.text-danger {
+  font-size: 12px !important;
+  color: #ea1713;
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+  line-height: 18px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  color: #000000;
+  font-weight: bold;
+  border: 0px none;
+}
+
+/* ===========================================================================
+   8. Global
+   ========================================================================== */
+body {
+  background-color: #fff !important;
+  box-sizing: border-box;
+  font-family: var(--fuh-font-sans) !important;
+  color: var(--fuh-ink) !important;
+}

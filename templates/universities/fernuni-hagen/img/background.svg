@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 640" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="FernUniversitaet in Hagen - Bogenmotiv in den CD-Blautoenen">
+<defs>
+<linearGradient id="ground" x1="0" y1="0" x2="1" y2="0.35"><stop offset="0" stop-color="#ffffff"/><stop offset="0.55" stop-color="#f7f8fa"/><stop offset="1" stop-color="#eceff3"/></linearGradient>
+<linearGradient id="fade" gradientUnits="userSpaceOnUse" x1="1150" y1="0" x2="1900" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity="1"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+<mask id="softleft"><rect width="2400" height="640" fill="#fff"/><rect width="2400" height="640" fill="url(#fade)"/></mask>
+</defs>
+<rect width="2400" height="640" fill="url(#ground)"/>
+<g mask="url(#softleft)" fill="none" stroke-linecap="round">
+<circle cx="2080" cy="320" r="240" stroke="#004C97" stroke-width="3" opacity="0.85"/>
+<circle cx="2080" cy="320" r="380" stroke="#2F6DAA" stroke-width="3" opacity="0.7"/>
+<circle cx="2080" cy="320" r="530" stroke="#6694C1" stroke-width="3" opacity="0.6"/>
+<circle cx="2080" cy="320" r="690" stroke="#6694C1" stroke-width="2.5" opacity="0.45"/>
+<circle cx="2080" cy="320" r="860" stroke="#6694C1" stroke-width="2.5" opacity="0.3"/>
+<circle cx="2080" cy="320" r="1040" stroke="#6694C1" stroke-width="2" opacity="0.2"/>
+</g>
+<circle cx="2080" cy="320" r="13" fill="#004C97"/>
+</svg>
