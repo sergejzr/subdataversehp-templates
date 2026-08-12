@@ -143,6 +143,12 @@ a:hover, a:focus {
   min-width: 0;
   max-width: 100%;
   font-family: var(--fuh-font-sans) !important;
+  /* homepage.css setzt hier #FFFFFF (plain) -- gedacht fuer Foto-Heros mit
+     dunklem Overlay. Unser Hero ist eine helle Flaeche und das Overlay ist
+     in §6 neutralisiert: ohne diese Regel steht der Text weiss auf weiss.
+     --fuh-ink auf #f7f8fa = 9.2:1 (AAA). Muster th-koeln/fh-muenster/hsbi,
+     die alle dieselbe Regel setzen. */
+  color: var(--fuh-ink) !important;
 }
 .dataverse-item-title {
   font-family: var(--fuh-font-sans) !important;
