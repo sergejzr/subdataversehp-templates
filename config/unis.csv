@@ -1,6 +1,6 @@
 Name,homepage,repourl,label,enabled,logo,background,css,js,txt,shib_entityid,favicon
 Uni Münster,https://www.uni-muenster.de/,,uni-muenster,1,,,,,,https://zividptest.uni-muenster.de/idp/shibboleth,
-Uni Wuppertal,https://www.uni-wuppertal.de/,,uni-wuppertal,1,,,,,,https://idp-test.uni-wuppertal.de/idp/shibboleth,
+Uni Wuppertal,https://www.uni-wuppertal.de/,,uni-wuppertal,1,/at/uni-wuppertal/img/BUW_Logo-weiss-auf-gruen-rgb.png,/at/uni-wuppertal/img/wuppertal-bg.jpg,/at/uni-wuppertal/css/main.css,,/at/uni-wuppertal/txt/main.txt,https://idp-test.uni-wuppertal.de/idp/shibboleth,
 Fachhochschule Münster,https://www.fh-muenster.de/,,fh-muenster,1,/at/fh-muenster/img/logo.png,/at/fh-muenster/img/fhm-bg.svg,/at/fh-muenster/css/main.css,/at/fh-muenster/js/main.js,,https://idp-test.fh-muenster.de/idp/shibboleth,
 Uni Bielefeld,https://www.uni-bielefeld.de/,,uni-bielefeld,1,,,,,,https://shibboleth-test.uni-bielefeld.de/idp/shibboleth,
 Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,1,/at/hsbi/img/logo.png,/at/hsbi/img/hsbi-bg.svg,/at/hsbi/css/main.css,/at/hsbi/js/main.js,,,/at/hsbi/img/favicon-64.png
