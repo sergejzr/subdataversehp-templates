@@ -332,20 +332,49 @@ span.glyphicon-question-sign.tooltip-icon:hover {
    The hero background (circle motif) runs through the CSV background column
    -> /at/h-brs/img/hero-circles.svg. NO CSS hero rule here — one mechanism
    per element (Koeln precedent).
-   custom-stylesheet.css caps .header_logo at max-width 200px/height 45px;
-   overridden below. Width 350px: logo-700w.png is exactly 2x at 350px
-   (integer downscale keeps the circle edges crisp on HiDPI), and it is the
-   proven Koeln width value. At 5.56:1 that renders ~63px tall.
-   Clear space (CD): one circle diameter (~63px at this size) — enforced to
-   the right, where navbar items can approach; above/below the navbar band
-   itself provides the separation. */
+   House rule (tooling/visual-audit/logo-hausregel.md §3): both axes stay
+   `auto`, the caps are max-width AND max-height. Whichever binds first
+   binds; the browser keeps the aspect ratio on the other axis (CSS 2.1
+   §10.4). Never pin an axis — it squashes the logo as soon as a cap bites,
+   and object-fit becomes unnecessary. Width binds here: 360px -> ~65px
+   tall, was 350px -> 63px.
+
+   The old 350px rested on TWO arguments; only one of them survives.
+   Dropped: "the proven Koeln width value" — Koeln's logo is 2.2:1, this
+   one 5.56:1, so the same width means a completely different height. §1 of
+   the house rule quotes this very comment as the route by which that value
+   spread. Still true, and now traded away deliberately: at 350px
+   logo-700w.png is an exact 2x downscale and the circle edges stay crisp
+   on HiDPI; at 360px a 2x display resamples 700 source px into 720 device
+   px (1.03x up). Reported, not silently dropped.
+
+   display: block instead of inline removes the baseline gap — only then do
+   margin-top/-bottom center symmetrically (§2). margin 20px = (104 - 65)/2:
+   logo heights may differ between universities, the 104px navbar band may
+   not.
+
+   Both caps must be set explicitly (not `none`): custom-stylesheet.css caps
+   .header_logo at max-width 200px/height 45px — and the same rule adds
+   padding-left: 20px. Together with Bootstrap's `* { box-sizing: border-box }`
+   max-width would cap the BORDER box and the logo would come out 20px too
+   narrow (measured on fh-muenster, 2026-08-20). Hence content-box: the caps
+   apply to the image, the platform's indent survives.
+
+   Clear space (CD): one circle diameter = the logo height, now 65px instead
+   of 63px — enforced to the right, where navbar items can approach;
+   above/below the navbar band itself provides the separation. */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }  /* Koeln precedent: uni logo stands alone on its own landing */
 img.header_logo[src*="/at/h-brs/img/logo-700w.png"] {
-  height: auto !important;
-  max-height: none !important;
-  width: 350px !important;
-  max-width: none !important;
-  margin: 12px 63px 12px 0;
+  display: block !important;
+  box-sizing: content-box !important;  /* caps apply to the image, not to
+                                          the platform's 20px padding */
+  width: auto !important;          /* both auto -> the browser keeps  */
+  height: auto !important;         /* the aspect ratio itself         */
+  max-width: 360px !important;     /* custom-stylesheet.css: 200px    */
+  max-height: 80px !important;     /* custom-stylesheet.css: 45px     */
+  margin-top: 20px !important;     /* (104 - 65) / 2, 104px band      */
+  margin-bottom: 20px !important;
+  margin-right: 65px !important;   /* CD clear space: 1 circle dia.   */
 }
 
 /* ===========================================================================

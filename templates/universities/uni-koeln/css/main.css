@@ -530,13 +530,55 @@ span.glyphicon-question-sign.tooltip-icon:hover {
    Hintergrund (Sphaeren-Motiv) laeuft ueber das CSV-background-Feld
    (= {{background}} im custom-Jinja) -> /at/uni-koeln/img/koeln-sphaeren-bg.svg.
    KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen fuers selbe Element.
+
+   Hausregel (tooling/visual-audit/logo-hausregel.md §3): beide Achsen
+   bleiben `auto`, gedeckelt wird ueber max-width UND max-height. Was
+   zuerst greift, greift; die andere Achse rechnet der Browser
+   verhaeltnistreu nach (CSS 2.1 §10.4). Keine Achse hart setzen — sonst
+   staucht es, sobald der Deckel greift; object-fit wird nicht gebraucht.
+   logo.svg ist 503.97 x 227.24 = 2.218:1. Hier bindet die HOEHE:
+   max-height 80px greift vor der Breite und ergibt ~177px.
+
+   Das ist der groesste Eingriff der ganzen Umstellung: vorher 350px
+   Breite -> 158px Hoehe, das mit Abstand hoechste Logo im Verbund und
+   Faktor 5 gegenueber fh-muensters 31px. Und es ist der Ursprung des
+   Problems: genau dieser Breitenwert wurde nach h-brs und fernuni-hagen
+   weitergereicht, wo er bei 5.56:1 bzw. 5.33:1 eine voellig andere Hoehe
+   bedeutet. §1 der Hausregel zeichnet den Weg nach und zitiert den
+   h-brs-Kommentar ("the proven Koeln width value") als Beleg.
+
+   display: block statt inline — beseitigt die Basislinien-Luecke, erst
+   damit wirken margin-top/-bottom symmetrisch (§2). margin 12px =
+   (104 - 80)/2: die Logohoehen duerfen sich zwischen den Hochschulen
+   unterscheiden, das Kopfband soll ueberall 104px hoch sein.
+
+   Beide Deckel muessen gesetzt werden (nicht `none`), weil
+   custom-stylesheet.css .header_logo auf max-width: 200px / height: 45px
+   zieht — und dieselbe Regel setzt padding-left: 20px. Zusammen mit
+   Bootstraps `* { box-sizing: border-box }` deckelte max-width sonst die
+   BORDER-Box (gemessen an fh-muenster, 2026-08-20). Wie bei th-koeln
+   bindet hier die Hoehe und vertikales Padding gibt es keins, content-box
+   aendert am Ergebnis also nichts — gesetzt, damit alle sechs Dateien
+   dieselbe Vorlage tragen.
+
+   OFFEN: Das CD nennt als Schutzzone die Versalienhoehe des Schriftzugs
+   (design-profil-uni-koeln.md, Abschnitt "Logo"). Ein px-Wert dafuer ist
+   nirgends hinterlegt und wird hier NICHT geraten; §8 der Hausregel
+   fuehrt die Schutzzone nur fuer h-brs als Aufgabe. Gemessen bleiben bis
+   hinunter zu 1024px mindestens 348px bis zum ersten Menuepunkt (548px ab
+   1280px) — mehr als jede plausible Versalienhoehe.
    ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/uni-koeln/img/logo.svg"] {
-  height: auto !important;
-  max-height: none !important;
-  width: 350px !important;
-  max-width: none !important;
+  display: block !important;
+  box-sizing: content-box !important;  /* Deckel gelten dem Bild, nicht
+                                          dem 20px-Padding der Plattform */
+  width: auto !important;          /* beide auto -> Browser haelt das   */
+  height: auto !important;         /* Seitenverhaeltnis selbst ein      */
+  max-width: 360px !important;     /* custom-stylesheet.css: 200px      */
+  max-height: 80px !important;     /* custom-stylesheet.css: 45px       */
+  margin-top: 12px !important;     /* (104 - 80) / 2, Logobox 104px     */
+  margin-bottom: 12px !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 

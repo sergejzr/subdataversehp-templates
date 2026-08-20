@@ -442,17 +442,45 @@ a.btn-feedback {
    Hintergrund (Farbbaender) laeuft ueber das CSV-background-Feld
    (background.svg) — KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen
    fuers selbe Element. Logo: dreizeilige Wortmarke 521x282 px = 1.85:1 —
-   voellig anderes Seitenverhaeltnis als uni-koeln (2.2:1 bei 350px) oder
-   fh-muenster (5.84:1 bei 180px), deren Breiten NICHT uebernehmen.
-   120px Breite -> ~65px Hoehe, gegen die reale Navbar-Hoehe im Preview
-   vermessen (siehe Onboarding-Verifikation).
+   voellig anderes Seitenverhaeltnis als uni-koeln (2.2:1) oder
+   fh-muenster (5.84:1), deren Breiten NICHT uebernehmen.
+
+   Hausregel (tooling/visual-audit/logo-hausregel.md §3): beide Achsen
+   bleiben `auto`, gedeckelt wird ueber max-width UND max-height. Was
+   zuerst greift, greift; die andere Achse rechnet der Browser
+   verhaeltnistreu nach (CSS 2.1 §10.4). Keine Achse hart setzen — sonst
+   staucht es, sobald der Deckel greift; object-fit wird nicht gebraucht.
+   Hier bindet die HOEHE, nicht die Breite: 1.85:1 ist das kompakteste
+   Logo im Verbund, max-height: 80px greift zuerst und ergibt ~148px
+   Breite (vorher 120px -> 65px). Genau dafuer stehen zwei Deckel statt
+   einer gemeinsamen Hoehe: kompakte Logos laufen in die Hoehe, flache in
+   die Breite, und gestaucht wird nichts.
+   display: block statt inline — beseitigt die Basislinien-Luecke, erst
+   damit wirken margin-top/-bottom symmetrisch (§2). margin 12px =
+   (104 - 80)/2: die Logohoehen duerfen sich zwischen den Hochschulen
+   unterscheiden, das Kopfband soll ueberall 104px hoch sein.
+   Beide Deckel muessen gesetzt werden (nicht `none`), weil
+   custom-stylesheet.css .header_logo auf max-width: 200px / height: 45px
+   zieht — und dieselbe Regel setzt padding-left: 20px. Zusammen mit
+   Bootstraps `* { box-sizing: border-box }` deckelt max-width sonst die
+   BORDER-Box, und das Logo kaeme 20px zu schmal heraus (gemessen an
+   fh-muenster, 2026-08-20). Fuer th-koeln aendert content-box am
+   Ergebnis nichts — es bindet die Hoehe, und vertikales Padding gibt es
+   keins. Trotzdem gesetzt, damit alle sechs Dateien dieselbe Vorlage
+   tragen und ein spaeterer Logotausch, bei dem die Breite bindet, nicht
+   stillschweigend 20px verliert.
    ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/th-koeln/img/logo.png"] {
-  height: auto !important;
-  max-height: none !important;
-  width: 120px !important;
-  max-width: none !important;
+  display: block !important;
+  box-sizing: content-box !important;  /* Deckel gelten dem Bild, nicht
+                                          dem 20px-Padding der Plattform */
+  width: auto !important;          /* beide auto -> Browser haelt das   */
+  height: auto !important;         /* Seitenverhaeltnis selbst ein      */
+  max-width: 360px !important;     /* custom-stylesheet.css: 200px      */
+  max-height: 80px !important;     /* custom-stylesheet.css: 45px       */
+  margin-top: 12px !important;     /* (104 - 80) / 2, Logobox 104px     */
+  margin-bottom: 12px !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 

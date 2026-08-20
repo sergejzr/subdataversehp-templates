@@ -381,16 +381,44 @@ span.glyphicon-question-sign.tooltip-icon:hover {
    Hintergrund (Diagonalmuster) laeuft ueber das CSV-background-Feld
    (fhm-bg.svg) — KEINE CSS-Hero-Regel hier, sonst zwei Mechanismen fuers
    selbe Element. Logo: fhm_Logo_Kurz_RGB.png (Original-CD-Dateiname),
-   1174x201 px = 5.84:1 — bei 180px Breite ~31px hoch. NICHT die 350px der
-   Koeln-Vorlage uebernehmen: das Koeln-Logo ist 2.2:1, das FH-Muenster-
-   Wortmarken-Logo wuerde bei gleicher Breite den Header sprengen.
+   1174x201 px = 5.84:1 — das flachste Logo im Verbund.
+
+   Hausregel (tooling/visual-audit/logo-hausregel.md §3): beide Achsen
+   bleiben `auto`, gedeckelt wird ueber max-width UND max-height. Was
+   zuerst greift, greift; die andere Achse rechnet der Browser
+   verhaeltnistreu nach (CSS 2.1 §10.4). Keine Achse hart setzen — sonst
+   staucht es, sobald der Deckel greift; object-fit wird nicht gebraucht.
+   Hier bindet die Breite: 360px -> ~62px hoch. Vorher 180px -> 31px, weit
+   unter Bootstraps .navbar{min-height:50px} — dann bestimmt die Zeilenbox
+   den Abstand und die Restluecke faellt komplett nach unten. Genau das
+   meinte die Rueckmeldung des Kontakts ("Logo etwas nach oben verrueckt");
+   Groesse und Abstand sind derselbe Befund, nicht zwei (§2).
+   NICHT die 350px der Koeln-Vorlage als Hoehe lesen: das Koeln-Logo ist
+   2.2:1 und baut bei gleicher Breite 2.5x hoeher.
+   display: block statt inline — beseitigt die Basislinien-Luecke, erst
+   damit wirken margin-top/-bottom symmetrisch. margin 21px = (104 - 62)/2:
+   die Logohoehen duerfen sich zwischen den Hochschulen unterscheiden, das
+   Kopfband soll ueberall 104px hoch sein.
+   Beide Deckel muessen gesetzt werden (nicht `none`), weil
+   custom-stylesheet.css .header_logo auf max-width: 200px / height: 45px
+   zieht — und dieselbe Regel setzt padding-left: 20px. Zusammen mit
+   Bootstraps `* { box-sizing: border-box }` deckelte max-width damit die
+   BORDER-Box: 360 - 20 = 340px Bild, also 58.2px statt 61.6px hoch und
+   eine Logobox von 100.2px statt 104px (gemessen 2026-08-20). Deshalb
+   content-box: die Deckel gelten dem Bild, das Einrueckungs-Padding der
+   Plattform bleibt erhalten (linke Kante unveraendert bei 170px).
    ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/fh-muenster/img/logo.png"] {
-  height: auto !important;
-  max-height: none !important;
-  width: 180px !important;
-  max-width: none !important;
+  display: block !important;
+  box-sizing: content-box !important;  /* Deckel gelten dem Bild, nicht
+                                          dem 20px-Padding der Plattform */
+  width: auto !important;          /* beide auto -> Browser haelt das   */
+  height: auto !important;         /* Seitenverhaeltnis selbst ein      */
+  max-width: 360px !important;     /* custom-stylesheet.css: 200px      */
+  max-height: 80px !important;     /* custom-stylesheet.css: 45px       */
+  margin-top: 21px !important;     /* (104 - 62) / 2, Logobox 104px     */
+  margin-bottom: 21px !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 

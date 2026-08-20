@@ -308,15 +308,45 @@ span.glyphicon-question-sign.tooltip-icon:hover {
    ein dunkles Motiv gewaehlt wird) waere es nicht lesbar. Siehe §4/§7.5 im
    Design-Profil.
 
-   Breite 320px -> ca. 60px Hoehe. Nach der ersten Sichtpruefung anpassen
-   (Referenz: uni-koeln 350px).
+   Hausregel (tooling/visual-audit/logo-hausregel.md §3): beide Achsen
+   bleiben `auto`, gedeckelt wird ueber max-width UND max-height. Was
+   zuerst greift, greift; die andere Achse rechnet der Browser
+   verhaeltnistreu nach (CSS 2.1 §10.4). Keine Achse hart setzen — sonst
+   staucht es, sobald der Deckel greift; object-fit wird nicht gebraucht.
+   Sonderfall, hier bindet KEIN Deckel: die SVG bringt eine intrinsische
+   Groesse von 357x67px mit und liegt damit knapp unter max-width: 360px.
+   Mit width:auto rendert sie in Naturgroesse 357x67 (gemessen
+   2026-08-20) — die einzige Uni, deren Logodatei schmaler ist als der
+   Deckel. Hausregel §4 fuehrt sie noch als "360x68, es bindet die
+   Breite"; dort zu korrigieren. Vorher 320px -> 60px, ein von uni-koeln
+   uebernommener Breitenwert, der dort eine ganz andere Hoehe meint —
+   Koeln ist 2.2:1, diese Wortmarke 5.33:1.
+   display: block statt inline — beseitigt die Basislinien-Luecke, erst
+   damit wirken margin-top/-bottom symmetrisch (§2). margin 18px steht so
+   in §4; die Logobox misst damit 67 + 36 = 103px. Die Formel aus §3.4
+   ergaebe mit der echten Hoehe (104 - 67)/2 = 18.5px und exakt 104px —
+   bewusst nicht eigenmaechtig gesetzt, das entscheidet §4. Die
+   Logohoehen duerfen sich zwischen den Hochschulen unterscheiden, das
+   Kopfband soll ueberall 104px hoch sein.
+   Beide Deckel muessen gesetzt werden (nicht `none`), weil
+   custom-stylesheet.css .header_logo auf max-width: 200px / height: 45px
+   zieht — und dieselbe Regel setzt padding-left: 20px. Zusammen mit
+   Bootstraps `* { box-sizing: border-box }` deckelte max-width damit die
+   BORDER-Box, das Logo kaeme 20px zu schmal heraus (gemessen an
+   fh-muenster, 2026-08-20). Deshalb content-box: die Deckel gelten dem
+   Bild, das Einrueckungs-Padding der Plattform bleibt erhalten.
    ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/fernuni-hagen/img/logo.svg"] {
-  height: auto !important;
-  max-height: none !important;
-  width: 320px !important;
-  max-width: none !important;
+  display: block !important;
+  box-sizing: content-box !important;  /* Deckel gelten dem Bild, nicht
+                                          dem 20px-Padding der Plattform */
+  width: auto !important;          /* beide auto -> Browser haelt das   */
+  height: auto !important;         /* Seitenverhaeltnis selbst ein      */
+  max-width: 360px !important;     /* custom-stylesheet.css: 200px      */
+  max-height: 80px !important;     /* custom-stylesheet.css: 45px       */
+  margin-top: 18px !important;     /* §4; Logobox 67 + 36 = 103px       */
+  margin-bottom: 18px !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 
