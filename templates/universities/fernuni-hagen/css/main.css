@@ -242,10 +242,27 @@ a.btn-default,
   background-color: var(--fuh-blue) !important;
   color: #fff !important;
 }
-.repository-action-button {
+/* Hero-Buttons ("Alle Datensaetze ansehen", "Anmelden zum Hinzufuegen").
+   Der Grundzustand traegt !important und greift deshalb, obwohl die Regel
+   nur (0,1,0) ist. Genau das war aber die Falle: beim Hovern gewann sie
+   auch gegen die :hover-Regel der homepage.css (0,2,0, plain) — die
+   Buttons aenderten ihre Farbe nicht, gemeldet am 2026-08-20.
+   Der Hover-Block braucht deshalb HOEHERE Spezifitaet, nicht mehr
+   !important: button.-Praefix ergibt (0,2,1) gegen (0,2,0).
+   Hover-Farbe ist Blau 2 — das CD fuehrt sie ausdruecklich als
+   "Hover, Linien" (design-profil §1). Weiss darauf: 5.40:1 (AA). */
+.repository-action-button,
+button.repository-action-button {
   background-color: var(--fuh-blue) !important;
   border-color: var(--fuh-blue) !important;
   color: #fff !important;
+}
+button.repository-action-button:hover,
+button.repository-action-button:focus {
+  background-color: var(--fuh-blue-mid) !important;
+  border-color: var(--fuh-blue-mid) !important;
+  color: #fff !important;
+  cursor: pointer;
 }
 
 span.glyphicon-question-sign.tooltip-icon {

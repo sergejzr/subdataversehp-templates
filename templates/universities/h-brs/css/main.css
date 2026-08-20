@@ -265,6 +265,23 @@ a.btn-default,
   background-color: var(--hbrs-cyan);
   color: #000000;                  /* black on cyan, see .bg-citation */
 }
+/* Hero buttons. Two separate things here, keep them apart.
+
+   The base rule below is INERT except for font-family: it is (0,1,0) and
+   plain, homepage.css uses button.repository-action-button (0,1,1) and
+   loads later. It only looks like it works because it repeats the platform
+   values verbatim (white text on rgba(26,24,27,.3)). Left as it is on
+   purpose — h-brs keeps the platform overlay (no neutralisation in this
+   file), so white on the translucent dark fill is legible, and making the
+   rule effective would change nothing visible. NOTES.md does say buttons
+   should be #005980; that is a design decision for the contact, not a bug
+   fix, and it would alter the hero's character.
+
+   The hover state is the actual defect, reported 2026-08-20: there was
+   none, so the buttons did not react at all. It needs higher specificity
+   rather than more !important — button. prefix gives (0,2,1) against
+   homepage.css's (0,2,0). Dark blue is the documented button colour
+   (NOTES.md), white on it is 7.70:1. */
 .repository-action-button {
   border: 2px solid;
   border-color: white;
@@ -273,6 +290,13 @@ a.btn-default,
   background-color: rgba(26, 24, 27, 0.3);
   font-size: 19px;
   font-family: var(--hbrs-font-sans) !important;
+}
+button.repository-action-button:hover,
+button.repository-action-button:focus {
+  background-color: var(--hbrs-darkblue) !important;
+  border-color: var(--hbrs-darkblue) !important;
+  color: #fff !important;
+  cursor: pointer;
 }
 
 /* Question-mark tooltip icons: cyan as glyph accent on black (7.2:1). */
