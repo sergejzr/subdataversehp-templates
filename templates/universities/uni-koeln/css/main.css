@@ -226,6 +226,46 @@ a:hover, a:focus {
   font-family: var(--uzk-font-sans) !important;
 }
 
+/* Native Collection-Views: Ergebniskarten und Dateitabelle.
+   Gefunden 2026-08-18 durch die Visual-Audit-Suite (Views Browse, Suche,
+   Dataset, File) — bei uni-koeln UND hsbi identisch, also keine Uni-Luecke,
+   sondern ein Bereich, den bisher niemand gethemt hat.
+
+   .card-title-icon-block  Metazeile unter den Ergebniskarten, war
+                           Roboto-Regular (aus custom-stylesheet.css)
+   .ui-datatable           Dateitabelle der Dataset-/File-Page, war
+                           "Helvetica Neue"
+
+   Zur Herkunft von .ui-datatable: die Familie kommt sehr wahrscheinlich aus
+   der PrimeFaces-Regel fuer .ui-widget (theme.css, laedt vor dieser Datei,
+   ohne !important) — deshalb genuegt hier ein einfaches !important. Sollten
+   weitere PrimeFaces-Komponenten in Helvetica auftauchen, ist .ui-widget der
+   breitere Hebel; das braucht aber eine visuelle Kontrolle, weil es alle
+   Widgets trifft. */
+.card-title-icon-block,
+.ui-datatable {
+  font-family: var(--uzk-font-sans) !important;
+}
+
+/* Allgemeine Anker-Regel. hsbi hat sie seit dem Onboarding, uni-koeln nicht —
+   daher stand z. B. die Tab-Navigation der Dataset-Page (.ui-tabs-nav li a)
+   noch in "Helvetica Neue" aus der PrimeFaces-Regel fuer .ui-widget. Eine
+   Regel auf a deckt alle Anker in Plattform-Komponenten mit ab, statt sie
+   einzeln nachzuziehen (Suite-Lauf 2026-08-18). */
+a, a:visited {
+  font-family: var(--uzk-font-sans) !important;
+}
+
+/* Selektoren, die hsbi bereits geregelt hat und die hier fehlten — gefunden,
+   als die Suite erstmals Dataset-, File- und Suchseite mitgemessen hat. */
+a.btn-contact, a.btn-share,
+.bg-citation,
+.repository-description,
+.stat-number,
+.search-term-match {
+  font-family: var(--uzk-font-sans) !important;
+}
+
 /* ===========================================================================
    4. Color-as-fill (Akzent-Flaechen/-Linien + Chrome)
    Tuerkis/Korall NUR als Flaeche/Linie, nie als Text auf Weiss (CD §1).

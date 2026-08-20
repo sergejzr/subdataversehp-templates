@@ -259,6 +259,27 @@ a:hover, a:focus {
   font-family: var(--hsbi-font-sans) !important;
 }
 
+/* Native Collection-Views: Ergebniskarten und Dateitabelle.
+   Gefunden 2026-08-18 durch die Visual-Audit-Suite (Views Browse, Suche,
+   Dataset, File) — bei hsbi UND uni-koeln identisch, also keine Uni-Luecke,
+   sondern ein Bereich, den bisher niemand gethemt hat.
+
+   .card-title-icon-block  Metazeile unter den Ergebniskarten, war
+                           Roboto-Regular (aus custom-stylesheet.css)
+   .ui-datatable           Dateitabelle der Dataset-/File-Page, war
+                           "Helvetica Neue"
+
+   Zur Herkunft von .ui-datatable: die Familie kommt sehr wahrscheinlich aus
+   der PrimeFaces-Regel fuer .ui-widget (theme.css, laedt vor dieser Datei,
+   ohne !important) — deshalb genuegt hier ein einfaches !important. Sollten
+   weitere PrimeFaces-Komponenten in Helvetica auftauchen, ist .ui-widget der
+   breitere Hebel; das braucht aber eine visuelle Kontrolle, weil es alle
+   Widgets trifft. */
+.card-title-icon-block,
+.ui-datatable {
+  font-family: var(--hsbi-font-sans) !important;
+}
+
 /* ===========================================================================
    4. Flaechen und Linien (Kap. 19.5 / 19.7)
    Regel: Akzent nur vollflaechig als Sand, Text darauf immer Schwarz
