@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  PLATZHALTER, kein Gestaltungsentwurf.
+  V1 'Signet angeschnitten'
 
-  Einfarbige Flaeche in HSRW Grau 15 (#E3E3E3) — CD-Manual S.12,
-  Sekundaerfarbe, dort als Panel-/Kartenflaeche gefuehrt. Bewusst KEIN
-  Motiv: das Headerbild erstellt der Uni-Kontakt, und etwas zu erfinden
-  waere eine Gestaltungsentscheidung ohne Grundlage.
+  Die Bildmarke aus img/logo.svg (Pfade .st2 und .st0), auf 1.72-fache
+  Hero-Hoehe skaliert, rechts und unten angeschnitten. Dahinter dieselbe
+  Marke kleiner in Blaugrau als Tiefenebene.
 
-  Warum ueberhaupt eine Datei: renderjinja.py setzt bei len(background) < 5
-  hart /homepage/img/backgrounds/collection_root.jpg — das generische
-  bonndata-Foto. Eine leere Spalte heisst also nicht "kein Motiv", sondern
-  "Fremdfoto auf der Seite einer Hochschule". Eine neutrale Flaeche in der
-  eigenen CD-Farbe ist das kleinere Uebel.
+  Farben: CD S.12, NICHT aus dem Logo gesampelt (das SVG fuehrt #36255d
+  statt #35255C, siehe css/main.css Kopf).
+    #35255C Dunkelblau, #3973B9 Mittelblau, #9AB6C4 Blaugrau (nur Flaeche)
+  Grund #E3E3E3 Grau 15, wie der bisherige Platzhalter.
 
-  Kontrast gegen die Hero-Texte (main.css §5): Dunkelblau #35255C auf
-  #E3E3E3 = 10.42:1, Schwarz = 16.36:1. Beides AAA.
+  Ruhezone x 0..1400: reiner Grund. Der Hero-Text faellt ueber jede
+  Fensterbreite auf Bild-x 233..1354; das rechte Extrem tritt bei 599px auf.
+  Titel und Beschreibung stehen laut main.css §5 in #35255C: auf #E3E3E3
+  sind das 10.42:1.
 
-  Ersetzen, sobald das echte Motiv vorliegt — dann §5 der main.css
-  gegenpruefen, die Overlay-Neutralisierung passt nur zu einem hellen Grund.
-
-  2400x640 folgt th-koeln und fernuni-hagen. Eine verbindliche Hausregel
-  fuer Headerbilder gibt es noch nicht (im Bestand liegen 1440x560,
-  2400x640, 2400x1000 und 1600x900) — offener Punkt.
+  ACHTUNG beim Editieren: XML verbietet zwei aufeinanderfolgende
+  Bindestriche im Kommentar. Trennlinien deshalb aus '='.
+  Eine nicht wohlgeformte SVG laedt als Hintergrund gar nicht, und der Hero
+  faellt auf seinen dunklen Grund zurueck.
+        
 -->
-<svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 2400 640"
-     preserveAspectRatio="xMidYMid slice"
-     role="presentation">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 640"
+     width="2400" height="640" preserveAspectRatio="xMidYMid slice"
+     role="img" aria-label="Hochschule Rhein-Waal, Bildmarke als Hintergrundmotiv">
+  <title>HSRW Bildmarke angeschnitten</title>
   <rect width="2400" height="640" fill="#E3E3E3"/>
+  <g transform="translate(1646.37,-436.68) scale(13.8357)" opacity="0.5">
+    <path d="M32.59,72.69v-30.42l-10.5-13.07c-1.56-1.94-1.25-4.78.7-6.34,1.94-1.56,4.78-1.25,6.34.69l12.48,15.55v33.59c0,2.49-2.02,4.51-4.51,4.51-2.5,0-4.51-2.02-4.51-4.51" fill="#9AB6C4"/>
+    <path d="M63.36,20.72l-19.56,25.9-.07,40.05c0,2.49,2.01,4.51,4.5,4.52h0c2.49,0,4.5-2.02,4.51-4.5l.06-37.04,10.55-13.97v-14.96Z" fill="#9AB6C4"/>
+  </g>
+  <g transform="translate(1193.09,-299.34) scale(11.0685)">
+    <path d="M32.59,72.69v-30.42l-10.5-13.07c-1.56-1.94-1.25-4.78.7-6.34,1.94-1.56,4.78-1.25,6.34.69l12.48,15.55v33.59c0,2.49-2.02,4.51-4.51,4.51-2.5,0-4.51-2.02-4.51-4.51" fill="#35255C"/>
+    <path d="M63.36,20.72l-19.56,25.9-.07,40.05c0,2.49,2.01,4.51,4.5,4.52h0c2.49,0,4.5-2.02,4.51-4.5l.06-37.04,10.55-13.97v-14.96Z" fill="#3973B9"/>
+  </g>
 </svg>
