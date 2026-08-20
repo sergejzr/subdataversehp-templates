@@ -356,8 +356,15 @@ span.glyphicon-question-sign.tooltip-icon:hover {
    b) Textblock begrenzen: homepage.css setzt .repository-info-block auf
       80% Breite — die Headline lief in die blauen Balken (Balkenkante bei
       ~57-60.5% der Herobreite, 1024-1920px). 52% laesst den Titel
-      umbrechen statt hineinzulaufen und traegt auch die geplante
-      Collection-Umbenennung ("Fachhochschule Muenster", +4 Zeichen).
+      umbrechen statt hineinzulaufen. Der Wert war fuer die laengere
+      Bezeichnung "Fachhochschule Muenster" gerechnet; die Umbenennung
+      auf den korrekten Markennamen "FH Muenster" (2026-08-20) kuerzt
+      "Welcome to ..." um 12 Zeichen — der Deckel bleibt gueltig, mit
+      mehr Luft als vorher. Die Headline kommt aus dem NAMEN DER
+      DATAVERSE-COLLECTION, nicht aus unis.csv (nachgewiesen an h-brs:
+      CSV "Hochschule Bonn-Rhein-Sieg", Headline "Hochschule Bonn Rhein
+      Sieg") — sie aendert sich also erst, wenn die Collection in der
+      Dataverse-GUI umbenannt wird.
       (0,2,0) schlaegt (0,1,0) ohne !important. Headline/Beschreibung
       sind Block-Elemente mit word-wrap im Info-Block — sie koennen den
       Container nicht ueberlaufen, die Breite greift also fuer beide.
