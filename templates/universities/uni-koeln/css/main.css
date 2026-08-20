@@ -576,11 +576,41 @@ img.header_logo[src*="/at/uni-koeln/img/logo.svg"] {
   width: auto !important;          /* beide auto -> Browser haelt das   */
   height: auto !important;         /* Seitenverhaeltnis selbst ein      */
   max-width: 360px !important;     /* custom-stylesheet.css: 200px      */
-  max-height: 80px !important;     /* custom-stylesheet.css: 45px       */
-  margin-top: 12px !important;     /* (104 - 80) / 2, Logobox 104px     */
-  margin-bottom: 12px !important;
+  max-height: 96px !important;     /* 80 -> 96, s. Kasten unten         */
+  margin-top: 4px !important;      /* (104 - 96) / 2, Logobox 104px     */
+  margin-bottom: 4px !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* Warum 96px und nicht die 80px der Hausregel, und warum 4px Margin trotz
+   Schutzzone (2026-08-20).
+
+   Die Hausregel normalisiert die HOEHE, die optische Wirkung haengt aber an
+   der FLAECHE. Bei 80px trug uni-koeln 14.2k px^2 gegen 22-24k der flachen
+   Logos — rund 60 %, und das sah man. 96px ergibt 213x96 = 20.4k und damit
+   das Feld der anderen. Sichtpruefung an der Instanz, nicht gerechnet;
+   th-koeln hat rechnerisch denselben Fall, wirkt aber richtig und bleibt
+   deshalb bei 80px (Hausregel §4, Nachtrag).
+
+   Die 4px Margin sehen zu knapp aus fuer die CD-Schutzzone (design-profil
+   §3: "Schutzzone = Versalienhoehe des Schriftzugs"). Sie sind es nicht,
+   weil das Logo seine Schutzzone SELBST TRAEGT. Gemessen an logo.svg,
+   gerastert auf 960px Hoehe:
+
+     Tinte liegt bei y 117..837, die viewBox ist 960 hoch
+     -> 12.2 % Weissraum oben, 12.7 % unten, eingebaut
+     Versalienhoehe = 117px = 12.2 % der viewBox
+     (die beiden 20px-Zeilen im Schriftzug sind Umlautpunkte, nicht Versalien)
+
+   Eingebauter Weissraum und Versalienhoehe sind also deckungsgleich — der
+   Logo-Ersteller hat die Schutzzone in die Datei gelegt. Bei 96px viewBox-
+   Hoehe steht die sichtbare Tinte 72px hoch mit 11.7px Abstand darin; die
+   4px CSS-Margin kommen obendrauf, macht 15.7px sichtbaren Freiraum gegen
+   11.7px Anforderung.
+
+   Deshalb bleibt das 104px-Kopfband unveraendert und gilt weiter fuer alle
+   Unis. Wer den Margin-Wert spaeter erhoeht, muss das Band mit erhoehen,
+   sonst kippt die Einheitlichkeit. */
 
 /* ===========================================================================
    7. Chrome / strukturelle Uebernahme (nicht CD-bezogen, unveraendert)
