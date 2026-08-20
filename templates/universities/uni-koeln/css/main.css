@@ -367,14 +367,54 @@ a.btn-default,
   background-color: var(--uzk-turquoise);
   color: #000000;
 }
-.repository-action-button {
+/* Hero-Buttons ("Alle Datensaetze ansehen", "Anmelden zum Hinzufuegen").
+   Vorher: weisser Text, weisser Rahmen, Flaeche rgba(26,24,27,.3) — das war
+   auf das dunkle Plattform-Overlay hin gebaut. Mit der Overlay-Neutralisierung
+   in Sektion 6 stuende weisser Text auf nahezu weissem Grund (~1.5:1), die
+   Buttons waeren praktisch unsichtbar. Beides gehoert deshalb zusammen.
+
+   Neu: Universitaetsblau als Flaeche, weisses Label = 8.61:1 (AA auch fuer
+   kleinen Text). Tuerkis als Flaeche waere ebenfalls CD-konform, traegt aber
+   nur 3.14:1 mit weissem Label und 6.69:1 mit schwarzem — dann muesste das
+   Label die Farbe wechseln. Blau ist die Primaerfarbe und fuer die
+   Hauptaktion die naheliegende Wahl.
+   Hover nutzt --uzk-blue-dark (11.26:1 mit Weiss). */
+/* Spezifitaet: homepage.css adressiert button.repository-action-button (0,1,1)
+   und laedt NACH dieser Datei. Eine Klassenregel (0,1,0) verliert dagegen —
+   auch die urspruengliche hier war wirkungslos, sie setzte nur zufaellig
+   dieselben Werte wie die Plattform (rgba(26,24,27,.3) + weisser Rahmen), was
+   die Wirkungslosigkeit verdeckt hat. Aufgefallen 2026-08-18: nach der
+   Overlay-Neutralisierung blieb der Hintergrund unveraendert und die Suite
+   meldete #1a181b weiter.
+   Darum Elternselektor davor — (1,1,1) bzw. (0,2,1) schlagen (0,1,1), ohne
+   !important zu stapeln. Beide Varianten, weil das Markup je nach
+   Template-Basis den ID- oder den Klassencontainer verwendet. */
+.repository-action-button,
+#repository-header button.repository-action-button,
+.repository-header-content button.repository-action-button {
   border: 2px solid;
-  border-color: white;
-  color: white;
+  border-color: var(--uzk-blue);
+  color: #fff;
   padding: 2px 14px;
-  background-color: rgba(26, 24, 27, 0.3);
+  background-color: var(--uzk-blue);
   font-size: 19px;
   font-family: var(--uzk-font-sans) !important;
+}
+#repository-header button.repository-action-button:hover,
+#repository-header button.repository-action-button:focus,
+.repository-header-content button.repository-action-button:hover,
+.repository-header-content button.repository-action-button:focus {
+  background-color: var(--uzk-blue-dark);
+  border-color: var(--uzk-blue-dark);
+  color: #fff;
+}
+
+/* Interaktive Listeneintraege auf der Landing: standen im Plattform-Schwarz
+   #1a181b, das in keiner CD-Palette steht. Als anklickbares Element gehoert
+   hier die Linkfarbe hin — Universitaetsblau, 8.61:1 auf Weiss. */
+.interactive-list {
+  color: var(--uzk-blue) !important;
+  border-top-color: var(--uzk-blue);
 }
 
 /* Question-mark tooltip icon (zwei parallele Implementierungen im Bestand,
@@ -407,6 +447,57 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 
 .uzk-accent-turquoise { background: var(--uzk-turquoise) !important; color: #000 !important; }
 .uzk-accent-coral     { background: var(--uzk-coral) !important;     color: #000 !important; }
+
+/* ===========================================================================
+   4b. Hero — uni-koeln-scoped Abweichungen (Muster hsbi/th-koeln/fh-muenster).
+
+   Ausgangslage (Suite-Messung, alle vier Breiten): der Hero-Titel in
+   Universitaetsblau erreichte nur 50-56 % Lesbarkeit, Median 3.01-3.47 bei
+   Soll 3.0 — also durchgehend an der Grenze. Ursache ist nicht das
+   Sphaeren-SVG, sondern das Plattform-Overlay: homepage.css legt zwei
+   unbedingte 40-%-Gradienten (.repository-header-overlay) ueber den Hero,
+   gebaut fuer Foto-Hintergruende mit weisser Schrift. Ueber dem hellen
+   Sphaeren-SVG ergibt das ein Mittelgrau, auf dem WEDER der blaue Titel
+   noch die weisse Beschreibung sicher lesbar sind (3.55:1 bzw. 2.43:1).
+
+   a) Overlay neutralisieren — wie hsbi. Der ID-Elternselektor (1,1,0)
+      schlaegt die plain-Regel aus homepage.css (0,1,0) ohne !important,
+      obwohl diese Datei frueher laedt. Auf dem weissen SVG-Grund steigt der
+      Titel damit von 3.55:1 auf 8.61:1.
+   b) Textblock auf 52 % begrenzen. Kein uebernommener Wert: das
+      koeln-sphaeren-bg.svg hat viewBox 0 0 1440 560, das linkeste
+      Dekor-Element (Kontur-Kreis) beginnt bei 55.6 %, die blaue Vollflaeche
+      bei 60.4 %. 52 % laesst also Luft. Ohne diese Grenze lief das Wortende
+      von "KOELN" in die dunkelblaue Sphaere — dort Blau auf Blau, 1.01:1,
+      im Screenshot als verschwindendes "LN" sichtbar. Zufaellig derselbe
+      Wert, den hsbi/th-koeln/fh-muenster fahren.
+   c) Unter 600px zurueck auf die 80 % der Basis: dort zeigt der cover-Crop
+      praktisch nur noch die freie Flaeche, die Begrenzung wuerde den Text
+      nur unnoetig einschnueren. Gleiche Spezifitaet wie (b), aber spaeter in
+      DIESER Datei -> gewinnt den internen Source-Order-Tie.
+   d) Beschreibung von Weiss auf Universitaetsblau. Weiss war nur auf dem
+      grauen Overlay ueberhaupt denkbar (und schon dort mit 2.43:1 zu
+      schwach); auf weissem Grund waere sie unsichtbar. Blau ergibt 8.61:1.
+      Alternative waere ein dunkles Grau als Fliesstextfarbe — dafuer gibt
+      der CD-Leitfaden aber keinen Wert her, deshalb die belegte Farbe.
+
+   Gegenprobe nach dem Aendern: die Hero-Buttons in Sektion 4 mussten
+   mitwandern, sonst stuenden sie weiss auf weiss.
+   ========================================================================== */
+#repository-header .repository-header-overlay {
+  background: none;
+}
+.repository-header-content .repository-info-block {
+  width: 52%;
+}
+.repository-header-content .repository-description {
+  color: var(--uzk-blue) !important;
+}
+@media (max-width: 600px) {
+  .repository-header-content .repository-info-block {
+    width: 80%;
+  }
+}
 
 /* ===========================================================================
    5. Kontrast-Fix — Statistik-Fussleiste
