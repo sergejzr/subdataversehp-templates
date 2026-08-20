@@ -1,0 +1,464 @@
+/* ===========================================================================
+   HOCHSCHULE RHEIN-WAAL — main.css
+   CD-Quelle: MI_HSRW_CD_light.pdf, "Corporate Design-Basics", Version 1.2 vom
+   20.10.2025 — S.12 (Hausfarben), S.14 (Hausschriften), S.16 (Formate,
+   Schnitte, Groessen, Farben). Das Dokument liegt vor; alle Farbwerte sind
+   woertlich daraus, keiner ist aus einer Umsetzung abgeleitet.
+
+   ERSTE UNI MIT VOLLSTAENDIGEM CD VON ANFANG AN. Entsprechend traegt
+   profiles/hochschule-rhein-waal.json keinen einzigen ENGINEERING-Wert. Wer
+   hier Farben ergaenzt, ohne sie im PDF zu belegen, macht diesen Vorteil
+   kaputt — dann misst sich die Umsetzung wieder an sich selbst.
+
+   Farben NICHT aus dem Logo sampeln. Das gelieferte SVG weicht ab:
+   Dunkelblau #36255d statt #35255C, Grau #878787 statt #878786, Schwarz
+   #1d1e1c statt #000000 (CMYK-Konvertierungsartefakte, nur Mittelblau
+   stimmt). Muster wie th-koeln und h-brs. Das Logo bleibt unveraendert.
+
+   Struktur uebernommen von fh-muenster/css/main.css — gleicher Fall: CD-
+   Schrift kommerziell, Arial als Ersatz, kein @font-face.
+
+   Ladereihenfolge (siehe tooling/visual-audit/target-spec.md §0):
+   PrimeFaces/Bootstrap-CSS -> custom-stylesheet.css (@import, <head>) ->
+   DIESE DATEI (client-seitig via gui.js in den <head> injiziert) ->
+   homepage.css (<body>, laedt SPAETER). Bei gleicher Spezifitaet UND
+   gleicher Wichtigkeit gewinnt die spaeter geladene Regel, also
+   homepage.css. Wo homepage.css selbst !important nutzt, hilft nur
+   HOEHERE SPEZIFITAET, kein !important-Stapeln.
+   ========================================================================== */
+
+/* ===========================================================================
+   1. Custom Properties — Werte woertlich aus S.12.
+   Kontrast (gerechnet): dunkelblau/weiss 13.37:1 (AAA),
+   mittelblau/weiss 4.85:1 (AA), blau2/weiss 5.58:1 (AA),
+   schwarz/weiss 21.0:1, weiss/dunkelblau 13.37:1, weiss/mittelblau 4.85:1,
+   schwarz/cyan 7.84:1, schwarz/blaugrau 9.86:1, schwarz/grau15 16.36:1.
+   NIE als Fliesstext auf Weiss: grau (3.60:1), cyan (2.68:1),
+   blaugrau (2.13:1), grau40 (2.12:1), grau15 (1.28:1) — nur Flaeche/Border.
+   S.16 nennt fuer Fliesstext ausdruecklich "primaer Schwarz, sekundaer
+   Grau- und Blautoene", fuer Akzente im Text Mittelblau.
+   ========================================================================== */
+:root {
+  --hsrw-darkblue: #35255C;  /* Primaer: Headlines, Links, Buttons, Flaechen  */
+  --hsrw-midblue:  #3973B9;  /* Primaer: Text-Akzent (S.16), Hover            */
+  --hsrw-grey:     #878786;  /* Primaer Wortmarke; NUR Border/Grosstext 3.6:1 */
+  --hsrw-black:    #000000;  /* Primaer: Fliesstext (S.16) — CD sagt #000     */
+  --hsrw-blue2:    #006F9D;  /* Sekundaer, textfaehig 5.58:1                  */
+  --hsrw-cyan:     #00ABDA;  /* Sekundaer: NUR Flaeche/Linie                  */
+  --hsrw-bluegrey: #9AB6C4;  /* Sekundaer: NUR Flaeche                        */
+  --hsrw-grey40:   #B2B2B2;  /* Sekundaer: NUR Border                         */
+  --hsrw-grey15:   #E3E3E3;  /* Sekundaer: NUR Panel-Flaeche                  */
+
+  /* S.14: Hausschrift ist die FF DIN (Albert-Jan Pool / FontFont,
+     kommerziell ueber MyFonts). Das CD benennt Arial selbst als
+     Ersatzschrift — dort allerdings "im Office-Bereich", eine Web-Aussage
+     ist das streng genommen nicht. Der Kontakt hat die Web-Nutzung von
+     Arial angekuendigt, will sie aber noch mit dem Marketing abstimmen.
+     Bis dahin: FF DIN steht im Stack (greift, wo lizenziert und lokal
+     installiert), ausgeliefert wird nichts, real rendert Arial. KEINE
+     @font-face-Bloecke und kein Google-@import — die FF DIN darf nicht
+     ausgeliefert werden, und Arial ist websicher. Kommt eine Weblizenz,
+     ist das ein Ein-Zeilen-Diff plus woff2 unter css/fonts/. */
+  --hsrw-font-sans: "FF DIN", "DIN Next", Arial, Helvetica, sans-serif;
+}
+
+/* ===========================================================================
+   2. Typografie
+   S.14: "Die DIN kann sowohl in Versalien als auch in gemischter
+   Schreibweise verwendet werden" — BEIDES ist CD-konform. homepage.css
+   setzt uppercase (plain) auf .repository-title/-title2/-small-title/
+   .dataverse-item-title. Hier aktiv auf gemischte Schreibweise gestellt,
+   weil die Wortmarke im Logo bereits in Versalien steht und S.16 die
+   Fliesstext-Beispiele gemischt zeigt. Wer Versalien will: die vier
+   `text-transform: none !important` entfernen — auch das ist CD-konform,
+   es ist eine Gestaltungs-, keine Regelfrage. Mit dem Marketing klaeren.
+   Headline-Farbe Dunkelblau (S.16 nennt Dunkelblau, Mittelblau, Schwarz,
+   Grau und Weiss als zulaessige Headline-Farben; 13.37:1 auf Weiss).
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--hsrw-font-sans) !important;
+  font-weight: 700 !important;
+  line-height: 1.1;
+  text-transform: none !important;
+  color: var(--hsrw-darkblue) !important;
+}
+.repository-title {
+  word-wrap: break-word;
+  font-family: var(--hsrw-font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 36pt;
+  text-transform: none !important;      /* homepage.css: uppercase (plain) */
+  color: var(--hsrw-darkblue) !important; /* homepage.css: #FFFFFF (plain) */
+  padding-bottom: 20px;
+}
+.section-heading {
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-family: var(--hsrw-font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 36pt;
+  line-height: 61px !important;
+  text-transform: none !important;
+  color: var(--hsrw-darkblue) !important;
+  display: block;
+  padding-bottom: 30px;
+  padding-top: 70px;
+}
+/* Hero-Beschreibung: homepage.css setzt #FFFFFF, gedacht fuer dunkle
+   Foto-Heros. Solange kein Headerbild vorliegt (s. Abschnitt 5), bleibt
+   die Farbe hier UNVERAENDERT — welcher Wert richtig ist, entscheidet der
+   Hintergrund, und den gibt es noch nicht. Nur die Schrift wird gesetzt. */
+.repository-description {
+  font-family: var(--hsrw-font-sans) !important;
+}
+
+/* Links: Dunkelblau. Hover bleibt Dunkelblau mit Mittelblau-Unterstreichung
+   — Mittelblau ist mit 4.85:1 zwar textfaehig, als Linie aber eindeutiger.
+   Das CD nennt keinen dunkleren Blauton, es wird bewusst keiner erfunden. */
+a, a:visited { color: var(--hsrw-darkblue) !important; }
+a:hover, a:focus {
+  color: var(--hsrw-darkblue) !important;
+  text-decoration-color: var(--hsrw-midblue) !important;
+}
+.navbar-nav > li > a:hover { color: #333333; }
+
+/* Logout-Link: Hover/Fokus in Mittelblau, weisse Schrift (4.85:1, AA).
+   Attribut-Selektor wegen dynamischem JSF-Formular-Praefix; !important,
+   weil sonst `a{color:...!important}` und `.navbar-nav > li > a:hover`
+   gewinnen. */
+[id$=":lnk_header_logout"]:hover,
+[id$=":lnk_header_logout"]:focus {
+  background-color: var(--hsrw-midblue) !important;
+  color: #fff !important;
+  border-radius: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Font-only-Fixes: der Stack muss Exo2/Roboto aus custom-stylesheet.css
+   bzw. homepage.css schlagen. Farben/Groessen aus der Basis unveraendert. */
+.caroussel_title {
+  font-size: 20pt;
+  font-weight: 700;
+  color: var(--hsrw-black);
+  font-family: var(--hsrw-font-sans) !important;
+}
+.stat-text {
+  font-size: 17px;
+  text-align: center;
+  font-family: var(--hsrw-font-sans) !important;
+}
+.login-prompt {
+  font-size: 18px !important;
+  text-align: center;
+  padding-bottom: 10px;
+  color: var(--hsrw-darkblue) !important;
+  font-family: var(--hsrw-font-sans) !important;
+}
+.interactive-list {
+  word-wrap: break-word;
+  text-align: left;
+  cursor: pointer;
+  color: var(--hsrw-black);
+  font-size: 17px;
+  font-family: var(--hsrw-font-sans) !important;
+}
+.news-title,
+.repository-title2,
+.repository-small-title {
+  font-family: var(--hsrw-font-sans) !important;
+  text-transform: none !important;
+}
+.dataverse-item-title {
+  font-family: var(--hsrw-font-sans) !important;
+  text-transform: none !important;
+}
+
+/* Card-Grid + Collection-Header: homepage.css setzt Roboto per !important
+   auf .repository-info-block und .grid-item-footer. Diese Datei laedt VOR
+   homepage.css -> gleich spezifisches !important verloere den
+   Source-Order-Tie. Darum Elternklasse davor (0,2,0 bzw. 0,3,0). */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--hsrw-font-sans) !important;
+}
+
+/* ===========================================================================
+   3. Color-as-fill (Akzent-Flaechen/-Linien + Chrome)
+   Cyan, Blaugrau, Grau40 und Grau15 NUR als Flaeche/Linie; Text darauf
+   immer --hsrw-black (Cyan 7.84:1, Blaugrau 9.86:1, Grau15 16.36:1).
+   ========================================================================== */
+
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 4px solid var(--hsrw-cyan) !important;   /* Cyan als Linie */
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--hsrw-darkblue) !important;
+  font-family: var(--hsrw-font-sans) !important;
+}
+.bg-citation {
+  background: var(--hsrw-grey15) !important;
+  color: var(--hsrw-black) !important;                    /* 16.36:1 */
+  border: 0;
+}
+.icon-dataset {
+  font-size: 7.5em;
+  line-height: 1.1;
+  color: var(--hsrw-darkblue) !important;
+}
+#search-row-panel {
+  border: 1px solid var(--hsrw-grey40) !important;
+  border-top: 3px solid var(--hsrw-darkblue) !important;
+  border-radius: 0 !important;
+  padding: 15px 0;
+}
+/* #custom-header: BEWUSST KEINE REGEL. Das Band traegt instanzweit das
+   Testsystem-Ribbon (DVHP-TESTBANNER v2 in /csslibs/custom-stylesheet.css).
+   Eine per-Uni-Regel wuerde gewinnen, weil main.css spaeter laedt, und das
+   Ribbon aushoehlen — nicht anlegen. Praezedenzfall: mock-uni main.css:340. */
+
+/* Buttons. Primaer: Dunkelblau + Weiss (13.37:1). Hover: Mittelblau +
+   Weiss (4.85:1, AA) — die CD-konforme Abstufung, statt einen dunkleren
+   Ton zu erfinden, den das CD nicht kennt. */
+.btn-primary {
+  background-image: none;
+  background: var(--hsrw-darkblue) !important;
+  border-color: var(--hsrw-darkblue) !important;
+  color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--hsrw-midblue) !important;
+  border-color: var(--hsrw-midblue) !important;
+  color: #fff !important;
+}
+button.btn-default, a.btn-default {
+  text-shadow: none;
+  word-wrap: break-word !important;
+  line-height: 1.42857143 !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+  border: 1px solid !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding: 12px 20px;
+  justify-content: center !important;
+  border-radius: 0 !important;
+  font-family: var(--hsrw-font-sans) !important;
+  background: #fff !important;
+  color: var(--hsrw-darkblue) !important;
+  border-color: var(--hsrw-darkblue) !important;
+}
+button.btn-default:hover, a.btn-default:hover {
+  background-color: #fff !important;
+  color: var(--hsrw-black) !important;
+  border-color: var(--hsrw-cyan) !important;              /* Hover-Akzent = Cyan (Linie) */
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  padding: 9px 9px;
+  border-radius: 0 !important;
+}
+/* Such-Button (Submit): der generische button.btn-default-Block (0,1,1)
+   faerbt ihn weiss -> der weisse Glyph aus homepage.css waere unsichtbar.
+   Elternklasse davor (0,2,1) gibt die dunkelblaue Fuellung zurueck. */
+.input-group-btn > button.btn-default {
+  background: var(--hsrw-darkblue) !important;
+}
+.btn-contact, .btn-share {
+  border: 1px solid;
+  border-color: var(--hsrw-cyan);
+  border-radius: 0 !important;
+  text-decoration: none !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--hsrw-cyan);
+  color: var(--hsrw-black);                               /* 7.84:1 auf Cyan */
+}
+/* Hero-Buttons: opak Dunkelblau + Weiss = 13.37:1, unabhaengig davon, was
+   spaeter als Headerbild dahinterkommt. Spezifitaet: homepage.css setzt
+   .repository-action-button (0,1,0) und :hover (0,2,0) jeweils plain und
+   laedt SPAETER — deshalb button.-Praefix: (0,1,1) bzw. (0,2,1). */
+button.repository-action-button {
+  border: 2px solid;
+  border-color: var(--hsrw-darkblue);
+  color: #fff;
+  padding: 2px 14px;
+  background-color: var(--hsrw-darkblue);
+  font-size: 19px;
+  font-family: var(--hsrw-font-sans) !important;
+}
+button.repository-action-button:hover,
+button.repository-action-button:focus {
+  cursor: pointer;
+  background-color: var(--hsrw-midblue);
+  border-color: var(--hsrw-midblue);
+  color: #fff;
+}
+
+/* Question-mark-Tooltip-Icons (zwei parallele Implementierungen im
+   Bestand). Akzent = Cyan auf schwarzem Kreis (7.84:1) — der Kreis ist
+   die Flaeche, das CD-Verbot "nicht auf Weiss" greift hier nicht. */
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--hsrw-cyan) !important;
+}
+span.glyphicon-question-sign.tooltip-icon:hover {
+  color: #fff !important;
+  background-color: var(--hsrw-black) !important;
+  border: 1px solid var(--hsrw-cyan) !important;
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign {
+  cursor: pointer;
+  color: var(--hsrw-cyan);
+  background-color: var(--hsrw-black) !important;
+  border: 1px solid var(--hsrw-cyan);
+  border-radius: 50%;
+  padding: 0px;
+}
+.customNavigation .glyphicon-question-sign:hover {
+  color: #fff;
+  border: 1px solid var(--hsrw-cyan);
+  border-radius: 50%;
+  padding: 0px;
+}
+
+/* Helper-Klassen: dokumentieren die einzig zulaessigen Text-auf-Akzent-
+   Paarungen. Wer eine Akzentflaeche braucht, nimmt eine davon. */
+.hsrw-accent-cyan     { background: var(--hsrw-cyan) !important;     color: var(--hsrw-black) !important; }  /* 7.84:1  */
+.hsrw-accent-bluegrey { background: var(--hsrw-bluegrey) !important; color: var(--hsrw-black) !important; }  /* 9.86:1  */
+.hsrw-accent-grey15   { background: var(--hsrw-grey15) !important;   color: var(--hsrw-black) !important; }  /* 16.36:1 */
+
+/* ===========================================================================
+   4. Kontrast-Fix — Statistik-Fussleiste
+   Basis setzt color: black auf .stat-number/.stat-text — auf Dunkelblau
+   waere das unlesbar. Beides explizit Weiss (13.37:1, AAA).
+   ========================================================================== */
+.statistics-footer {
+  width: 100%;
+  position: relative;
+  left: 0;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: var(--hsrw-darkblue) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+}
+
+/* ===========================================================================
+   5. Hero — auf den PLATZHALTER gerechnet, nicht auf ein Motiv
+
+   img/background.svg ist eine einfarbige Flaeche in HSRW Grau 15 (#E3E3E3,
+   CD S.12). Das echte Headerbild erstellt der Kontakt noch. Die beiden
+   Regeln hier gelten deshalb NUR fuer einen hellen, ruhigen Grund und
+   gehoeren gegengeprueft, sobald das Motiv da ist.
+
+   a) Overlay neutralisieren. homepage.css legt zwei dunkle 40-%-Gradienten
+      (.repository-header-overlay, plain, 0,1,0) zwischen Hintergrund und
+      Text — gebaut fuer Foto-Heros mit weisser Schrift. Auf der hellen
+      Flaeche vergraut das den Grund und drueckt den Titelkontrast. Der
+      ID-Elternselektor (1,1,0) schlaegt die spaeter geladene plain-Regel
+      ohne !important. Titel: #35255C auf #E3E3E3 = 10.42:1 (AAA).
+   b) Beschreibung einfaerben. homepage.css setzt #FFFFFF — auf #E3E3E3
+      waeren das 1.28:1, also unsichtbar. Dunkelblau wie der Titel.
+
+   KEIN Textblock-Deckel (.repository-info-block { width: 52% }) wie bei
+   fh-muenster/uni-koeln: der begrenzt den Text gegen unruhige Bildbereiche,
+   und die gibt es auf einer einfarbigen Flaeche nicht. Kommt ein Motiv,
+   ist das der erste Wert, der zu pruefen ist.
+
+   FALLSTRICK, warum die background-Spalte nicht leer bleiben darf:
+   renderjinja.py setzt bei len(background) < 5 hart
+   /homepage/img/backgrounds/collection_root.jpg — das generische
+   bonndata-Foto. Leer heisst nicht "kein Motiv", sondern "Fremdfoto".
+   ========================================================================== */
+#repository-header .repository-header-overlay {
+  background: none;
+}
+.repository-description {
+  color: var(--hsrw-darkblue) !important;
+}
+
+/* Beim Motivwechsel zu pruefen: bei einem Foto mit weisser Schrift ist die
+   Overlay-Neutralisierung falsch (uni-koeln und h-brs lassen es stehen),
+   und Titel wie Beschreibung muessten dann auf Weiss statt Dunkelblau.
+   ========================================================================== */
+
+/* ===========================================================================
+   6. Logo
+   img/logo.svg = 2021_Logo_HSRW_4c_rgb_300dpi.svg unveraendert,
+   viewBox 213.2 x 123.35 = 1.73:1 — die Primaervariante (Bildmarke plus
+   zweizeilige Wortmarke), das kompakteste Logo im Verbund.
+
+   Hausregel (tooling/visual-audit/logo-hausregel.md §3): beide Achsen
+   bleiben `auto`, gedeckelt wird ueber max-width UND max-height. Was
+   zuerst greift, greift; die andere Achse rechnet der Browser
+   verhaeltnistreu nach (CSS 2.1 §10.4). Keine Achse hart setzen.
+   Hier bindet die HOEHE (anders als bei den flachen Logos): 80px -> 138px
+   breit, der 360px-Deckel greift nie. margin 12px = (104 - 80) / 2, damit
+   das Kopfband wie bei allen anderen 104px hoch ist. Gemessen 2026-08-20:
+   138.3 x 80.0, Verhaeltnis 1.7283 gegen 1.7284 der viewBox, Logobox 104.0.
+   display: block statt inline — beseitigt die Basislinien-Luecke, erst
+   damit wirken margin-top/-bottom symmetrisch.
+
+   ACHTUNG, logo.svg braucht ihre width/height-Attribute: Illustrator hat
+   sie nur mit viewBox exportiert, also mit Verhaeltnis, aber OHNE
+   intrinsische Groesse. Deckel koennen nur verkleinern — ohne Groesse gibt
+   es nichts zu deckeln, und `width: auto` liefert in diesem Header keinen
+   brauchbaren Wert: das <img> ist Block in einem float:left-.navbar-header,
+   dessen Shrink-to-fit-Breite wiederum vom Bild abhaengt. Gemessen wurde
+   in diesem Zustand 38.9 x 22.5 statt 138 x 80, Logobox 46.5px, Luecke
+   12/57 — also klein UND unsymmetrisch. Deshalb traegt das <svg>-
+   Wurzelelement jetzt width="213.2" height="123.35" aus der viewBox
+   (2026-08-20 nachgetragen, sonst byte-identisch zur Lieferung). Wird die
+   Datei je gegen eine frische Illustrator-Fassung getauscht, muessen die
+   beiden Attribute wieder mit. Hausregel §3a Fall B1.
+   Ebenfalls angepasst: die Datei kam mit Modus 400 (nur fuer den
+   Eigentuemer lesbar) und waere nach dem rsync fuer den Webserver-Prozess
+   unlesbar gewesen -> 664 wie alle anderen Logodateien.
+
+   OFFEN: CD S.10 verlangt auf mobilen Screens die KOMPAKTVARIANTE
+   ("Auf mobilen Screens wird die kompakte Logoversion eingesetzt"). Diese
+   Datei liegt nicht vor — beim Kontakt anfordern. Bis dahin laeuft die
+   Primaervariante auf allen Breiten, das ist eine bekannte CD-Abweichung
+   und kein Versehen. Schutzzone laut S.6 einhalten (keine Elemente in der
+   Wirkungsebene); der 12px-Margin deckt oben/unten, seitlich sorgt die
+   Navbar-Breite fuer Abstand — nach Sichtpruefung ggf. margin-right.
+   ========================================================================== */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+img.header_logo[src*="/at/hochschule-rhein-waal/img/logo.svg"] {
+  display: block !important;
+  box-sizing: content-box !important;  /* Deckel gelten dem Bild, nicht
+                                          dem 20px-Padding der Plattform */
+  width: auto !important;          /* beide auto -> Browser haelt das   */
+  height: auto !important;         /* Seitenverhaeltnis selbst ein      */
+  max-width: 360px !important;     /* custom-stylesheet.css: 200px      */
+  max-height: 80px !important;     /* custom-stylesheet.css: 45px       */
+  margin-top: 12px !important;     /* (104 - 80) / 2, Logobox 104px     */
+  margin-bottom: 12px !important;
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* ===========================================================================
+   7. Chrome / strukturelle Uebernahme (nicht CD-bezogen, unveraendert aus
+   der Referenz — reine Layout-/Funktionsregeln ohne Farb-/Font-Konflikt).
+   ========================================================================== */
+.glyphicon {
+  font-family: "Glyphicons Halflings" !important;
+}
+.text-danger {
+  font-size: 12px !important;
+  color: #ea1713;
+}

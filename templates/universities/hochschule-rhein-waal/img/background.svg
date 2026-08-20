@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PLATZHALTER, kein Gestaltungsentwurf.
+
+  Einfarbige Flaeche in HSRW Grau 15 (#E3E3E3) — CD-Manual S.12,
+  Sekundaerfarbe, dort als Panel-/Kartenflaeche gefuehrt. Bewusst KEIN
+  Motiv: das Headerbild erstellt der Uni-Kontakt, und etwas zu erfinden
+  waere eine Gestaltungsentscheidung ohne Grundlage.
+
+  Warum ueberhaupt eine Datei: renderjinja.py setzt bei len(background) < 5
+  hart /homepage/img/backgrounds/collection_root.jpg — das generische
+  bonndata-Foto. Eine leere Spalte heisst also nicht "kein Motiv", sondern
+  "Fremdfoto auf der Seite einer Hochschule". Eine neutrale Flaeche in der
+  eigenen CD-Farbe ist das kleinere Uebel.
+
+  Kontrast gegen die Hero-Texte (main.css §5): Dunkelblau #35255C auf
+  #E3E3E3 = 10.42:1, Schwarz = 16.36:1. Beides AAA.
+
+  Ersetzen, sobald das echte Motiv vorliegt — dann §5 der main.css
+  gegenpruefen, die Overlay-Neutralisierung passt nur zu einem hellen Grund.
+
+  2400x640 folgt th-koeln und fernuni-hagen. Eine verbindliche Hausregel
+  fuer Headerbilder gibt es noch nicht (im Bestand liegen 1440x560,
+  2400x640, 2400x1000 und 1600x900) — offener Punkt.
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 2400 640"
+     preserveAspectRatio="xMidYMid slice"
+     role="presentation">
+  <rect width="2400" height="640" fill="#E3E3E3"/>
+</svg>
