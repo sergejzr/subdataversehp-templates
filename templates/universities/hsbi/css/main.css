@@ -58,15 +58,23 @@
      Bloecke unten aktiviert werden, greift Lausanne ohne weiteren Diff. */
   --hsbi-font-sans: "HSBI Lausanne", Arial, "Helvetica Neue", Helvetica, sans-serif;
 
-  /* Logo-Masse. Aus der Breite folgt die Hoehe zwingend, weil logo.png ein
-     fester Beschnitt ist: 754 x 242 px = 3.1157:1. Beides hier ablegen,
-     damit der Navbar-Abstand (Abschnitt 7) sich rechnerisch an der
+  /* Logo-Masse. Aus der Breite folgt die Hoehe zwingend. Beides hier
+     ablegen, damit der Navbar-Abstand (Abschnitt 7) sich rechnerisch an der
      DARGESTELLTEN Logohoehe orientiert und nicht an einem festen px-Wert.
-     Wird --hsbi-logo-w geaendert, zieht der Abstand automatisch mit. */
-  --hsbi-logo-w:      130px;
-  --hsbi-logo-ratio:  3.1157;
+     Wird --hsbi-logo-w geaendert, zieht der Abstand automatisch mit.
+     340px = CD Kap. 19.4 (Logo-Groesse Desktop 340 x 70). Verhaeltnis aus
+     der viewBox von logo.svg: 283.4646 / 58.1102 = 4.8781:1 -> 69.70px
+     hoch, also der CD-Wert. Bis 2026-08-20 standen hier 130px und
+     3.1157:1 — das war die Schmalviewport-Variante, siehe Abschnitt 7.
+     --hsbi-logo-gap folgt jetzt der Hausregel (logo-hausregel.md §3.4):
+     (104 - Logohoehe) / 2, damit das Kopfband bei allen Hochschulen 104px
+     hoch ist. Vorher 18 % der Logohoehe — eine hsbi-eigene Groesse, die
+     das gemeinsame Band nicht treffen konnte. Ergibt 17.15px und eine
+     Logobox von exakt 104px; §4 fuehrt den gerundeten Wert 17px. */
+  --hsbi-logo-w:      340px;
+  --hsbi-logo-ratio:  4.8781;
   --hsbi-logo-h:      calc(var(--hsbi-logo-w) / var(--hsbi-logo-ratio));
-  --hsbi-logo-gap:    calc(var(--hsbi-logo-h) * 0.18);
+  --hsbi-logo-gap:    calc((104px - var(--hsbi-logo-h)) / 2);
 
   /* Kap. 19.6 Schriftgroessen-Skala der HSBI-Webseite */
   --hsbi-fs-xxl: 34px;    /* Seitentitel / H1 */
@@ -551,22 +559,50 @@ a.btn-feedback {
 
 /* ===========================================================================
    7. Logo
-   Ausgeliefert wird logo.png = die Wort-Bild-Marke OHNE den zweizeiligen
-   Untertitel, freigestellt aus HSBI_Logo_RGB_schwarz.svg (Schnitt bei
-   x=754 von 1181; der Untertitelblock beginnt bei x=844). Ergebnis
-   754x242 = 3.12:1 — praktisch das Seitenverhaeltnis der CD-eigenen
-   Schmalviewport-Variante aus Kap. 19.4 (154x50 = 3.08:1). Der volle
-   Lockup (4.88:1) haette bei navbar-tauglicher Breite einen Untertitel
-   von ~5px Zeilenhoehe; Kap. 1.5 fordert mindestens 30 % Logogroesse fuer
-   Lesbarkeit. Das Logo wird laut Kap. 3.1/3.4 NICHT eingefaerbt — deshalb
-   hier keine filter-/color-Regel, nur Groesse.
-   130px Breite -> ~42px Hoehe. Gegen die reale Navbar-Hoehe im Preview
-   gegenpruefen und ggf. nachziehen.
+   Ausgeliefert wird jetzt logo.svg = der volle Lockup MIT zweizeiligem
+   Untertitel, byte-identische Kopie von
+   img/HSBI-Logos/HSBI_Logo_RGB_schwarz.svg an den Standardpfad (der
+   HSBI-Logos-Ordner ist das CD-Rohbundle mit ZIP/PDF/EMF und liegt in
+   .git/info/exclude, wird also nicht ausgeliefert). viewBox
+   283.4646 x 58.1102 = 4.8781:1; bei 340px Breite 69.70px hoch — die
+   Desktop-Groesse aus CD Kap. 19.4 (340 x 70).
+
+   Bis 2026-08-20 lief hier logo.png: die Wort-Bild-Marke OHNE Untertitel,
+   freigestellt aus derselben SVG (Schnitt bei x=754 von 1181; der
+   Untertitelblock beginnt bei x=844), 754x242 = 3.12:1. Das ist nicht die
+   falsche DATEI, sondern die richtige fuer den falschen Viewport: 3.12:1
+   entspricht der CD-eigenen Schmalviewport-Variante aus Kap. 19.4
+   (154x50 = 3.08:1), die dort ausdruecklich OHNE Untertitel gefordert
+   ist. Ausgeliefert wurde sie aber auf ALLEN Breiten, und mit 130px
+   Breite bei 42px statt 70px Hoehe. logo.png bleibt deshalb liegen — sie
+   ist die Vorlage fuer die noch offene Schmalviewport-Regel (§4 der
+   Hausregel).
+   Der alte Einwand gegen den vollen Lockup (Untertitel ~5px Zeilenhoehe,
+   Kap. 1.5 fordert min. 30 % Logogroesse) galt fuer 130px Breite. Bei den
+   CD-konformen 340px ist der Untertitel ~13px hoch und damit lesbar.
+   Das Logo wird laut Kap. 3.1/3.4 NICHT eingefaerbt — deshalb hier keine
+   filter-/color-Regel, nur Groesse. Fuer dunkle Baender laege
+   HSBI_Logo_RGB_weiss.svg bereit; das Band ist weiss, also schwarz.
    Hintergrund laeuft ueber das CSV-background-Feld (hsbi-bg.svg), NICHT
    ueber eine CSS-Hero-Regel — sonst zwei Mechanismen fuers selbe Element.
+
+   ABWEICHUNG VON DER HAUSREGEL, bewusst und gemessen: §3 verlangt beide
+   Achsen `auto` und nur Deckel. Das geht hier nicht. logo.svg traegt NUR
+   eine viewBox, keine width/height-Attribute, hat also ein intrinsisches
+   Verhaeltnis, aber keine intrinsische Groesse. Mit width:auto rendert
+   Chrome das Bild in diesem Header **0x0** (gemessen 2026-08-20): das
+   <img> ist Block in einem float:left-.navbar-header, dessen
+   Shrink-to-fit-Breite wiederum vom Bild abhaengt — die Aufloesung dieser
+   Zirkularitaet ist 0. Deckel koennen ausserdem nur verkleinern, die CD
+   nennt aber eine SOLL-Groesse, keine Obergrenze. Deshalb bleibt die
+   Breite gesetzt; die Hoehe bleibt `auto` und rechnet verhaeltnistreu
+   nach (gemessen 340.0 x 69.7 = 4.8789:1 gegen 4.8781:1 der viewBox).
+   Beide Deckel stehen trotzdem: max-width als Gleichstand-Waechter,
+   max-height als Schutz, falls die Datei je gegen eine hoehere getauscht
+   wird.
    ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
-img.header_logo[src*="/at/hsbi/img/logo.png"] {
+img.header_logo[src*="/at/hsbi/img/logo.svg"] {
   /* display:block statt inline. Zwei Gruende:
      a) Ein inline-<img> sitzt auf der Textbasislinie; der Unterlaengen-
         Raum der Zeilenbox erscheint als Luecke UNTER dem Bild.
@@ -577,22 +613,27 @@ img.header_logo[src*="/at/hsbi/img/logo.png"] {
      bekommt dessen Padding nie; der umschliessende <a> hat gar keine
      Klasse. Deshalb muss die Zentrierung ueber das Bild selbst laufen. */
   display: block !important;
+  /* content-box: custom-stylesheet.css setzt zusaetzlich padding-left:20px,
+     und Bootstrap `* { box-sizing: border-box }` liesse die Deckel sonst
+     die BORDER-Box treffen — das Logo kaeme 20px zu schmal heraus
+     (gemessen an fh-muenster, 2026-08-20). Das Einrueckungs-Padding der
+     Plattform bleibt erhalten. */
+  box-sizing: content-box !important;
   height: auto !important;
-  max-height: none !important;
-  width: var(--hsbi-logo-w) !important;
-  max-width: none !important;
-  /* Symmetrischer Abstand, abgeleitet aus der dargestellten Logohoehe
-     (18 % davon), nicht als fester px-Wert.
-     Rechnung bei 130px Breite: Hoehe 41.7px, Abstand 7.5px, Gesamthoehe
-     der Logobox 56.7px. Das liegt UEBER Bootstraps
-     `.navbar { min-height: 50px }` — und genau darauf kommt es an: solange
-     die Box niedriger als 50px ist, bestimmt die min-height die Zeile, das
-     Bild sitzt oben und die gesamte Restluecke faellt nach UNTEN. Das war
-     die ungleiche Luecke im Desktop-Header. Ueberschreitet die Box die
-     min-height, greift sie nicht mehr und die beiden margins bestimmen den
-     Abstand — symmetrisch, per Konstruktion.
-     Untergrenze: --hsbi-logo-w darf nicht unter ~112px fallen, sonst
-     rutscht die Box wieder unter 50px und die Asymmetrie kommt zurueck. */
+  max-height: 80px !important;                 /* custom-stylesheet.css: 45px  */
+  width: var(--hsbi-logo-w) !important;        /* CD 19.4, siehe Kopf oben     */
+  max-width: var(--hsbi-logo-w) !important;    /* custom-stylesheet.css: 200px */
+  /* Symmetrischer Abstand, abgeleitet aus der DARGESTELLTEN Logohoehe und
+     nicht als fester px-Wert: (104 - 69.70) / 2 = 17.15px, Logobox damit
+     exakt 104px (Hausregel §3.4; §4 fuehrt den gerundeten Wert 17px).
+     Warum die Box ueber 50px liegen muss: Bootstrap setzt
+     `.navbar { min-height: 50px }`. Solange die Logobox niedriger ist,
+     bestimmt die min-height die Zeilenhoehe, das Bild sitzt oben und die
+     gesamte Restluecke faellt nach UNTEN — das war die ungleiche Luecke im
+     Desktop-Header. Mit 104px liegt die Box weit darueber, die beiden
+     margins bestimmen den Abstand, symmetrisch per Konstruktion. Die
+     frueher notierte Untergrenze von ~112px Logobreite ist damit
+     gegenstandslos: das Kopfband ist jetzt gesetzt, nicht abgeleitet. */
   margin-top: var(--hsbi-logo-gap) !important;
   margin-bottom: var(--hsbi-logo-gap) !important;
 }
