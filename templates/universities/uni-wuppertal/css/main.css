@@ -107,3 +107,57 @@
    src: url('../Fonts/open-sans-v34-latin-700italic.woff2') format('woff2'),
         url('../Fonts/open-sans-v34-latin-700italic.woff') format('woff');
 }
+
+/* ===========================================================================
+   Ergaenzung 2026-08-20 — nur das, was ohne CD-Kenntnis entscheidbar ist.
+
+   Diese Datei bestand bis hier ausschliesslich aus @font-face-Bloecken:
+   null Regelbloecke, keine Farben, keine Selektoren. Daraus folgten drei
+   der vier gemeldeten Punkte von selbst — das Dataverse-Logo stand da,
+   weil niemand es ausblendet, das Uni-Logo war klein, weil
+   custom-stylesheet.css .header_logo auf max-width 200px / height 45px
+   deckelt, und die Versalien kommen aus homepage.css.
+
+   NICHT ergaenzt, weil dafuer die Grundlage fehlt:
+   - Farben. Es gibt kein CD-Dokument im Repo und keinen Farbwert in dieser
+     Datei. Das Gruen aus dem Logo zu sampeln ist ausdruecklich untersagt
+     (s. th-koeln/h-brs/hochschule-rhein-waal: Logo-Werte weichen regelmaessig
+     vom CD ab). Ohne CD kein Farb-Theming und kein CD-Profil.
+   - text-transform. Ob die Uni Wuppertal Versalien fuehrt, ist eine
+     CD-Frage. uni-koeln hat sie (CD-Merkmal), die uebrigen fuenf nicht.
+     Bis das geklaert ist, bleibt der Plattform-Default stehen.
+
+   OFFEN, gehoert gemeldet, hier nicht behoben:
+   - Die elf @font-face oben zeigen auf ../Fonts/*.woff2, also auf
+     /at/uni-wuppertal/Fonts/. Diese Dateien liegen NICHT im Repo. Alle
+     Requests laufen ins Leere, Mignon und Open Sans rendern nirgends.
+   - Die Spalte js in config/unis.csv ist leer, obwohl js/main.js
+     mitgeliefert wurde — die Datei wird ausgeliefert, aber nie eingebunden.
+   - Die Spalte txt ist als einzige Uni gesetzt. Bei adapted-Layout ist
+     txt/main.txt nicht die Quelle des Begruessungstexts.
+   ========================================================================== */
+
+/* Das Plattform-Logo ausblenden — Hausmuster aller sechs anderen Unis:
+   auf der eigenen Landing steht das Uni-Logo allein. */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+
+/* Logo-Hausregel, siehe tooling/visual-audit/logo-hausregel.md §3.
+   BUW_Logo-weiss-auf-gruen-rgb.png ist 623x253 = 2.46:1, transparent,
+   weisse Wortmarke auf gruener Flaeche. Kompaktes Verhaeltnis, also bindet
+   die HOEHE: 80px -> 197px breit. Der 360px-Deckel greift nie.
+   Beide Achsen bleiben auto, gedeckelt wird ueber beide max-*; box-sizing
+   content-box, weil custom-stylesheet.css zusaetzlich padding-left: 20px
+   setzt und Bootstrap * { box-sizing: border-box } sonst die Border-Box
+   deckelt. margin 12px = (104 - 80) / 2, damit das Kopfband wie bei allen
+   anderen 104px hoch ist. */
+img.header_logo[src*="/at/uni-wuppertal/img/BUW_Logo-weiss-auf-gruen-rgb.png"] {
+  display: block !important;
+  box-sizing: content-box !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 360px !important;
+  max-height: 80px !important;
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
