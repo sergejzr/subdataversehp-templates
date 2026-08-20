@@ -13,6 +13,14 @@
 
    Unterschiede zur Koelner Datei, bewusst:
    - KEIN text-transform: uppercase (Koeln-CD fordert Versalien, Hagen nicht).
+     Achtung: Weglassen der Deklaration reicht NICHT. homepage.css setzt
+     uppercase selbst (plain) auf .repository-title/-title2/-small-title/
+     .dataverse-item-title, deshalb aktiv `text-transform: none !important`.
+     Bis 2026-08-20 fehlte genau das und der Hero-Titel rannte als
+     "WELCOME TO FERNUNIVERSITÄT IN HAGEN" gegen diese Zeile hier.
+     Das uppercase der Menuepunkte (custom-stylesheet.css auf
+     .navbar-nav > li > a) bleibt bewusst stehen — Plattform-Chrome,
+     bei allen Hochschulen gleich.
    - Nur eine Akzentfamilie (drei Blautoene), kein zweiter Kontrastton
      (kein Aequivalent zu Koral).
    - Fonts kommen instanzweit aus /fonts/Roboto/
@@ -82,6 +90,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: var(--fuh-font-sans) !important;
   font-weight: 700 !important;
   line-height: 1.2;
+  text-transform: none !important;
   color: var(--fuh-blue) !important;
 }
 .repository-title {                          /* Landing-Haupttitel: Black */
@@ -90,6 +99,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: 900 !important;
   font-size: 36pt;
   line-height: 1.1;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) */
   color: var(--fuh-blue) !important;
 }
 .section-heading {
@@ -137,6 +147,7 @@ a:hover, a:focus {
 .repository-small-title {
   font-family: var(--fuh-font-sans) !important;
   font-weight: 700 !important;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) */
   color: var(--fuh-blue) !important;
 }
 .repository-description {
@@ -152,6 +163,7 @@ a:hover, a:focus {
 }
 .dataverse-item-title {
   font-family: var(--fuh-font-sans) !important;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) */
 }
 .repository-header-content .repository-info-block,
 .grid-item-content .grid-item-footer,
