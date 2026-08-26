@@ -130,11 +130,13 @@ h3, .h3 { font-size: var(--hsbi-fs-l); }
 h4, .h4 { font-size: var(--hsbi-fs-m); }
 
 /* Hero-Titel + -Beschreibung.
-   hsbi-bg.svg ist ein Rebuild des Versatzprinzips (Kap. 7.2) in Sand auf
-   Weiss; die linken 54 % der Flaeche bleiben leer. Der Text sitzt dort in
-   Schwarz: 21:1 auf Weiss, 13.9:1 falls der cover-Crop Sand nach links
-   schiebt — beide Faelle weit ueber AA. homepage.css setzt hier #FFFFFF
-   (plain), das laege auf Weiss bei 1:1. */
+   hsbi-bg.jpg ist eine Fotocollage; links, bis Bild-x 1400, liegt das
+   Motiv als Schleier mit 22 % Deckkraft ueber Weiss. Der dunkelste dort
+   moegliche Wert ist 199, unabhaengig vom Bildinhalt, denn
+   (1 - 0.22) * 255 = 199. Der Text sitzt dort in Schwarz: rechnerisch
+   12.4:1, gemessen ueber alle Breiten (320 bis 2560 px) 12.23:1, weit
+   ueber AA. homepage.css setzt hier #FFFFFF (plain), das waere auf
+   diesem hellen Grund unlesbar. */
 .repository-title {
   word-wrap: break-word;
   /* min-width:0 + max-width:100%: der Titel ist Flex-Item im Info-Block.
@@ -529,15 +531,19 @@ a.btn-feedback {
 
    a) Overlay neutralisieren: homepage.css legt zwei dunkle 40-%-Gradienten
       (.repository-header-overlay, plain, 0,1,0) zwischen Hintergrundbild
-      und Text — gedacht fuer Foto-Heros mit weisser Schrift. hsbi-bg.svg
-      ist eine helle gestaltete Flaeche mit schwarzer Schrift; das Overlay
-      wuerde die weisse Ruhezone verschmutzen und den Kontrast von 21:1
-      auf ~7:1 druecken. Der ID-Elternselektor (1,1,0) schlaegt die
-      spaeter geladene plain-Regel ohne !important.
-   b) Textblock auf 52 % begrenzen: homepage.css setzt 80 %. Der Text sitzt
-      links auf der weissen Ruhezone (Sandflaechen ab x=1300 von 2400,
-      also 54 %); der Titel soll dort umbrechen statt nach rechts zu
-      laufen. (0,2,0) schlaegt (0,1,0) ohne !important.
+      und Text — gedacht fuer Foto-Heros mit weisser Schrift. hsbi-bg.jpg
+      ist eine Fotocollage, deren linke Haelfte der Schleier hell haelt,
+      mit schwarzer Schrift darauf; das Overlay wuerde genau diese helle
+      Zone verschmutzen und den gemessenen Kontrast von 12.23:1 druecken.
+      Der ID-Elternselektor (1,1,0) schlaegt die spaeter geladene
+      plain-Regel ohne !important.
+   b) Textblock auf 52 % begrenzen: homepage.css setzt 80 %. Der Deckel
+      haelt den Text in der Schleierzone, die bei Bild-x 1400 von 2400
+      endet, also bei 58.3 %; der Titel soll dort umbrechen statt nach
+      rechts zu laufen. Gemessen laeuft die Texthuelle ueber die Breiten
+      320 bis 2560 px nur von Bild-x 233 bis 1354; das rechte Extrem
+      1354 faellt auf 599 px, den oberen Rand des 80-%-Bereichs aus c).
+      (0,2,0) schlaegt (0,1,0) ohne !important.
    ========================================================================== */
 #repository-header .repository-header-overlay {
   background: none;
@@ -583,7 +589,7 @@ a.btn-feedback {
    Das Logo wird laut Kap. 3.1/3.4 NICHT eingefaerbt — deshalb hier keine
    filter-/color-Regel, nur Groesse. Fuer dunkle Baender laege
    HSBI_Logo_RGB_weiss.svg bereit; das Band ist weiss, also schwarz.
-   Hintergrund laeuft ueber das CSV-background-Feld (hsbi-bg.svg), NICHT
+   Hintergrund laeuft ueber das CSV-background-Feld (hsbi-bg.jpg), NICHT
    ueber eine CSS-Hero-Regel — sonst zwei Mechanismen fuers selbe Element.
 
    ABWEICHUNG VON DER HAUSREGEL, bewusst und gemessen: §3 verlangt beide

@@ -2,7 +2,7 @@ Name,homepage,repourl,label,enabled,logo,background,css,js,txt,shib_entityid,fav
 Uni Wuppertal,https://www.uni-wuppertal.de/,,uni-wuppertal,1,/at/uni-wuppertal/img/BUW_Logo-weiss-auf-gruen-rgb.png,/at/uni-wuppertal/img/wuppertal-bg.jpg,/at/uni-wuppertal/css/main.css,,/at/uni-wuppertal/txt/main.txt,https://idp-test.uni-wuppertal.de/idp/shibboleth,
 FH Münster,https://www.fh-muenster.de/,,fh-muenster,1,/at/fh-muenster/img/logo.png,/at/fh-muenster/img/fhm-bg.svg,/at/fh-muenster/css/main.css,/at/fh-muenster/js/main.js,,https://idp-test.fh-muenster.de/idp/shibboleth,/at/fh-muenster/img/favicon_fhms.ico
 Uni Bielefeld,https://www.uni-bielefeld.de/,,uni-bielefeld,1,,,,,,https://shibboleth-test.uni-bielefeld.de/idp/shibboleth,
-Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,1,/at/hsbi/img/logo.svg,/at/hsbi/img/hsbi-bg.svg,/at/hsbi/css/main.css,/at/hsbi/js/main.js,,,/at/hsbi/img/favicon-64.png
+Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,1,/at/hsbi/img/logo.svg,/at/hsbi/img/hsbi-bg.jpg,/at/hsbi/css/main.css,/at/hsbi/js/main.js,,,/at/hsbi/img/favicon-64.png
 Hochschule Rhein-Waal,https://www.hochschule-rhein-waal.de/,,hochschule-rhein-waal,1,/at/hochschule-rhein-waal/img/logo.svg,/at/hochschule-rhein-waal/img/background.svg,/at/hochschule-rhein-waal/css/main.css,/at/hochschule-rhein-waal/js/main.js,,,/at/hochschule-rhein-waal/img/favicon-64.png
 Hochschule Bochum,https://www.hochschule-bochum.de/,,hs-bochum,1,,,,,,https://idp0.hs-bochum.de/idp/shibboleth,
 Fachhochschule Südwestfalen,https://www.fh-swf.de/,,fh-swf,1,,,,,,https://idp-devel02.fh-swf.de/idp/shibboleth,
