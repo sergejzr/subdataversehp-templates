@@ -9,7 +9,7 @@ Fachhochschule Südwestfalen,https://www.fh-swf.de/,,fh-swf,1,,,,,,https://idp-d
 FernUniversität in Hagen,https://www.fernuni-hagen.de/,,fernuni-hagen,1,/at/fernuni-hagen/img/logo.svg,/at/fernuni-hagen/img/background.svg,/at/fernuni-hagen/css/main.css,/at/fernuni-hagen/js/main.js,,https://login-test.fernuni-hagen.de/idp/shibboleth,/at/fernuni-hagen/img/favicon-64.png
 TH Köln,https://www.th-koeln.de/,,th-koeln,1,/at/th-koeln/img/logo.png,/at/th-koeln/img/background.svg,/at/th-koeln/css/main.css,/at/th-koeln/js/main.js,,https://qa-login.th-koeln.de/nidp/saml2/metadata,/at/th-koeln/img/favicon-64.png
 Universität zu Köln,https://www.uni-koeln.de/,,uni-koeln,1,/at/uni-koeln/img/logo.svg,/at/uni-koeln/img/koeln-sphaeren-bg.svg,/at/uni-koeln/css/main.css,/at/uni-koeln/js/main.js,,https://idptest.rrz.uni-koeln.de/idp/shibboleth,/at/uni-koeln/img/favicon-64.png
-Universität Siegen,https://www.uni-siegen.de/,,uni-siegen,1,,,,,,https://login.zimt-test.uni-siegen.de/idp/shibboleth,
+Universität Siegen,https://www.uni-siegen.de/,,uni-siegen,1,/at/uni-siegen/img/logo.svg,/at/uni-siegen/img/header-1920.jpg,/at/uni-siegen/css/main.css,/at/uni-siegen/js/main.js,,https://login.zimt-test.uni-siegen.de/idp/shibboleth,/at/uni-siegen/img/favicon-32.png
 Hochschule Bonn-Rhein-Sieg,https://www.h-brs.de/,,h-brs,1,/at/h-brs/img/logo-700w.png,/at/h-brs/img/hero-circles.svg,/at/h-brs/css/main.css,/at/h-brs/js/main.js,,,/at/h-brs/img/favicon-32.png
 RWTH Aachen,https://www.rwth-aachen.de/,https://publications.rwth-aachen.de/collection/Dataset?ln=de,rwth-aachen,1,,,,,,https://login-test.rz.rwth-aachen.de/shibboleth,
 Universität Bonn,https://www.uni-bonn.de/,https://bonndata.uni-bonn.de/,uni-bonn,1,,,,,,https://shibboleth-test.rhrz.uni-bonn.de/idp/shibboleth,

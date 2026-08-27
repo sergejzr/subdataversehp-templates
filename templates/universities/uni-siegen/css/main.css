@@ -1,0 +1,799 @@
+/* ================================
+   FONT DEFINITION
+================================ */
+
+@font-face {
+    font-family: "Lelo";
+    src:
+        url("/fonts/Lelo/Lelo-Regular.woff2") format("woff2"),
+        url("/fonts/Lelo/Lelo-Regular.woff") format("woff");
+    font-style: normal;
+    font-weight: 400;
+}
+.caroussel_title
+{
+font-size: 20pt;
+font-weight: semi-bold;
+color: black;
+font-family: Lelo !important;
+}
+
+.stat-text {
+    color: white;
+    font-family: Lelo;
+    font-size: 17px;
+    text-align: center;
+}
+.login-prompt {
+    font-size: 18px !important;
+    font-family: Lelo !important;
+    font-color: rgb(26, 24, 27);
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.section-heading {
+    word-wrap: break-word;
+    box-sizing: border-box;
+    color: #1A181B !important;
+    font-family: Lelo !important;
+    font-size: 36pt;
+    font-weight: 500 !important;
+    line-height: 61px !important;
+    display: block;
+    padding-bottom: 30px;
+    padding-top: 70px;
+}
+
+.repository-title {
+    word-wrap: break-word;
+    color: #FFFFFF;
+	font-weight: bold;
+    font-family: Lelo !important;
+    font-size: 36pt;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+}
+
+.glyphicon {
+    font-size: 20px;
+    /* color: black !important; */
+}
+.text-danger {
+	font-size: 12px !important;
+    color: #ea1713;
+}
+span.glyphicon-question-sign.tooltip-icon {
+    color: #14f5b3 !important;
+
+}
+
+span.glyphicon-question-sign.tooltip-icon:hover {
+    color: white !important;
+	 background-color: black !important;
+	border: solid 1px;
+	border-color:#14f5b3 !important;
+border: 1px solid #14f5b3; /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 0px; /* Adds padding to give it space inside the circle */
+
+}
+
+.interactive-list {
+    word-wrap: break-word;
+    text-align: left;
+    font-family: 'Lelo';
+    cursor: pointer;
+    color: rgb(26, 24, 27);
+    font-size: 17px;
+}
+
+.btn-primary {
+    background-image: none;
+    border-color: #14f5b3;
+background-color:#14f5b3;
+	color:black;
+}
+
+
+        /* Style for the question mark icon */
+    .customNavigation .glyphicon-question-sign {
+        cursor: pointer; /* Changes the cursor to a pointer on hover */
+        color: #14f5b3; /* Default color */
+        background-color: #000000 !important; /* White background for the circle */
+       border: 1px solid #14f5b3; /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 0px; /* Adds padding to give it space inside the circle */
+
+	}
+
+	    /* Hover effect for the question mark */
+    .customNavigation .glyphicon-question-sign:hover {
+        color: white; /* Changes the question mark to white */
+        border: 1px solid #14f5b3;; /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 0px; /* Adds padding to give it space inside the circle */
+		/*background-color:white !important; *//* Default blue color */
+	}
+
+	.statistics-footer {
+    width: 100%;
+    position: relative;
+    left: 0;
+    background-color: #14f5b3 !important;
+    height: 300px;
+	color:black !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.stat-text {
+    color: black !important;
+    font-family: Roboto-Regular;
+    font-size: 17px;
+    text-align: center;
+}
+.stat-number {
+    color: black !important;
+}
+
+
+.navbar-default
+{
+	background-color: #fff; ! Important;
+
+    border-color: #14f5b3 !important;
+border-bottom:solid 1px;
+    /* border: none !Important; */
+	/* background-image: none; */
+}
+form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #c71616;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #000000;
+}
+
+#search-row-panel {
+    border: 1px solid #14f5b3;
+    border-radius: 4px;
+    padding: 15px 0;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: "Lelo";
+    font-weight: 500;
+    line-height: 1.1;
+    color: black;
+}
+/* ================================
+   GLOBAL STYLES
+================================ */
+
+body {
+    background-color: white !important;
+    box-sizing: border-box;
+    font-family: "Lelo", sans-serif !important;
+}
+
+a.dataverseHeaderName
+{
+    color:green !important;
+}
+/* ================================
+   CUSTOM HEADER
+================================ */
+
+/* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
+   instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
+   /csslibs/custom-stylesheet.css, dvmode-gegated im Ansible-Repo).
+   Ein per-Uni "background: transparent !important" wuerde gewinnen
+   (main.css laedt spaeter) und das Ribbon aushoehlen — nicht neu anlegen. */
+
+
+/* ================================
+   LINKS
+================================ */
+
+a {
+    color: #333333;
+    border-color: #9e2d75;
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+.navbar-nav > li > a:hover {
+    color: #333333;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+    line-height: 18px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    color: #000000;
+    font-weight: bold;
+    border: 0px none;
+}
+.icon-dataset {
+    font-size: 7.5em;
+    line-height: 1.1;
+    color: #000000 !important;
+}
+.bg-citation {
+    background: #14f5b3;
+    border: 0;
+}
+/* ================================
+   BUTTON BASE STYLE
+================================ */
+
+button.btn-default,
+a.btn-default {
+    text-shadow: none;
+    word-wrap: break-word !important;
+    line-height: 1.42857143 !important;
+    font-weight: 400 !important;
+    font-size: 15px !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    font-family: "Lelo", sans-serif !important;
+    border: 1px solid !important;
+	border-color: white !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    background: #14f5b3 !important;
+    padding: 12px 20px;
+    color: #000000 !important;
+    justify-content: center !important;
+    border-radius: 0 !important;
+}
+
+
+/* ================================
+   BUTTON HOVER
+================================ */
+
+button.btn-default:hover,
+a.btn-default:hover {
+    border-color: #14f5b3 !important;
+    background-color: white !important;
+    color: #000000 !important;
+}
+
+
+/* ================================
+   SPECIAL BUTTONS
+================================ */
+
+.btn-contact:hover,
+.btn-share:hover {
+    background-color: #14f5b3;
+    color: #000000;
+}
+.btn-contact, .btn-share {
+border: 1px solid;
+border-color:  #14f5b3;
+    border-radius: 0px ! Important;
+    text-decoration: none ! Important;
+}
+
+body
+{
+	/*background-color: var(--stone-25) !important;*/
+	background-color:white !important;
+	box-sizing: border-box;
+	font-family: Lelo !important;
+}
+
+.repository-action-button {
+    border: 2px solid;
+    border-color: white;
+    color: white;
+    padding: 2px 14px;
+    background-color: rgba(26, 24, 27, 0.3);
+    font-family: Lelo !important;
+    font-size: 19px;
+}
+
+/* ================================
+   INPUT GROUP / TOOLTIP BUTTONS
+================================ */
+
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+    padding: 9px 9px;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 4px !important;
+}
+/* ===========================================================================
+   Universität Siegen — CD-Override
+   DataPublication.nrw · label = uni-siegen
+
+   ANHÄNGEN ans Ende von templates/universities/uni-siegen/css/main.css
+   (Kopie aus layout-adapted). Die Basis-CSS nutzt durchgehend !important;
+   eine spätere Regel gleicher Spezifität gewinnt durch Position — deshalb
+   ans Dateiende, nicht dazwischen. RUNBOOK §8 A.
+
+   Farbquelle: Corporate-Design-Manual, https://design.uni-siegen.de/
+   Nur Dachmarkenfarben. Fakultätsfarben und uni-neon sind hier Bugs.
+
+   Font-Pfad geklaert: renderjinja.py:332 ruft copy_tree_contents() auf das
+   Uni-Verzeichnis auf; die Funktion iteriert ueber ALLE Eintraege und macht
+   shutil.copytree() pro Unterordner — keine Whitelist auf css/img/js/txt.
+   fonts/ wird also mitkopiert, /at/uni-siegen/fonts/... traegt.
+   =========================================================================== */
+
+/* --- 1. Schrift ----------------------------------------------------------
+   Calibri ist proprietaer (Microsoft) und darf NICHT ausgeliefert werden.
+   Carlito ist metrisch identisch (upem/asc/desc/lineGap und Vorbreiten
+   zeichenweise geprueft) und steht unter SIL OFL 1.1.
+   Wer Calibri lokal hat, sieht das Original; alle anderen Carlito.
+   Self-hosted, kein fonts.googleapis.com (DSGVO, RUNBOOK §8 B).           */
+
+@font-face {
+  font-family: "Carlito";
+  src: url("/at/uni-siegen/fonts/Carlito/carlito-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Carlito";
+  src: url("/at/uni-siegen/fonts/Carlito/carlito-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Carlito";
+  src: url("/at/uni-siegen/fonts/Carlito/carlito-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Carlito";
+  src: url("/at/uni-siegen/fonts/Carlito/carlito-bolditalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- 2. CD-Variablen ----------------------------------------------------- */
+
+:root {
+  --unis-dunkelblau:    #00385f;
+  --unis-dunkelblau-80: #33607f;
+  --unis-dunkelblau-60: #66889f;
+
+  --unis-hellblau:      #009ed4;
+  --unis-hellblau-80:   #33b1dd;
+  --unis-hellblau-60:   #66c5e5;
+
+  --unis-grau:          #64727f;
+  --unis-grau-80:       #838e99;
+  --unis-grau-20:       #e0e3e5;
+
+  --unis-weiss:         #ffffff;
+
+  --unis-font: Calibri, "Carlito", "Segoe UI", system-ui, sans-serif;
+
+  /* Rollen — hier steuern, nicht in den Selektoren unten.
+     hellblau ist Flaeche und Hover, NIE Textfarbe: 3,07:1 auf Weiss
+     faellt fuer Fliesstext durch (WCAG AA). Text laeuft ueber dunkelblau
+     mit 12,13:1. */
+  --unis-text:          var(--unis-dunkelblau);
+  --unis-text-sekundaer: var(--unis-grau);
+  --unis-link:          var(--unis-dunkelblau);
+  --unis-link-hover:    var(--unis-hellblau);
+  --unis-flaeche:       var(--unis-grau-20);
+  --unis-linie:         var(--unis-grau-20);
+}
+
+/* --- 3. Schrift global ---------------------------------------------------
+   homepage.css laedt NACH main.css im <body> und gewinnt Spezifitaets-
+   gleichstand, auch !important gegen !important (RUNBOOK §2). Wo
+   homepage.css selbst !important setzt, hilft nur hoehere Spezifitaet.
+   Deshalb der html-body-Praefix statt weiterem !important-Stacking.      */
+
+html body,
+html body h1, html body h2, html body h3,
+html body h4, html body h5, html body h6,
+html body .repository-title,
+html body .section-heading,
+html body button, html body input, html body select, html body textarea {
+  font-family: var(--unis-font) !important;
+}
+
+html body h1, html body h2, html body h3,
+html body h4, html body h5, html body h6,
+html body .repository-title,
+html body .section-heading {
+  font-weight: 700 !important;
+  color: var(--unis-text) !important;
+}
+
+/* --- 4. Landing (/at/uni-siegen) ----------------------------------------- */
+
+.repository-title {
+  color: var(--unis-dunkelblau) !important;
+}
+
+.section-heading {
+  color: var(--unis-dunkelblau) !important;
+  border-bottom: 3px solid var(--unis-hellblau);
+  padding-bottom: 6px;
+}
+
+.statistics-footer {
+  background: var(--unis-dunkelblau) !important;
+  color: var(--unis-weiss) !important;
+  border-top: none !important;
+}
+
+.statistics-footer a,
+.statistics-footer a:hover,
+.statistics-footer a:focus {
+  color: var(--unis-weiss) !important;
+  text-decoration: underline;
+}
+
+.login-prompt {
+  background: var(--unis-flaeche) !important;
+  color: var(--unis-dunkelblau) !important;
+  border-left: 4px solid var(--unis-hellblau) !important;
+  border-radius: 0 !important;
+}
+
+/* --- 5. App-global (/dataverse/uni-siegen und Landing) -------------------
+   Trifft Browse, Dataset, Add-Data. Per Collection gescoped, kein Bleed
+   zu fremden Unis (Blaupause §0).                                        */
+
+a,
+a:visited,
+a.dataverseHeaderName {
+  color: var(--unis-link) !important;
+}
+
+a:hover,
+a:focus,
+a.dataverseHeaderName:hover {
+  color: var(--unis-link-hover) !important;
+}
+
+.navbar-default {
+  background: var(--unis-weiss) !important;
+  border-bottom: 3px solid var(--unis-dunkelblau) !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: var(--unis-dunkelblau) !important;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > .active > a {
+  color: var(--unis-weiss) !important;
+  background: var(--unis-dunkelblau) !important;
+}
+
+/* Primaerbutton: dunkelblau auf weiss = 12,13:1 (AAA).
+   Bewusst NICHT hellblau — weiss auf hellblau waere 3,07:1. */
+.btn-primary,
+a.btn-primary {
+  background: var(--unis-dunkelblau) !important;
+  border-color: var(--unis-dunkelblau) !important;
+  color: var(--unis-weiss) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+a.btn-primary:hover {
+  background: var(--unis-dunkelblau-80) !important;
+  border-color: var(--unis-dunkelblau-80) !important;
+  color: var(--unis-weiss) !important;
+}
+
+button.btn-default,
+a.btn-default {
+  background: var(--unis-weiss) !important;
+  border: 1px solid var(--unis-dunkelblau) !important;
+  color: var(--unis-dunkelblau) !important;
+}
+
+button.btn-default:hover,
+a.btn-default:hover,
+button.btn-default:focus,
+a.btn-default:focus {
+  background: var(--unis-grau-20) !important;
+  border-color: var(--unis-dunkelblau) !important;
+  color: var(--unis-dunkelblau) !important;
+}
+
+#search-row-panel {
+  background: var(--unis-flaeche) !important;
+  border: none !important;
+  border-left: 4px solid var(--unis-dunkelblau) !important;
+  border-radius: 0 !important;
+}
+
+/* Zitationsband: helle Flaeche mit dunkelblauem Text (9,41:1).
+   NICHT vollflaechig in der Akzentfarbe — das war der Koeln-Befund
+   (Issue B, tuerkises Vollband). */
+.bg-citation {
+  background: var(--unis-grau-20) !important;
+  color: var(--unis-dunkelblau) !important;
+  border-left: 4px solid var(--unis-hellblau) !important;
+}
+
+.bg-citation a {
+  color: var(--unis-dunkelblau) !important;
+  text-decoration: underline;
+}
+
+.icon-dataset,
+.icon-dataverse,
+.icon-file {
+  color: var(--unis-dunkelblau) !important;
+}
+
+/* --- 6. Dataset-Card-Grid ------------------------------------------------
+   Zweite Welle aus homepage.css, teils mit !important (Koeln-Issue,
+   Abschnitt 2). Nur ueber hoehere Spezifitaet erreichbar.                */
+
+html body .image-wrapper,
+html body .description-span,
+html body .authors-span,
+html body .repository-info-block {
+  font-family: var(--unis-font) !important;
+  color: var(--unis-text-sekundaer) !important;
+}
+
+html body .repository-info-block a,
+html body .authors-span a {
+  color: var(--unis-link) !important;
+}
+
+/* --- 7. Formularelemente ------------------------------------------------- */
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus {
+  border-color: var(--unis-hellblau) !important;
+  outline: 2px solid var(--unis-hellblau);
+  outline-offset: 1px;
+  box-shadow: none !important;
+}
+
+hr,
+.panel,
+.panel-default {
+  border-color: var(--unis-linie) !important;
+}
+
+
+/* === B. Header-Logo — Hausregel logo-hausregel.md §3/§4 ==================
+
+   Das Logo rendert über die CSV-Spalte `logo`: renderjinja.py schreibt die
+   Zeile nach window.UNIS_OVERVIEW, gui.js injiziert sie clientseitig als
+   img.header_logo. Kein Jinja-Override nötig.
+
+   Verhältnis 2.8926:1 (615.96 x 212.94). Bei max-height 80px ergibt das
+   231.4px Breite, bleibt also unter max-width 360px — die HÖHE bindet.
+   Gerendert 231.4 x 80.0, Fläche 18.5k. Margin (104 - 80) / 2 = 12px,
+   gleiche Logobox wie alle anderen.
+
+   VORAUSSETZUNG, sonst rendert Chrome 0x0 (Hausregel §3a Fall B):
+   logo.svg muss width/height am <svg> tragen. Die neu gelieferten Dateien
+   in uni-siegen-onboarding/assets/img/ tun das — die zuerst gelieferten
+   NICHT. Vor dem Setzen dieser Regel die vier Logodateien austauschen.  */
+
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+
+img.header_logo[src*="/at/uni-siegen/img/logo.svg"] {
+  display: block !important;
+  box-sizing: content-box !important;   /* Deckel gelten dem Bild, nicht dem
+                                           20px-padding-left der Plattform */
+  width: auto !important;               /* beide auto -> Browser haelt das  */
+  height: auto !important;              /* Seitenverhaeltnis selbst ein     */
+  max-width: 360px !important;          /* custom-stylesheet.css: 200px     */
+  max-height: 80px !important;          /* custom-stylesheet.css:  45px     */
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+  margin-right: 17px !important;        /* CD-Schutzraum: 45.67 Einheiten
+                                           der Originaldatei = 17.2px bei
+                                           80px Hoehe. Links liefert die
+                                           Plattform bereits 20px.         */
+}
+
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+
+/* === C. Schrägflächen — neue Platzierung ================================
+
+   Vorher #custom-header::after, siehe §A. Jetzt als Block-Pseudoelement
+   im Fuß der Landing: normaler Textfluss, kein position:absolute, keine
+   Kollision mit Plattform-Chrome.                                        */
+
+.statistics-footer::before {
+  content: "";
+  display: block;
+  height: 14px;
+  margin-bottom: 12px;
+  background-image: url("/at/uni-siegen/img/schraegflaechen.svg");
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+  background-position: left center;
+}
+
+
+/* === D. Lelo-Restbestand neutralisieren =================================
+
+   Diese Datei behält die layout-adapted-Basis (Bielefeld), anders als die
+   acht neu geschriebenen Unis. Die Basis hält font-family: Lelo auf
+   Klassen-Spezifitaet (0,1,0). /fonts/Lelo/ existiert unter uni-siegen
+   nicht, die Deklaration nennt keinen Fallback — betroffene Elemente
+   fallen also auf die Browser-Standardschrift, nicht auf Carlito.
+
+   Alle betroffenen Selektoren tragen höchstens EINE Klasse, deshalb
+   genügt der html-body-Präfix (0,1,2) durchgehend. Kein zusätzliches
+   !important-Stapeln.
+
+   Vollständige Liste, aus der Basis erhoben — nicht raten, nachzählen:
+   .caroussel_title .stat-text .login-prompt .interactive-list
+   .repository-action-button .h1 .h2 .h3 .h4 .h5 .h6
+   button.btn-default a.btn-default
+   (.section-heading und .repository-title deckt der bestehende Block
+    bereits ab, body und h1-h6 ebenfalls.)                                */
+
+html body .caroussel_title,
+html body .stat-text,
+html body .login-prompt,
+html body .interactive-list,
+html body .repository-action-button,
+html body .h1, html body .h2, html body .h3,
+html body .h4, html body .h5, html body .h6,
+html body button.btn-default,
+html body a.btn-default {
+  font-family: var(--unis-font) !important;
+}
+
+
+/* === E. Farbfolge aus D =================================================
+   .repository-action-button trägt in der Basis Bielefeld-Farben. Da die
+   Schrift jetzt ohnehin angefasst wird, die Farbe gleich mit — sonst
+   steht ein fremder Akzent im Siegener Kopf.
+   Spezifitaet wie oben; homepage.css adressiert button.repository-action-
+   button (0,1,1) und laedt spaeter, deshalb zusaetzlich die
+   Elternvarianten wie bei uni-koeln.                                     */
+
+html body .repository-action-button,
+#repository-header button.repository-action-button,
+.repository-header-content button.repository-action-button {
+  background-color: var(--unis-dunkelblau) !important;
+  border-color: var(--unis-dunkelblau) !important;
+  color: var(--unis-weiss) !important;
+}
+
+#repository-header button.repository-action-button:hover,
+#repository-header button.repository-action-button:focus,
+.repository-header-content button.repository-action-button:hover,
+.repository-header-content button.repository-action-button:focus {
+  background-color: var(--unis-dunkelblau-80) !important;
+  border-color: var(--unis-dunkelblau-80) !important;
+  color: var(--unis-weiss) !important;
+}
+
+
+/* ===========================================================================
+   uni-siegen — Patch 2: Nicht-CD-Türkis (#14f5b3) restlos neutralisieren
+   Stand 2026-08-27 · reines Anhängen, nichts löschen
+
+   Die geerbte layout-adapted-Basis trägt #14f5b3 an 16 Stellen — dasselbe
+   grelle Türkis, das bei uni-koeln nachträglich aufgeräumt werden musste.
+   Der CD-Block deckt zwölf davon bereits ab (.btn-primary, .statistics-
+   footer, .navbar-default, #search-row-panel, .bg-citation, button/a.btn-
+   default und deren Hover). Vier Selektorgruppen blieben offen — hier.
+
+   Erhoben, nicht geschätzt: Regelblöcke der Basis nach #14f5b3 gefiltert
+   und gegen die Selektormenge des Override-Blocks abgeglichen.
+   =========================================================================== */
+
+
+/* --- 1. Tooltip-Fragezeichen -------------------------------------------
+   Basis: color/border-color #14f5b3 !important, Hover auf schwarzem Grund.
+   Spezifitaet (0,2,1) mit !important -> html-body-Praefix (0,2,2).        */
+
+html body span.glyphicon-question-sign.tooltip-icon {
+  color: var(--unis-dunkelblau) !important;
+  border-color: var(--unis-dunkelblau) !important;
+}
+
+html body span.glyphicon-question-sign.tooltip-icon:hover {
+  color: var(--unis-weiss) !important;
+  background-color: var(--unis-dunkelblau) !important;
+  border-color: var(--unis-dunkelblau) !important;
+}
+
+
+/* --- 2. Fragezeichen in der customNavigation ---------------------------
+   Basis: color #14f5b3 auf background-color #000000 !important, als Kreis.
+   Wird zu weiss auf dunkelblau — 12,13:1.                                */
+
+html body .customNavigation .glyphicon-question-sign {
+  color: var(--unis-weiss) !important;
+  background-color: var(--unis-dunkelblau) !important;
+  border-color: var(--unis-dunkelblau) !important;
+}
+
+html body .customNavigation .glyphicon-question-sign:hover {
+  color: var(--unis-weiss) !important;
+  background-color: var(--unis-dunkelblau-80) !important;
+  border-color: var(--unis-dunkelblau-80) !important;
+}
+
+
+/* --- 3. Contact-Owner- und Share-Buttons -------------------------------
+   Basis: border-color #14f5b3, Hover Flaeche #14f5b3 mit schwarzem Text.
+   Sichtbare Buttons auf der Dataset-Seite. Basis ohne !important,
+   Spezifitaet (0,1,0) -> html-body-Praefix genuegt.                      */
+
+html body .btn-contact,
+html body .btn-share {
+  border-color: var(--unis-dunkelblau) !important;
+  color: var(--unis-dunkelblau) !important;
+}
+
+html body .btn-contact:hover,
+html body .btn-share:hover,
+html body .btn-contact:focus,
+html body .btn-share:focus {
+  background-color: var(--unis-dunkelblau) !important;
+  border-color: var(--unis-dunkelblau) !important;
+  color: var(--unis-weiss) !important;
+}
+
+
+/* --- 4. Verwaiste Rahmenfarben -----------------------------------------
+   a traegt border-color #9e2d75 (Magenta) ohne border-width, .navbar-
+   default border-color #14f5b3 fuer alle vier Kanten bei nur unten
+   gesetzter Breite. Beide derzeit unsichtbar — aber eine spaetere Regel,
+   die irgendwo eine Rahmenbreite setzt, schaltet sie stumm frei.
+   Darum mitziehen statt darauf zu wetten.                                */
+
+a { border-color: var(--unis-dunkelblau); }
+
+.navbar-default { border-color: var(--unis-dunkelblau) !important; }
+
+
+/* === Bewusst NICHT angefasst ==========================================
+
+   .text-danger  color: #ea1713
+     Semantische Fehlerfarbe, keine Markenfarbe. Rot muss rot bleiben —
+     ein blauer Fehlerhinweis waere schlechtere UX als ein CD-Verstoss.
+     Bleibt, und zwar als Entscheidung, nicht als Uebersehen.
+
+   .ui-tabs .ui-tabs-nav.ui-widget-header  color: #000000
+   form-control  color: #c71616
+     Schwarz ist neutral. Und `form-control` steht in der Basis OHNE Punkt,
+     ist also ein Elementtyp-Selektor auf ein Element, das es nicht gibt —
+     toter Code, greift nie. Beides kein Handlungsbedarf.
+
+   #333333, #1A181B, #000000 an weiteren Stellen der Basis
+     Neutrale Grautoene. Wo sie sichtbar auf Text liegen, deckt der
+     CD-Block sie bereits ab (.section-heading, a, .icon-dataset).
+   ===================================================================== */
