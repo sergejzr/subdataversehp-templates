@@ -321,6 +321,34 @@ a:hover, a:focus {
   text-decoration-thickness: 3px;
 }
 
+/* Die Unterstreichung gehoert an Inhaltslinks, nicht an jeden Anker.
+   Gemessen an der laufenden Instanz (2026-09-08, /at/uni-wuppertal):
+   von 43 Ankern sind nur 19 echte Textlinks. Die uebrigen 24 sind
+   Struktur — Navigationspunkte, Buttons, Karten, das Kopflogo. Eine
+   gruene 2px-Linie unter SEARCH / USER GUIDE / SUPPORT / LOG IN sah
+   nach Fehler aus, nicht nach Auszeichnung.
+
+   Zwei getrennte Regelbloecke, mit Absicht: faellt :has() bei einem
+   alten Parser durch, verwirft er den GESAMTEN Selektorlisten-Block, in
+   dem es steht (CSS Syntax, ungueltiger Selektor invalidiert die ganze
+   Liste). Der Klassenteil unten wuerde also mitsterben. Getrennt
+   ueberlebt er.                                                        */
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:hover,
+a.dataverseHeaderName,
+a.btn-default, a.btn-primary, a.btn-contact, a.btn-share {
+  text-decoration: none !important;
+}
+
+/* Anker, deren Inhalt kein Text ist: Kopflogo, Karten-Thumbnails und die
+   klassenlosen Anker um die Hero-Buttons (<a><button …></a>, deshalb
+   button und nicht nur img). Auf der Instanz trifft das 24 - 6 = die
+   restlichen strukturellen Anker. */
+a:has(img, button, svg) {
+  text-decoration: none !important;
+}
+
 a.dataverseHeaderName,
 .navbar-default .navbar-brand {
   color: var(--buw-text) !important;
