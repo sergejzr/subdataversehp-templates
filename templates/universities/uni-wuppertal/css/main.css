@@ -291,11 +291,34 @@ a, a:visited {
   text-underline-offset: 2px;
 }
 
-/* Hover: Gruen wird zur Flaeche, der Text bleibt dunkel (7.54:1). */
+/* Hover: die Unterstreichung wechselt von Gruen auf Ink und wird dicker.
+   KEINE Flaeche auf dem generischen a — das war der Fehler der ersten
+   Fassung (Commit d4739fb), zurueckgenommen 2026-09-08:
+
+   `a` trifft JEDEN Anker der Seite, und 10 der 26 Anker im Basis-Template
+   enthalten ueberhaupt keinen Text. Der schlimmste Fall ist das Kopflogo:
+   <a href="..."><img class="header_logo"></a>. Beim Hover legte sich
+   #89ba17 um die Etikettenflaeche #7fad18 — zwei Gruens mit 1.15:1
+   zueinander, also eine minimal hellere Flaeche mit harter Kante um das
+   Logo. Kein Highlight, ein Schmutzrand. Dasselbe traf die
+   Karten-Thumbnails und die Anker um die Hero-Buttons.
+
+   Dazu die generische Schwaeche: eine Flaeche auf einem INLINE-Anker
+   ohne Padding klebt an den Glyphen und bricht an Zeilenumbruechen in
+   Fragmente.
+
+   Alle acht anderen Hochschulen tauschen auf a:hover nur die Farbe
+   (uni-koeln, th-koeln, h-brs, fernuni-hagen, hsbi,
+   hochschule-rhein-waal, fh-muenster, uni-siegen) — Wuppertal war die
+   einzige mit background-color. Das Muster hier folgt hsbi: Wechsel der
+   text-decoration-color.
+
+   Flaechen-Hover bleibt dort, wo das Element ein eigenes Padding hat und
+   die Flaeche gewollt ist: Navigationspunkte, Buttons. Siehe unten. */
 a:hover, a:focus {
   color: var(--buw-ink) !important;
-  background-color: var(--buw-flaeche);
   text-decoration-color: var(--buw-ink);
+  text-decoration-thickness: 3px;
 }
 
 a.dataverseHeaderName,

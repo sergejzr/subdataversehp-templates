@@ -65,6 +65,41 @@ deshalb in `#1a1a1a` mit grüner Unterstreichung statt in einem erfundenen
 Dunkelgrün. Entscheidung vom 2026-09-08, revidierbar sobald der Leitfaden
 vorliegt.
 
+### Grün als Fläche hat eine Grenze: nicht auf `a:hover`
+
+Korrektur vom 2026-09-08, nach dem ersten Rendering auf der Instanz. Die
+erste Fassung setzte auf `a:hover` eine grüne Fläche — konsequent gedacht
+(Grün darf Fläche sein), in der Wirkung aber falsch.
+
+`a` trifft **jeden** Anker der Seite, und **10 der 26 Anker im
+Basis-Template enthalten keinen Text**: das Kopflogo
+(`<a><img class="header_logo"></a>`), die Karten-Thumbnails, die Anker um
+die Hero-Buttons. Beim Hover über das Logo legte sich `#89ba17` um die
+Etikettenfläche `#7fad18`. Die beiden Grüns stehen mit **1.15:1**
+zueinander — das ergibt kein Highlight, sondern eine minimal hellere
+Fläche mit harter Kante, also einen Schmutzrand um das Logo.
+
+Dazu die generische Schwäche: eine Fläche auf einem **inline**-Anker ohne
+Padding klebt an den Glyphen und bricht an Zeilenumbrüchen in Fragmente.
+
+**Alle acht anderen Hochschulen tauschen auf `a:hover` nur die Farbe**
+(uni-koeln, th-koeln, h-brs, fernuni-hagen, hsbi, hochschule-rhein-waal,
+fh-muenster, uni-siegen). Wuppertal war die einzige mit `background-color`
+— nicht weil die anderen es vergessen hätten, sondern weil sie eine dunkle
+CD-Farbe haben und den Hover über die Textfarbe fahren können. Wuppertal
+kann das nicht (§1) und ist deshalb überhaupt erst auf die Fläche
+gekommen.
+
+Jetzt: Unterstreichung wechselt von Grün auf Ink und wird dicker (Muster
+hsbi). Flächen-Hover bleibt dort, wo das Element **eigenes Padding** hat
+und die Fläche gewollt ist — Navigationspunkte, Buttons, `.btn-contact`,
+`.btn-share`.
+
+➡️ **Verallgemeinerbar:** Wo eine Hochschule keine textfähige CD-Farbe hat,
+ist die Versuchung groß, den Hover über eine Fläche zu lösen. Auf dem
+generischen `a` geht das nicht, weil die Plattform Anker ohne Textinhalt
+kennt. Gehört bei der nächsten Uni mit hellem CD gleich mitgedacht.
+
 **NEUTRAL (nicht überschreiben, Blaupause §3c):**
 `#666666` in `.card-title-icon-block`, `#333333` in `.ui-datatable`. Das sind
 Plattform-Textgrautöne, keine fremden Markenfarben. Bei diesen Selektoren
