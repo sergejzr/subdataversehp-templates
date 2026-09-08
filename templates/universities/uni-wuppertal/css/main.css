@@ -1,163 +1,598 @@
-/* ================================
-   FONT DEFINITION
-================================ */
-
-/* ************* */
-/* *** SERIF *** */
-/* ************* */
-/* REGULAR_400 Mignon-400 */ // replaces Amiri
-@font-face {
-   font-family: 'Mignon';
-   font-style: normal;
-   font-weight: 400;
-   src: url("../Fonts/Mignon-400-Regular.woff2") format("woff2"),
-   url("../Fonts/Mignon-400-Regular.woff") format("woff");
-}
-
-/* ****************** */
-/* *** SANS-SERIF *** */
-/* ****************** */
-/* LIGHT_300 open-sans-300 */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: normal;
-   font-weight: 300;
-   src: url('../Fonts/open-sans-v34-latin-300.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-300.woff') format('woff');
-}
-/* LIGHT_300 open-sans-300italic */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: italic;
-   font-weight: 300;
-   src: url('../Fonts/open-sans-v34-latin-300italic.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-300italic.woff') format('woff');
-}
-/* LIGHT_400 open-sans-regular */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: normal;
-   font-weight: 400;
-   src: url('../Fonts/open-sans-v34-latin-regular.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-regular.woff') format('woff');
-}
-/* LIGHT_400 open-sans-italic */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: italic;
-   font-weight: 400;
-   src: url('../Fonts/open-sans-v34-latin-italic.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-italic.woff') format('woff');
-}
-/* REGULAR_500 open-sans-500 */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: normal;
-   font-weight: 500;
-   src: url('../Fonts/open-sans-v34-latin-500.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-500.woff') format('woff');
-}
-/* REGULAR_500 open-sans-500italic */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: italic;
-   font-weight: 500;
-   src: url('../Fonts/open-sans-v34-latin-500italic.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-500italic.woff') format('woff');
-}
-/* BOLD_600 open-sans-600 */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: normal;
-   font-weight: 600;
-   src: url('../Fonts/open-sans-v34-latin-600.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-600.woff') format('woff');
-}
-/* BOLD_600 open-sans-600italic */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: italic;
-   font-weight: 600;
-   src: url('../Fonts/open-sans-v34-latin-600italic.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-600italic.woff') format('woff');
-}
-/* BOLD_600 open-sans-600 */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: normal;
-   font-weight: 700;
-   src: url('../Fonts/open-sans-v34-latin-700.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-700.woff') format('woff');
-}
-/* BOLD_600 open-sans-600italic */
-@font-face {
-   font-display: swap;
-   font-family: 'Open Sans';
-   font-style: italic;
-   font-weight: 700;
-   src: url('../Fonts/open-sans-v34-latin-700italic.woff2') format('woff2'),
-        url('../Fonts/open-sans-v34-latin-700italic.woff') format('woff');
-}
-
 /* ===========================================================================
-   Ergaenzung 2026-08-20 — nur das, was ohne CD-Kenntnis entscheidbar ist.
+   BERGISCHE UNIVERSITAET WUPPERTAL — main.css
+   DataPublication.nrw · label = uni-wuppertal
 
-   Diese Datei bestand bis hier ausschliesslich aus @font-face-Bloecken:
-   null Regelbloecke, keine Farben, keine Selektoren. Daraus folgten drei
-   der vier gemeldeten Punkte von selbst — das Dataverse-Logo stand da,
-   weil niemand es ausblendet, das Uni-Logo war klein, weil
-   custom-stylesheet.css .header_logo auf max-width 200px / height 45px
-   deckelt, und die Versalien kommen aus homepage.css.
+   Herkunft. Diese Datei ging aus dem Stand von Torsten Rathmann hervor
+   (Commit "Initial layout for Uni Wuppertal" + Nachzug 2026-08-20). Der
+   Bestand bestand aus elf @font-face-Bloecken und den zwei Logo-Regeln vom
+   20.08. — null Farben, keine Selektoren. Wuppertal hat als einzige Uni
+   NICHT die layout-adapted-Basis (Bielefeld) kopiert; die Seite lief also
+   auf reinen Plattform-Defaults. Entsprechend themt diese Datei gegen
+   Plattform-CSS, nicht gegen eine geerbte Basis — und uebernimmt aus
+   uni-koeln bewusst KEINE Struktur-Deklarationen (Padding/Flex/Radius),
+   weil die dort aus der Bielefeld-Basis stammen und hier nie existierten.
 
-   NICHT ergaenzt, weil dafuer die Grundlage fehlt:
-   - Farben. Es gibt kein CD-Dokument im Repo und keinen Farbwert in dieser
-     Datei. Das Gruen aus dem Logo zu sampeln ist ausdruecklich untersagt
-     (s. th-koeln/h-brs/hochschule-rhein-waal: Logo-Werte weichen regelmaessig
-     vom CD ab). Ohne CD kein Farb-Theming und kein CD-Profil.
-   - text-transform. Ob die Uni Wuppertal Versalien fuehrt, ist eine
-     CD-Frage. uni-koeln hat sie (CD-Merkmal), die uebrigen fuenf nicht.
-     Bis das geklaert ist, bleibt der Plattform-Default stehen.
+   Ladereihenfolge (tooling/visual-audit/target-spec.md §0):
+   PrimeFaces/Bootstrap -> custom-stylesheet.css (Uni Bonn) -> DIESE DATEI
+   (<head>, injiziert von /jslibs/hrz/gui.js aus der CSV-Spalte css) ->
+   homepage.css (<body>, laedt SPAETER). Bei Spezifitaetsgleichstand
+   gewinnt homepage.css, auch !important gegen !important. Wo homepage.css
+   selbst !important setzt, hilft nur hoehere Spezifitaet — deshalb an
+   diesen Stellen ein Elternselektor statt weiterem !important-Stapeln.
 
-   OFFEN, gehoert gemeldet, hier nicht behoben:
-   - Die elf @font-face oben zeigen auf ../Fonts/*.woff2, also auf
-     /at/uni-wuppertal/Fonts/. Diese Dateien liegen NICHT im Repo. Alle
-     Requests laufen ins Leere, Mignon und Open Sans rendern nirgends.
-   - Die Spalte js in config/unis.csv ist leer, obwohl js/main.js
-     mitgeliefert wurde — die Datei wird ausgeliefert, aber nie eingebunden.
-   - Die Spalte txt ist als einzige Uni gesetzt. Bei adapted-Layout ist
-     txt/main.txt nicht die Quelle des Begruessungstexts.
+   CD-Quelle: design-profil-uni-wuppertal.md. Werte aus dem CD-Leitfaden
+   des Kontakts, NICHT aus Logo oder Website gesampelt.
    ========================================================================== */
 
-/* Das Plattform-Logo ausblenden — Hausmuster aller sechs anderen Unis:
-   auf der eigenen Landing steht das Uni-Logo allein. */
+
+/* ===========================================================================
+   1. Schrift — Open Sans, self-hosted
+   Bestand vor diesem Commit: die Bloecke zeigten auf ../Fonts/*.woff2, also
+   /at/uni-wuppertal/Fonts/. Dieses Verzeichnis lag nicht im Repo. Alle elf
+   Requests liefen ins Leere, die Seite rendert seit dem Onboarding in
+   Systemdefaults — genau der Zustand, den Blaupause §3d als einzige
+   belastbare Pruefgroesse benennt (checkFontFaces: liefert das Dokument
+   die Familie mit?).
+
+   Jetzt: Latin-Subset unter css/fonts/ abgelegt, Pfade absolut wie bei
+   uni-koeln/th-koeln/h-brs/hsbi. Kein fonts.googleapis.com-@import (DSGVO,
+   RUNBOOK §8 B).
+
+   Zwei Abweichungen vom Uebergabe-Auftrag, beide bewusst:
+   (a) Bezugsquelle. google-webfonts-helper (gwfh.mranftl.com) ist aus der
+       Arbeitsumgebung nicht erreichbar. Stattdessen @fontsource/open-sans
+       5.3.0 — dieselbe Quelle (github.com/googlefonts/opensans), dasselbe
+       Latin-Subset, dieselbe Lizenz (SIL OFL 1.1, Kopie liegt als
+       css/fonts/LICENSE-OFL-1.1.txt daneben). Wer lieber gwfh-Dateien
+       ausliefert, tauscht die zehn woff2 aus; die Pfade bleiben gueltig.
+   (b) Kein .woff-Fallback mehr. Browser waehlen das erste unterstuetzte
+       Format und fragen woff nie an, wenn woff2 davor steht — die alten
+       .woff-URLs waren also folgenlos, aber tot. Hauskonvention aller
+       anderen Unis ist woff2-only.
+
+   Zehn Schnitte, weil Torsten zehn deklariert hatte. Das kostet nichts:
+   Browser laden nur die @font-face-Bloecke, die von tatsaechlich gesetztem
+   Text getroffen werden — nicht deklarierte Vorraete.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 300;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: italic; font-weight: 300;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-LightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 400;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: italic; font-weight: 400;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 500;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: italic; font-weight: 500;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-MediumItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 600;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: italic; font-weight: 600;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-SemiBoldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 700;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: italic; font-weight: 700;
+  font-display: swap;
+  src: url("/at/uni-wuppertal/css/fonts/OpenSans-BoldItalic.woff2") format("woff2");
+}
+
+/* --- Mignon: bewusst NICHT ausgeliefert -----------------------------------
+   Der Bestand deklarierte zusaetzlich:
+
+     @font-face { font-family: 'Mignon'; font-weight: 400;
+                  src: url("../Fonts/Mignon-400-Regular.woff2") ... }
+
+   Entfernt, mit Torsten abgestimmt. Zwei unabhaengige Gruende:
+   1. Lizenz. Mignon ist eine kommerzielle Schrift (Adobe/Linotype). Ob eine
+      Webfont-Lizenz die Auslieferung durch das HRZ Bonn unter fremder
+      Domain deckt, ist ungeklaert. Bis das geklaert ist, wird sie nicht
+      ausgeliefert — Blaupause §3d: wo die CD-Schrift nicht lizenziert
+      werden kann, gehoert sie AUS dem Stack, nicht als stiller Fallback
+      stehen gelassen.
+   2. Wirkungslos. Keine einzige Regel dieser Datei hat je font-family:
+      Mignon gesetzt. Die Deklaration war auch vor der Lizenzfrage tot.
+
+   Falls die Lizenzlage spaeter geklaert wird: Datei unter css/fonts/
+   ablegen, Block nach dem Muster oben ergaenzen und eine Rolle vergeben
+   (im BUW-CD traegt die Serif ueblicherweise Zitate/Auszeichnung) —
+   sonst aendert sich am Rendering nichts.
+   ------------------------------------------------------------------------ */
+
+
+/* ===========================================================================
+   2. CD-Variablen
+
+   KONTRAST-PITFALL, der die ganze Farbfuehrung dieser Datei bestimmt.
+   Beide CD-Gruens sind auf Weiss zu hell:
+
+     #89ba17 (Unigruen)     auf #ffffff = 2.31:1
+     #7fad18 (Etikette)     auf #ffffff = 2.66:1
+     #ffffff auf #89ba17                = 2.31:1
+     #ffffff auf #7fad18                = 2.66:1
+
+   WCAG AA verlangt 4.5:1 fuer Fliesstext und 3:1 fuer Grosstext und
+   grafische Bedienelemente. Alle vier Paarungen fallen durch. Gruen ist
+   deshalb WEDER Textfarbe NOCH Flaeche unter weisser Schrift.
+
+   Umgekehrt traegt Gruen dunklen Text sehr gut:
+
+     #1a1a1a auf #89ba17                = 7.54:1  (AAA)
+     #1a1a1a auf #7fad18                = 6.54:1  (AA, AAA fuer Grosstext)
+     #1a1a1a auf #ffffff                = 17.40:1
+
+   Regel fuer diese Datei: Gruen erscheint als Flaeche mit dunklem Text,
+   als Linie, als Rahmen, als Unterstreichung und als Hover-Flaeche.
+   Text, Links und Ueberschriften laufen in --buw-ink. Das ist dieselbe
+   Konsequenz wie beim Tuerkis-Pitfall von uni-koeln (design-profil-
+   uni-koeln.md §1) und beim Hellblau von uni-siegen.
+
+   Warum kein abgedunkeltes Gruen als Linkfarbe: das CD nennt genau zwei
+   Werte. #7fad18 ist bereits Pantone 376 + K10, also eine CD-eigene
+   Abstufung — ob weitere Abstufungen zulaessig sind, sagt der Leitfaden
+   nicht. Eine dritte, dunklere Gruenstufe waere eine erfundene Farbe.
+   Entscheidung 2026-09-08: neutrales Dunkel fuer Text, Gruen nur als
+   Flaeche. Wenn der Leitfaden Tonabstufungen doch zulaesst, ist das der
+   Ort, an dem eine --buw-gruen-dunkel nachgezogen wird.
+   ========================================================================== */
+
+:root {
+  --buw-gruen:         #89ba17;   /* Unigruen, Pantone 376              */
+  --buw-gruen-etikett: #7fad18;   /* Pantone 376 + K10, Logo-Etikette   */
+  --buw-ink:           #1a1a1a;   /* neutrales Dunkel, keine Markenfarbe */
+  --buw-weiss:         #ffffff;
+
+  --buw-font-sans: "Open Sans", system-ui, -apple-system, "Segoe UI",
+                   Arial, sans-serif;
+
+  /* Rollen — hier steuern, nicht in den Selektoren unten. */
+  --buw-text:         var(--buw-ink);
+  --buw-link:         var(--buw-ink);
+  --buw-linie:        var(--buw-gruen);
+  --buw-flaeche:      var(--buw-gruen);
+  --buw-flaeche-tief: var(--buw-gruen-etikett);  /* eine CD-Stufe dunkler,
+                                                    Hover/Aktiv           */
+}
+
+
+/* ===========================================================================
+   3. Schrift global
+   Selektorliste = Blaupause §3f (die hsbi-Referenzliste), nicht geraten.
+   html-body-Praefix dort, wo homepage.css mit !important arbeitet und
+   spaeter laedt — reines !important-Stapeln verloere den Source-Order-Tie.
+   ========================================================================== */
+
+html body,
+html body h1, html body h2, html body h3,
+html body h4, html body h5, html body h6,
+html body .h1, html body .h2, html body .h3,
+html body .h4, html body .h5, html body .h6,
+html body button, html body input, html body select, html body textarea {
+  font-family: var(--buw-font-sans) !important;
+}
+
+/* Allgemeine Anker-Regel. Laut Blaupause §3f der Hebel mit der groessten
+   Wirkung: ohne sie bleiben alle Anker in PrimeFaces-Komponenten
+   (.ui-tabs-nav li a und Verwandte) in Helvetica. */
+a, a:visited {
+  font-family: var(--buw-font-sans) !important;
+}
+
+/* Landing-Selektoren aus §3f. */
+.repository-title,
+.repository-title2,
+.repository-description,
+.repository-small-title,
+.section-heading,
+.news-title,
+.dataverse-item-title,
+.caroussel_title,
+.stat-number,
+.stat-text,
+.statistics-footer .stat-text,
+.login-prompt,
+.interactive-list,
+.btn-primary,
+button.btn-default,
+a.btn-default,
+a.btn-contact,
+a.btn-share,
+button.repository-action-button,
+.bg-citation,
+a.dataverseHeaderName,
+.navbar-default .navbar-brand,
+.search-term-match {
+  font-family: var(--buw-font-sans) !important;
+}
+
+/* Card-Grid und Collection-Header: homepage.css setzt hier Roboto per
+   !important und laedt spaeter. Je eine Elternklasse davor (0,2,0 bzw.
+   0,3,0) schlaegt das, ohne weiteres !important. Muster uebernommen aus
+   uni-koeln §3; .repository-info-block braucht die Elternklasse zwingend
+   (Blaupause §3f, Schlusshinweis). */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--buw-font-sans) !important;
+}
+
+/* Ueberschriften: Gewicht und Farbe. text-transform bleibt bewusst
+   unangetastet — ob die BUW Versalien fuehrt, ist eine CD-Frage, die der
+   Leitfaden hier nicht beantwortet. uni-koeln hat sie als belegtes
+   CD-Merkmal, die uebrigen Unis nicht. Bis das geklaert ist, gilt der
+   Plattform-Default (homepage.css setzt auf .repository-title ohnehin
+   Versalien). */
+html body h1, html body h2, html body h3,
+html body h4, html body h5, html body h6,
+html body .section-heading {
+  font-weight: 700 !important;
+  color: var(--buw-text) !important;
+}
+
+
+/* ===========================================================================
+   4. Native Collection-Views — Pflicht-Selektoren
+   Blaupause §3c. Beide Familien sind eindeutig falsch (Plattform-Defaults
+   Roboto-Regular bzw. "Helvetica Neue") und gehoeren in jede main.css.
+   Die Grauwerte daneben (#666666 / #333333) bleiben stehen: unauffaellige
+   Plattform-Textgrautoene, keine fremden Markenfarben — eine Ersetzung
+   waere eine Designentscheidung ohne CD-Grundlage (im Design-Profil als
+   source: NEUTRAL gefuehrt).
+   ========================================================================== */
+
+.card-title-icon-block,
+.ui-datatable {
+  font-family: var(--buw-font-sans) !important;
+}
+
+
+/* ===========================================================================
+   5. Farbe — ausschliesslich als Flaeche, Linie und Rahmen
+   ========================================================================== */
+
+/* Links. Ohne eigene Markenfarbe (s. §2) traegt die Unterstreichung die
+   Affordanz und das Gruen die Marke. Die Linie ist Dekor, der Kontrast
+   sitzt im Text selbst (17.40:1) — WCAG 1.4.1 ist damit ueber die
+   Unterstreichung erfuellt, nicht ueber die Farbe. */
+a, a:visited {
+  color: var(--buw-link) !important;
+  text-decoration: underline;
+  text-decoration-color: var(--buw-gruen);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+/* Hover: Gruen wird zur Flaeche, der Text bleibt dunkel (7.54:1). */
+a:hover, a:focus {
+  color: var(--buw-ink) !important;
+  background-color: var(--buw-flaeche);
+  text-decoration-color: var(--buw-ink);
+}
+
+a.dataverseHeaderName,
+.navbar-default .navbar-brand {
+  color: var(--buw-text) !important;
+}
+
+/* Kopfband: weiss mit gruener CD-Linie. Gruen traegt hier keinen Text. */
+.navbar-default {
+  background-color: var(--buw-weiss);
+  border-bottom: 4px solid var(--buw-linie) !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: var(--buw-text) !important;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > .active > a {
+  color: var(--buw-ink) !important;
+  background-color: var(--buw-flaeche) !important;
+}
+
+/* Abschnittsueberschriften: gruene Unterkante statt gruener Schrift. */
+.section-heading {
+  border-bottom: 3px solid var(--buw-linie);
+  padding-bottom: 6px;
+}
+
+/* Primaerbutton: Gruen als Flaeche, dunkles Label = 7.54:1.
+   Ausdruecklich NICHT weisses Label auf Gruen — das waeren 2.31:1. */
+.btn-primary,
+a.btn-primary {
+  background-image: none;
+  background-color: var(--buw-flaeche) !important;
+  border-color: var(--buw-flaeche) !important;
+  color: var(--buw-ink) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+a.btn-primary:hover {
+  background-color: var(--buw-flaeche-tief) !important;
+  border-color: var(--buw-flaeche-tief) !important;
+  color: var(--buw-ink) !important;
+}
+
+/* Sekundaerbutton: weisse Flaeche, gruener Rahmen, dunkles Label. */
+button.btn-default,
+a.btn-default {
+  background-color: var(--buw-weiss) !important;
+  border: 1px solid var(--buw-linie) !important;
+  color: var(--buw-text) !important;
+}
+
+button.btn-default:hover,
+a.btn-default:hover,
+button.btn-default:focus,
+a.btn-default:focus {
+  background-color: var(--buw-flaeche) !important;
+  border-color: var(--buw-flaeche-tief) !important;
+  color: var(--buw-ink) !important;
+}
+
+.btn-contact,
+.btn-share {
+  border: 1px solid var(--buw-linie);
+  color: var(--buw-text) !important;
+}
+
+.btn-contact:hover,
+.btn-share:hover,
+.btn-contact:focus,
+.btn-share:focus {
+  background-color: var(--buw-flaeche);
+  color: var(--buw-ink) !important;
+}
+
+/* Hero-Aktionsbuttons. homepage.css adressiert
+   button.repository-action-button (0,1,1) und laedt spaeter — eine
+   Klassenregel (0,1,0) verloere. Darum beide Elternvarianten, wie bei
+   uni-koeln und uni-siegen; welcher Container im Markup steht, haengt an
+   der Template-Basis.
+   Die Buttons liegen ueber dem Titelbild mit dem Plattform-Overlay (s. §7);
+   gruene Flaeche mit dunklem Label traegt dort ebenso wie auf Weiss. */
+.repository-action-button,
+#repository-header button.repository-action-button,
+.repository-header-content button.repository-action-button {
+  background-color: var(--buw-flaeche) !important;
+  border: 2px solid var(--buw-flaeche) !important;
+  color: var(--buw-ink) !important;
+}
+
+#repository-header button.repository-action-button:hover,
+#repository-header button.repository-action-button:focus,
+.repository-header-content button.repository-action-button:hover,
+.repository-header-content button.repository-action-button:focus {
+  background-color: var(--buw-flaeche-tief) !important;
+  border-color: var(--buw-flaeche-tief) !important;
+  color: var(--buw-ink) !important;
+}
+
+/* Suchpanel und Login-Hinweis: weisse Flaeche, gruene Kante. Bewusst keine
+   vollflaechige Akzentfarbe — das war der Koeln-Befund (tuerkises
+   Vollband, uni-koeln-issues.md Abschnitt B). */
+#search-row-panel {
+  border: 1px solid var(--buw-linie) !important;
+  border-top: 3px solid var(--buw-linie) !important;
+}
+
+.login-prompt {
+  border-left: 4px solid var(--buw-linie) !important;
+  color: var(--buw-text) !important;
+}
+
+/* Zitationsband: gruene Flaeche mit dunklem Text (7.54:1). */
+.bg-citation {
+  background-color: var(--buw-flaeche) !important;
+  color: var(--buw-ink) !important;
+  border: 0;
+}
+
+.bg-citation a,
+.bg-citation a:visited {
+  color: var(--buw-ink) !important;
+  text-decoration-color: var(--buw-ink);
+}
+
+.icon-dataset,
+.icon-dataverse,
+.icon-file {
+  color: var(--buw-text) !important;
+}
+
+.interactive-list {
+  color: var(--buw-text) !important;
+  border-top-color: var(--buw-linie);
+}
+
+/* Formularfokus: gruener Rahmen ist hier ein Bedienelement-Kontrast
+   gegen Weiss (2.31:1) und laege unter den 3:1 von WCAG 1.4.11. Deshalb
+   die Kontur zusaetzlich in --buw-ink, das Gruen nur als Fuellung des
+   Fokusrings. */
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus {
+  border-color: var(--buw-ink) !important;
+  outline: 3px solid var(--buw-gruen);
+  outline-offset: 1px;
+  box-shadow: none !important;
+}
+
+
+/* ===========================================================================
+   6. Statistik-Fussleiste
+   Der eine Ort, an dem Gruen vollflaechig steht. Dunkler Text darauf =
+   7.54:1 (AAA). Andere Unis fahren hier ihre dunkle Primaerfarbe mit
+   weisser Schrift; das ist fuer Wuppertal genau die Paarung, die
+   ausscheidet (2.31:1) — deshalb umgekehrt.
+   .stat-number und .stat-text bekommen die Farbe explizit: eine geerbte
+   Farbe verliert immer gegen eine eigene Deklaration der Plattform,
+   unabhaengig von der Spezifitaet (Koeln-Befund, uni-koeln/css/main.css §5).
+   ========================================================================== */
+
+.statistics-footer {
+  background-color: var(--buw-flaeche) !important;
+  color: var(--buw-ink) !important;
+  border-top: none !important;
+}
+
+.stat-number,
+.statistics-footer .stat-text,
+.statistics-footer .stat-number {
+  color: var(--buw-ink) !important;
+}
+
+.statistics-footer a,
+.statistics-footer a:visited,
+.statistics-footer a:hover,
+.statistics-footer a:focus {
+  color: var(--buw-ink) !important;
+  background-color: transparent;
+  text-decoration: underline;
+  text-decoration-color: var(--buw-ink);
+}
+
+
+/* ===========================================================================
+   7. Logo — Hausregel tooling/visual-audit/logo-hausregel.md §3/§4
+
+   Umstellung 2026-09-08: PNG mit eingebranntem Gruen -> weisses SVG auf
+   gruener CSS-Flaeche. Das offizielle Logo ist laut CD weiss auf gruen,
+   #7fad18 ist die dafuer vorgesehene Etikettenfarbe.
+
+   Zur Datei. Geliefert wurde logo_footer_white.svg, 327x104, alle Pfade in
+   einer Gruppe fill="#FFFFFF". Sie liegt unveraendert daneben (Herkunfts-
+   beleg). Ausgeliefert wird logo.svg — identische Zeichnung, nur der
+   Canvas horizontal beschnitten. Gemessen an der Originaldatei (Rasterung
+   8x, Alphakanal):
+
+     Loewe        x  19.00 ..  98.25   y  9.75 .. 93.62
+     Wortmarke    x 118.38 .. 248.12   y 19.00 .. 84.00
+     Versalhoehe  13.62 / 13.50 / 13.25  (drei Zeilen)
+     Rand links 19.00 · rechts 78.88 · oben 9.75 · unten 10.38
+     Abstand Loewe -> Wortmarke 20.12
+
+   Die 78.88 rechts sind Layout-Totraum aus dem Footer-Slot der
+   Uni-Website, kein Schutzraum: links stehen 19.00, oben/unten je rund
+   10.1, und 20.12 ist zugleich der interne Abstand Loewe->Wortmarke.
+   logo.svg kuerzt den Canvas deshalb auf 267.13x104 — der rechte Rand
+   wird damit exakt der linke (19.00 / 19.00, nachgemessen). Die Zeichnung
+   ist unangetastet, nur das viewBox/width/height-Tripel geaendert.
+
+   Damit traegt das Logo seine Schutzzone SELBST, wie bei uni-koeln: die
+   gruene Flaeche ist die Bildflaeche, der weisse Freiraum darin ist der
+   Schutzraum. Es braucht kein zusaetzliches CSS-Padding — und es darf
+   auch keins, sonst stuende der Freiraum doppelt.
+
+   OFFEN: 19.00 Einheiten sind der Freiraum, den die gelieferte Datei
+   mitbringt, nicht ein aus dem CD-Leitfaden belegter Wert. Bei 80px
+   Logohoehe sind das 14.6px. Sollte der Leitfaden eine Schutzzone in
+   Modulen nennen (ueblich: Versalhoehe, hier 13.5 Einheiten = 10.4px, oder
+   Loewenbreite), ist der Wert hier gegenzupruefen — nicht zu raten.
+
+   Geometrie. 267.13 / 104 = 2.5685:1. Bei max-height 80px ergibt das
+   205.5px Breite, bleibt also unter max-width 360px: die HOEHE bindet,
+   wie bei th-koeln und beim vorherigen PNG. Margin (104 - 80) / 2 = 12px,
+   Logobox 104px wie ueberall.
+
+   Sichtbare Tinte darin: 176.3 x 64.5 = 11.4k px^2 — rechnerisch am
+   unteren Rand des Verbunds (th-koeln 11.8k). Das ist hier unkritisch,
+   weil die gruene Etikettenflaeche 205.5 x 80 = 16.4k traegt und das
+   Logo als geschlossene Kachel liest. Kein Nachziehen auf 96px wie bei
+   uni-koeln.
+
+   background-clip: content-box ist Pflicht, nicht Kosmetik:
+   custom-stylesheet.css setzt auf .header_logo ein padding-left: 20px.
+   Ohne das clip liefe die gruene Flaeche 20px nach links ueber das Bild
+   hinaus und das Logo saesse sichtbar aus der Mitte seiner eigenen
+   Etikette. Das Padding selbst bleibt stehen — es haelt den Abstand zum
+   Viewportrand.
+   ========================================================================== */
+
+/* Plattform-Logo ausblenden — Hausmuster aller Unis: auf der eigenen
+   Landing steht das Uni-Logo allein. */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 
-/* Logo-Hausregel, siehe tooling/visual-audit/logo-hausregel.md §3.
-   BUW_Logo-weiss-auf-gruen-rgb.png ist 623x253 = 2.46:1, transparent,
-   weisse Wortmarke auf gruener Flaeche. Kompaktes Verhaeltnis, also bindet
-   die HOEHE: 80px -> 197px breit. Der 360px-Deckel greift nie.
-   Beide Achsen bleiben auto, gedeckelt wird ueber beide max-*; box-sizing
-   content-box, weil custom-stylesheet.css zusaetzlich padding-left: 20px
-   setzt und Bootstrap * { box-sizing: border-box } sonst die Border-Box
-   deckelt. margin 12px = (104 - 80) / 2, damit das Kopfband wie bei allen
-   anderen 104px hoch ist. */
-img.header_logo[src*="/at/uni-wuppertal/img/BUW_Logo-weiss-auf-gruen-rgb.png"] {
+img.header_logo[src*="/at/uni-wuppertal/img/logo.svg"] {
   display: block !important;
-  box-sizing: content-box !important;
-  width: auto !important;
-  height: auto !important;
-  max-width: 360px !important;
-  max-height: 80px !important;
+  box-sizing: content-box !important;   /* Deckel gelten dem Bild, nicht
+                                           dem 20px-Padding der Plattform */
+  width: auto !important;               /* beide auto -> Browser haelt das */
+  height: auto !important;              /* Seitenverhaeltnis selbst ein    */
+  max-width: 360px !important;          /* custom-stylesheet.css: 200px    */
+  max-height: 80px !important;          /* custom-stylesheet.css:  45px    */
   margin-top: 12px !important;
   margin-bottom: 12px !important;
+  background-color: var(--buw-gruen-etikett) !important;
+  background-clip: content-box !important;
 }
+
 .navigate-icon[src*="dp-logo"] { display: none !important; }
+
+
+/* ===========================================================================
+   8. Bewusst NICHT angefasst
+
+   .repository-header-overlay
+     homepage.css legt unbedingt zwei 40-%-Gradienten ueber den Hero.
+     Blaupause §3b: akzeptiert wie es ist. Bei H-BRS und Koeln war das
+     stoerend, weil dort ein helles generiertes SVG darunter liegt. Hier
+     liegt ein Foto (wuppertal-bg.jpg) — genau der Fall, fuer den das
+     Overlay gebaut wurde. Neutralisieren wuerde die Lesbarkeit der
+     Hero-Texte gegen ein unbekanntes Motiv neu aufmachen. Bleibt.
+
+   Hero-Titel und -Beschreibung
+     Plattform-Default ist Weiss, was ueber Foto + Overlay richtig ist.
+     Kein Eingriff, solange das Titelbild nicht final ist (s. u.).
+
+   Titelbild img/wuppertal-bg.jpg
+     Stammt von Torsten, noch nicht abgestimmt, zweiter Vorgesetzter hat
+     sich nicht geaeussert. Ein Angebot fuer ein selbst gebautes Motiv
+     liegt vor. Ohne Rueckmeldung nichts aendern — auch nicht die
+     Kompression oder die Groesse (3246x1375).
+
+   text-transform auf Ueberschriften
+     CD-Frage, im Leitfaden nicht beantwortet. S. §3.
+
+   Plattform-Grautoene #666666 (.card-title-icon-block) und #333333
+     (.ui-datatable)
+     Blaupause §3c: Schrift korrigieren, Grau lassen. Im Design-Profil als
+     source: NEUTRAL gefuehrt, damit die Palette-Pruefung sie nicht meldet.
+
+   #custom-header
+     Traegt instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
+     /csslibs/custom-stylesheet.css). Eine per-Uni-Regel wuerde gewinnen
+     und das Ribbon aushoehlen — nicht anlegen.
+   ========================================================================== */
