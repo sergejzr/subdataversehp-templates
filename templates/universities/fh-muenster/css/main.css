@@ -175,10 +175,29 @@ a:hover, a:focus {
 a.dataverseHeaderName, .navbar-default .navbar-brand {
   color: var(--fhm-blue) !important;
 }
-.bg-citation {
-  background: var(--fhm-cyan) !important;
-  color: var(--fhm-black) !important;                    /* 6.97:1 (AA) */
-  border: 0;
+/* Zitationsblock: Cyan nur noch als linker Akzent, Flaeche neutral.
+   Von der FH gemeldet (2026-09-08): die gesaettigte Cyan-Vollflaeche ist
+   trotz rechnerischer AA-Konformitaet (Text 6.97:1, Links 5.39:1) schlecht
+   lesbar; "Cyan nur als Rahmen/Akzent" war der Vorschlag der FH selbst.
+   Neu: Text 15.99:1, Links 12.37:1. Der 4px-Cyan-Balken ist rein dekorativ
+   (2.29:1), traegt keine Information — WCAG 1.4.11 greift dafuer nicht.
+   Selektor-Begruendung: der Block heisst auf /dataverse/fh-muenster
+   .resultDatasetCitationBlock.alert.alert-info.bg-citation, auf den
+   Dataset-Seiten .clearfix.alert.alert-info.bg-citation — gemeinsamer
+   Nenner ist .alert.alert-info.bg-citation (0,3,0). Das schlaegt sowohl
+   Bootstraps .alert-info (0,1,0) als auch structure.css Z.622
+   div.alert-info.bg-citation (0,2,1) ueber SPEZIFITAET, nicht ueber
+   !important-Stapeln. homepage.css adressiert bg-citation/.alert
+   ueberhaupt nicht (an der Live-Datei geprueft 2026-09-08), die
+   Ladereihenfolge ist hier also unkritisch — der Fix bleibt deshalb an
+   der Quelle in Abschnitt 3 statt als widersprechender Anhang am
+   Dateiende. Links bleiben #0014a0 ueber die globale a-Regel (Z. 92). */
+.bg-citation,
+.alert.alert-info.bg-citation {
+  background: #f7f9fa !important;
+  color: var(--fhm-black) !important;                    /* 15.99:1 (AAA) */
+  border: 1px solid rgba(0, 0, 0, .08) !important;
+  border-left: 4px solid var(--fhm-cyan) !important;     /* Cyan als Akzent */
 }
 .icon-dataset {
   font-size: 7.5em;
@@ -450,4 +469,41 @@ body {
   box-sizing: border-box;
   font-family: var(--fhm-font-sans) !important;
   color: var(--fhm-black) !important;
+}
+
+/* ===========================================================================
+   9. Rueckweg zur /at/-Startseite (Element wird von js/main.js eingefuegt)
+
+   ACHTUNG: Dataverse setzt html{font-size:10px} (Bootstrap-3-Erbe).
+   1rem = 10px, nicht 16px. Deshalb hier px statt rem.
+   ========================================================================== */
+.dp-uni-home-cell {
+  vertical-align: middle;
+  padding: 0 0 0 20px;
+  white-space: nowrap;
+}
+
+a#dp-uni-home {
+  display: inline-block;
+  font-family: var(--fhm-font-sans) !important;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--fhm-blue) !important;
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 2px solid var(--fhm-blue);
+  border-radius: 2px;
+}
+
+a#dp-uni-home:hover,
+a#dp-uni-home:focus {
+  background: var(--fhm-blue);
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+a#dp-uni-home:focus-visible {
+  outline: 2px solid var(--fhm-blue);
+  outline-offset: 3px;
 }
