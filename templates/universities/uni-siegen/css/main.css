@@ -797,3 +797,49 @@ a { border-color: var(--unis-dunkelblau); }
      Neutrale Grautoene. Wo sie sichtbar auf Text liegen, deckt der
      CD-Block sie bereits ab (.section-heading, a, .icon-dataset).
    ===================================================================== */
+
+/* ===========================================================================
+   9. Rueckweg zur /at/-Startseite (Element kommt aus js/main.js)
+
+   ACHTUNG: Dataverse setzt html{font-size:10px} (Bootstrap-3-Erbe).
+   1rem sind 10px, nicht 16px. Deshalb hier px statt rem.
+   Farbe zentral ueber --dp-home-accent, damit der Block in allen Uni-Ordnern
+   identisch ist.
+   ========================================================================== */
+:root {
+  --dp-home-accent: var(--unis-dunkelblau);
+}
+
+.dp-uni-home-cell {
+  vertical-align: middle;
+  padding: 0 0 0 20px;
+}
+
+a#dp-uni-home {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--dp-home-accent, #333333) !important;
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 2px solid var(--dp-home-accent, #333333);
+  border-radius: 2px;
+}
+
+a#dp-uni-home > span {
+  margin-right: 0.4em;
+}
+
+a#dp-uni-home:hover,
+a#dp-uni-home:focus {
+  background: var(--dp-home-accent, #333333);
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+a#dp-uni-home:focus-visible {
+  outline: 2px solid var(--dp-home-accent, #333333);
+  outline-offset: 3px;
+}
+
