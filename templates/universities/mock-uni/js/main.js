@@ -66,8 +66,12 @@
       arrow.setAttribute("aria-hidden", "true");
       arrow.textContent = "\u2190";
 
+      // Sichtbar bleibt nur "Startseite": der volle Name laesst den Button bei
+      // langen Hochschulnamen umbrechen. Der Accessible Name traegt ihn weiter,
+      // und "Startseite" steht darin vorn (WCAG 2.5.3 Label in Name).
+      link.setAttribute("aria-label", "Startseite " + (uni.Name || alias));
       link.appendChild(arrow);
-      link.appendChild(document.createTextNode("Startseite " + (uni.Name || alias)));
+      link.appendChild(document.createTextNode("Startseite"));
       cell.appendChild(link);
 
       nameCell.parentNode.insertBefore(cell, nameCell.nextSibling);

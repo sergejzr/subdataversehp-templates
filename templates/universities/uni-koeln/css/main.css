@@ -665,6 +665,7 @@ a#dp-uni-home {
   font-size: 15px;
   font-weight: 700;
   line-height: 1.2;
+  white-space: nowrap;
   color: var(--dp-home-accent, #333333) !important;
   text-decoration: none;
   padding: 7px 14px;
