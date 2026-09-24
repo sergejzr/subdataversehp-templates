@@ -396,10 +396,15 @@ span.glyphicon-question-sign.tooltip-icon:hover {
    b) Beschreibung einfaerben. homepage.css setzt #FFFFFF — auf #E3E3E3
       waeren das 1.28:1, also unsichtbar. Dunkelblau wie der Titel.
 
-   KEIN Textblock-Deckel (.repository-info-block { width: 52% }) wie bei
-   fh-muenster/uni-koeln: der begrenzt den Text gegen unruhige Bildbereiche,
-   und die gibt es auf einer einfarbigen Flaeche nicht. Kommt ein Motiv,
-   ist das der erste Wert, der zu pruefen ist.
+   c) Textbreite deckeln (seit Signet-Motiv). Ab ~1500px lief der Titel in
+      den dunkelblauen Schaft (gemessen 1600/1920px). Kein %-Deckel wie
+      fh-muenster: der braeche den 48px-Titel mobil zu frueh um. Der Schaft
+      (Bild-x 1554, cover, zentriert, Hero 600px hoch) steht bei
+      50vw + 324px, der Titel beginnt bei ~9.75vw -> frei sind
+      ~40vw + 324px. calc(40vw + 280px) laesst >= 40px Luft und greift erst
+      ab ~1150px; darunter bleibt alles wie gehabt. Ab 2250px skaliert das
+      Motiv mit der Breite (Schaft bei 64.75vw), der Deckel haelt weiter.
+      Wird background.svg geaendert, diesen Wert neu rechnen.
 
    FALLSTRICK, warum die background-Spalte nicht leer bleiben darf:
    renderjinja.py setzt bei len(background) < 5 hart
@@ -411,6 +416,10 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 }
 .repository-description {
   color: var(--hsrw-darkblue) !important;
+}
+#repository-header .repository-title,
+#repository-header .repository-description {
+  max-width: calc(40vw + 280px);
 }
 
 /* Beim Motivwechsel zu pruefen: bei einem Foto mit weisser Schrift ist die
