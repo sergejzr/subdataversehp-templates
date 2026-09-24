@@ -183,6 +183,28 @@ a:hover, a:focus {
   font-family: var(--hsrw-font-sans) !important;
 }
 
+/* Recent Datasets: drei statt vier Spalten (Wunsch HSRW). homepage.css
+   setzt repeat(4) plain und schaltet per max-width auf 3/2/1 (1200/900/
+   600px) — laedt SPAETER, darum div.-Praefix (0,1,1). Die Media Query ist
+   das exakte Komplement zu (max-width: 900px): unterhalb greifen weiter
+   die 2- bzw. 1-Spalten-Regeln der Basis, ohne Luecke bei Bruchpixeln. */
+@media not all and (max-width: 900px) {
+  div.featured-items-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  /* renderjinja.py liefert fest 4 Datasets ([:4]) -> bei 3 Spalten stuende
+     die vierte allein in Reihe 2. Nur hier ausblenden; bei 2/1 Spalten
+     (<= 900px) gehen 4 glatt auf und bleiben sichtbar. */
+  div.featured-items-grid > .grid-item:nth-child(n+4) {
+    display: none;
+  }
+}
+/* Kachel-Ueberschriften: Bootstrap-h3 (24px) war fuer die schmalen
+   Kacheln zu gross. Kein homepage.css-Konkurrent, (0,1,1) reicht. */
+.grid-item-title h3 {
+  font-size: 18px;
+}
+
 /* ===========================================================================
    3. Color-as-fill (Akzent-Flaechen/-Linien + Chrome)
    Cyan, Blaugrau, Grau40 und Grau15 NUR als Flaeche/Linie; Text darauf
@@ -191,7 +213,7 @@ a:hover, a:focus {
 
 .navbar-default {
   background-color: #fff;
-  border-bottom: 4px solid var(--hsrw-cyan) !important;   /* Cyan als Linie */
+  border-bottom: none !important;   /* Cyan-Linie auf Wunsch HSRW entfernt */
 }
 a.dataverseHeaderName, .navbar-default .navbar-brand {
   color: var(--hsrw-darkblue) !important;
