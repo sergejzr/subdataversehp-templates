@@ -57,7 +57,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   word-wrap: break-word;
   font-family: var(--fhm-font-sans) !important;
   font-weight: 600 !important;
-  font-size: 36pt;
   text-transform: none !important;   /* homepage.css: uppercase (plain) — !important schlaegt es */
   color: var(--fhm-blue) !important; /* homepage.css: #FFFFFF (plain) — !important schlaegt es */
   padding-bottom: 20px;
@@ -67,13 +66,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   box-sizing: border-box;
   font-family: var(--fhm-font-sans) !important;
   font-weight: 600 !important;
-  font-size: 36pt;
-  line-height: 61px !important;
   text-transform: none !important;
   color: var(--fhm-blue) !important;
   display: block;
-  padding-bottom: 30px;
-  padding-top: 70px;
 }
 /* Hero-Beschreibung: homepage.css setzt #FFFFFF (fuer dunkle Foto-
    Hintergruende gedacht) — auf dem hellen fhm-bg unlesbar. Zusatz
@@ -348,7 +343,6 @@ span.glyphicon-question-sign.tooltip-icon:hover {
   width: 100%;
   position: relative;
   left: 0;
-  height: 300px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

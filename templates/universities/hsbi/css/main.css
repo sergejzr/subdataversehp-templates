@@ -84,6 +84,14 @@
   --hsbi-fs-s:   16px;    /* Standardgroesse Fliesstext */
   --hsbi-fs-xs:  14px;    /* Marginaltext gross */
   --hsbi-fs-xxs: 13px;    /* Marginaltext klein */
+
+  /* Plattform-Typoskala (homepage.css liest --dvhp-*, definiert sie nie):
+     Kap. 19.6 Seitentitel = 34px; Kap. 19.3 skaliert Seitentitel
+     "schrittweise" mit der Viewport-Breite. min(34px, 7vw) haelt exakt
+     34px ab 486px Viewport und wird darunter fluid (375px -> 26px).
+     Abschnitte sind Ueberschriften/H2 = XL (21px). */
+  --dvhp-fs-title:   min(34px, 7vw);
+  --dvhp-fs-section: var(--hsbi-fs-xl);
 }
 
 /* ===========================================================================
@@ -147,13 +155,7 @@ h4, .h4 { font-size: var(--hsbi-fs-m); }
   max-width: 100%;
   font-family: var(--hsbi-font-sans) !important;
   font-weight: 700 !important;
-  /* Kap. 19.6 Seitentitel = 34px; Kap. 19.3 skaliert Seitentitel
-     "schrittweise" mit der Viewport-Breite. min(34px, 7vw) haelt exakt
-     34px ab 486px Viewport und wird darunter fluid (375px -> 26px).
-     !important noetig: homepage.css setzt `.repository-title{font-size:36pt}`
-     PLAIN bei gleicher Spezifitaet (0,1,0) und laedt spaeter; die
-     "spaeter gewinnt"-Regel gilt nur bei GLEICHER Wichtigkeit. */
-  font-size: min(34px, 7vw) !important;
+  /* font-size: --dvhp-fs-title in :root (Abschnitt 1). */
   text-transform: none !important;          /* homepage.css: uppercase (plain) */
   color: var(--hsbi-black) !important;      /* homepage.css: #FFFFFF (plain) */
   padding-bottom: 20px;
@@ -174,13 +176,11 @@ h4, .h4 { font-size: var(--hsbi-fs-m); }
   box-sizing: border-box;
   font-family: var(--hsbi-font-sans) !important;
   font-weight: 700 !important;
-  font-size: var(--hsbi-fs-xxl);
+  /* font-size: --dvhp-fs-section in :root (Abschnitt 1). */
   line-height: 1.2 !important;
   text-transform: none !important;
   color: var(--hsbi-black) !important;
   display: block;
-  padding-bottom: 30px;
-  padding-top: 70px;
 }
 
 /* Links. Kap. 19.6 gibt drei Zustaende vor: inaktiv #555555 (7.46:1),
@@ -504,7 +504,6 @@ a.btn-feedback {
   width: 100%;
   position: relative;
   left: 0;
-  height: 300px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

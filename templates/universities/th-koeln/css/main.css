@@ -30,6 +30,12 @@
   --thk-orange: #ea5a00;  /* NUR Flaeche/Grosstext, nie Fliesstext auf Weiss */
   --thk-black:  #1c1c1b;  /* Fliesstext — NICHT #000 */
   --thk-font-sans: "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif;
+
+  /* Plattform-Typoskala (homepage.css liest --dvhp-*, definiert sie nie).
+     min(48px, 8vw): 48px ab 600px Viewport, darunter fluid (375px -> 30px),
+     damit "Welcome" (~220px bei 48px) im schmalen Titelblock nicht mitten
+     im Wort bricht — Folge des min-width:0-Containments an .repository-title. */
+  --dvhp-fs-title: min(48px, 8vw);
 }
 
 /* ===========================================================================
@@ -84,19 +90,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   max-width: 100%;
   font-family: var(--thk-font-sans) !important;
   font-weight: 600 !important;
-  /* min(48px, 8vw): identisch 36pt (=48px) ab 600px Viewport (8vw*600=48);
-     darunter fluid (375px -> 30px), damit "Welcome" (~220px bei 48px) im
-     schmalen Block nicht mitten im Wort bricht — Folge des
-     min-width:0-Containments oben. !important noetig: Konkurrenzregel ist
-     homepage.css `.repository-title{font-size:36pt}` — PLAIN, gleiche
-     Spezifitaet (0,1,0), laedt spaeter. Die Kaskadenregel im Dateikopf
-     ("spaeter gewinnt, auch !important vs !important") gilt nur bei
-     GLEICHER Wichtigkeit; !important gegen plain gewinnt unabhaengig von
-     Reihenfolge und Spezifitaet (gleicher Mechanismus wie color/
-     text-transform in diesem Block). Ohne !important verloere (0,1,0)
-     plain den Source-Order-Tie -> immer 36pt. custom-stylesheet.css hat
-     keine .repository-title-Regel (geprueft). */
-  font-size: min(48px, 8vw) !important;
+  /* font-size: --dvhp-fs-title in :root. */
   text-transform: none !important;   /* homepage.css: uppercase (plain) */
   color: var(--thk-red) !important;  /* homepage.css: #FFFFFF (plain) */
   padding-bottom: 20px;
@@ -121,13 +115,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   box-sizing: border-box;
   font-family: var(--thk-font-sans) !important;
   font-weight: 600 !important;
-  font-size: 36pt;
-  line-height: 61px !important;
   text-transform: none !important;
   color: var(--thk-red) !important;
   display: block;
-  padding-bottom: 30px;
-  padding-top: 70px;
 }
 
 /* Links: CD-Rot. Hover unveraendert Rot mit Violett-Unterstreichung
@@ -377,7 +367,6 @@ a.btn-feedback {
   width: 100%;
   position: relative;
   left: 0;
-  height: 300px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -37,12 +37,8 @@ font-family: Lelo !important;
     box-sizing: border-box;
     color: #1A181B !important;
     font-family: Lelo !important;
-    font-size: 36pt;
     font-weight: 500 !important;
-    line-height: 61px !important;
     display: block;
-    padding-bottom: 30px;
-    padding-top: 70px;
 }
 
 .repository-title {
@@ -50,7 +46,6 @@ font-family: Lelo !important;
     color: #FFFFFF;
 	font-weight: bold;
     font-family: Lelo !important;
-    font-size: 36pt;
     text-transform: uppercase;
     padding-bottom: 20px;
 }
@@ -121,7 +116,6 @@ background-color:#14f5b3;
     position: relative;
     left: 0;
     background-color: #14f5b3 !important;
-    height: 300px;
 	color:black !important;
     background-size: cover;
     background-position: center;

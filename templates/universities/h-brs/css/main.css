@@ -72,7 +72,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   word-wrap: break-word;
   font-family: var(--hbrs-font-sans) !important;
   font-weight: 600 !important;
-  font-size: 36pt;
   color: var(--hbrs-darkblue) !important;
   padding-bottom: 20px;
   /* homepage.css sets uppercase directly on this class (plain rule, loads
@@ -85,12 +84,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   box-sizing: border-box;
   font-family: var(--hbrs-font-sans) !important;
   font-weight: 600 !important;
-  font-size: 36pt;
-  line-height: 61px !important;
   color: var(--hbrs-darkblue) !important;
   display: block;
-  padding-bottom: 30px;
-  padding-top: 70px;
 }
 
 /* Links: dark blue text; cyan only as the decoration line under the hover */
@@ -335,7 +330,6 @@ span.glyphicon-question-sign.tooltip-icon:hover {
   width: 100%;
   position: relative;
   left: 0;
-  height: 300px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

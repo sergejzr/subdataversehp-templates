@@ -124,7 +124,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   word-wrap: break-word;
   font-family: var(--uzk-font-sans) !important;
   font-weight: 600 !important;
-  font-size: 36pt;
   text-transform: uppercase !important;
   letter-spacing: .01em;
   color: var(--uzk-blue) !important;
@@ -135,14 +134,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   box-sizing: border-box;
   font-family: var(--uzk-font-sans) !important;
   font-weight: 600 !important;
-  font-size: 36pt;
-  line-height: 61px !important;
   text-transform: uppercase !important;
   letter-spacing: .01em;
   color: var(--uzk-blue) !important;
   display: block;
-  padding-bottom: 30px;
-  padding-top: 70px;
 }
 
 /* Links (Fliesstext-Akzent laut CD) */
@@ -513,7 +508,6 @@ span.glyphicon-question-sign.tooltip-icon:hover {
   width: 100%;
   position: relative;
   left: 0;
-  height: 300px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

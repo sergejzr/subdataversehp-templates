@@ -97,7 +97,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   word-wrap: break-word;
   font-family: var(--fuh-font-sans) !important;
   font-weight: 900 !important;
-  font-size: 36pt;
   line-height: 1.1;
   text-transform: none !important;   /* homepage.css: uppercase (plain) */
   color: var(--fuh-blue) !important;
