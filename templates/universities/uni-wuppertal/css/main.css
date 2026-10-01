@@ -458,6 +458,47 @@ a.btn-default:focus {
   border-top: 3px solid var(--buw-linie) !important;
 }
 
+/* Suchbutton: der Sekundaerbutton-Block malt ihn weiss, die Lupe aus
+   homepage.css ist aber weiss -> unsichtbar (Befund 2026-10-01). Wie die
+   Hero-Aktionsbuttons: gruene Flaeche, Lupe in Ink (7.54:1). */
+.input-group-btn > button.btn-default {
+  background-color: var(--buw-flaeche) !important;
+  border-color: var(--buw-flaeche) !important;
+}
+.input-group-btn > button.btn-default:hover,
+.input-group-btn > button.btn-default:focus {
+  background-color: var(--buw-flaeche-tief) !important;
+  border-color: var(--buw-flaeche-tief) !important;
+}
+.input-group-btn > button.btn-default .glyphicon {
+  color: var(--buw-ink) !important;
+}
+
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer Ink auf das
+   Bootstrap-Blau (3.82:1), sobald es mehr als zehn Treffer gibt. Gruene
+   Flaeche, Ink darauf (7.54:1), wie beim Zitationsband. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--buw-flaeche) !important;
+  border-color: var(--buw-flaeche-tief) !important;
+  color: var(--buw-ink) !important;
+}
+
+/* Feedback-Tab: Ink auf dem Plattform-Orange #c55b28 (4.06:1). Weiss
+   (4.28:1, knapp unter AA; das Orange gehoert in die homepage.css,
+   Backlog 1). */
+a.btn-feedback,
+a.btn-feedback:visited {
+  color: #fff !important;
+}
+
+/* Tooltip-Fragezeichen: Plattform-Hellblau #99bcdb auf Weiss, 1.99:1
+   (unter 3:1 fuer Grafik, WCAG 1.4.11). */
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--buw-ink) !important;
+}
+
 .login-prompt {
   border-left: 4px solid var(--buw-linie) !important;
   color: var(--buw-text) !important;
@@ -474,6 +515,15 @@ a.btn-default:focus {
 .bg-citation a:visited {
   color: var(--buw-ink) !important;
   text-decoration-color: var(--buw-ink);
+}
+
+/* "Cite Dataset" (Bootstrap-Linkbutton, #337ab7, 1.97:1) und "Learn about
+   ..." (#707070, 2.15:1) folgen ebenfalls dem dunklen Text des Bands. */
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus,
+.bg-citation div {
+  color: var(--buw-ink) !important;
 }
 
 .icon-dataset,

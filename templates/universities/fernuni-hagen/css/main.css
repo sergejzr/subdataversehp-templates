@@ -213,11 +213,48 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-left: 4px solid var(--fuh-blue-light) !important;
   color: #000 !important;
 }
+/* Zitationsband: "Cite Dataset" ist ein Bootstrap-Linkbutton in #337ab7,
+   auf der hellen Flaeche nur 4.18:1. Im Band dieselbe Farbe wie die Links. */
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus {
+  color: var(--fuh-blue) !important;
+}
 .icon-dataset {
   color: var(--fuh-blue) !important;
 }
 #search-row-panel {
   border: 1px solid var(--fuh-blue) !important;
+}
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer --fuh-blue auf das
+   Bootstrap-Blau (1.86:1).
+   Flaeche --fuh-blue, Ziffer weiss. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--fuh-blue) !important;
+  border-color: var(--fuh-blue) !important;
+  color: #fff !important;
+}
+/* Landing, "Recent Datasets": das Label ist in homepage.css #07529a/50 %
+   mit weissem Link; die a-Regel macht den Link dunkel (3.42:1). Label
+   deckend, Link weiss. .overview-image-container hebt auf (0,2,0) gegen
+   homepage.css (0,1,0). */
+.overview-image-container .grid-item-label {
+  background: var(--fuh-blue);
+}
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus {
+  color: #fff !important;
+}
+/* Feedback-Tab: die a-Regel faerbt das Label auf das Plattform-Orange
+   #c55b28 (1.98:1). Zurueck auf Weiss (4.28:1, knapp unter AA; das Orange
+   selbst gehoert in die homepage.css, Backlog 1). */
+a.btn-feedback,
+a.btn-feedback:visited {
+  color: #fff !important;
 }
 
 .btn-primary {
@@ -247,8 +284,15 @@ a.btn-default,
 .input-group-btn > button {
   font-family: var(--fuh-font-sans) !important;
 }
+/* Suchbutton: der generische button.btn-default-Block malt ihn weiss, die
+   Lupe aus homepage.css ist aber weiss -> unsichtbar (Befund 2026-10-01,
+   wie Siegen). Elternklasse (0,2,1) gibt die blaue Flaeche. */
 .input-group-btn > button.btn-default {
+  background-color: var(--fuh-blue) !important;
   border-color: var(--fuh-blue) !important;
+}
+.input-group-btn > button.btn-default .glyphicon {
+  color: #fff !important;
 }
 
 .btn-contact, .btn-share {

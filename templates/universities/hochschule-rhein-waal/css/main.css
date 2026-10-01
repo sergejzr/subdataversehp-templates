@@ -219,9 +219,16 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   color: var(--hsrw-black) !important;                    /* 16.36:1 */
   border: 0;
 }
+/* Zitationsband: "Cite Dataset" ist ein Bootstrap-Linkbutton in #337ab7,
+   auf dem grauen Band 3.55:1; "Learn about ..." kommt in #707070
+   (3.86:1). Beide in die Textfarbe des Bands. */
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus,
+.bg-citation div {
+  color: var(--hsrw-black) !important;
+}
 .icon-dataset {
-  font-size: 7.5em;
-  line-height: 1.1;
   color: var(--hsrw-darkblue) !important;
 }
 #search-row-panel {
@@ -229,6 +236,23 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-top: 3px solid var(--hsrw-darkblue) !important;
   border-radius: 0 !important;
   padding: 15px 0;
+}
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer dunkelblau auf das
+   Bootstrap-Blau, sobald es mehr als zehn Treffer gibt.
+   Flaeche --hsrw-darkblue, Ziffer weiss. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--hsrw-darkblue) !important;
+  border-color: var(--hsrw-darkblue) !important;
+  color: #fff !important;
+}
+/* Feedback-Tab: die a-Regel faerbt das Label auf das Plattform-Orange
+   #c55b28 (3.12:1). Zurueck auf Weiss (4.28:1, knapp unter AA; das Orange
+   selbst gehoert in die homepage.css, Backlog 1). */
+a.btn-feedback,
+a.btn-feedback:visited {
+  color: #fff !important;
 }
 /* #custom-header: BEWUSST KEINE REGEL. Das Band traegt instanzweit das
    Testsystem-Ribbon (DVHP-TESTBANNER v2 in /csslibs/custom-stylesheet.css).
@@ -320,10 +344,11 @@ button.repository-action-button:focus {
 }
 
 /* Question-mark-Tooltip-Icons (zwei parallele Implementierungen im
-   Bestand). Akzent = Cyan auf schwarzem Kreis (7.84:1) — der Kreis ist
-   die Flaeche, das CD-Verbot "nicht auf Weiss" greift hier nicht. */
+   Bestand). Den schwarzen Kreis gibt es nur im Hover; im Grundzustand
+   liegt das Icon auf Weiss, Cyan haette dort 2.68:1 (unter 3:1, WCAG
+   1.4.11). Deshalb Dunkelblau; Cyan bleibt auf dem Kreis. */
 span.glyphicon-question-sign.tooltip-icon {
-  color: var(--hsrw-cyan) !important;
+  color: var(--hsrw-darkblue) !important;
 }
 span.glyphicon-question-sign.tooltip-icon:hover {
   color: #fff !important;

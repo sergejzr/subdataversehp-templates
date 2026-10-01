@@ -313,9 +313,16 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
      nicht als einziges Element in der Fremdschrift stehen. */
   font-family: var(--hsbi-font-sans) !important;
 }
+/* Zitationsband: "Cite Dataset" ist ein Bootstrap-Linkbutton in #337ab7,
+   auf Sand 3.02:1; "Learn about ..." kommt in #707070 (3.28:1).
+   Beide in die Textfarbe des Bands. */
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus,
+.bg-citation div {
+  color: var(--hsbi-black) !important;
+}
 .icon-dataset {
-  font-size: 7.5em;
-  line-height: 1.1;
   color: var(--hsbi-black) !important;
 }
 #search-row-panel {
@@ -323,6 +330,29 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-top: 2px solid var(--hsbi-black) !important;
   border-radius: 0 !important;                             /* CD kennt keine Rundungen */
   padding: 15px 0;
+}
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer #555555 auf das
+   Bootstrap-Blau (1.64:1).
+   Flaeche --hsbi-black, Ziffer weiss. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--hsbi-black) !important;
+  border-color: var(--hsbi-black) !important;
+  color: #fff !important;
+}
+/* Landing, "Recent Datasets": das Label ist in homepage.css #07529a/50 %
+   mit weissem Link; die a-Regel macht den Link dunkel (3.01:1). Label
+   deckend, Link weiss. .overview-image-container hebt auf (0,2,0) gegen
+   homepage.css (0,1,0). */
+.overview-image-container .grid-item-label {
+  background: var(--hsbi-black);
+}
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus {
+  color: #fff !important;
 }
 /* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
    instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
@@ -486,8 +516,9 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 
 /* Feedback-Tab (a.btn-feedback in #feedbackTab): eigener Orange-Grund
    #c55b28 aus dem Bestand (structure.css, nicht diese Datei). Die globale
-   Link-Regel faerbte das Label grau-auf-orange (~2.6:1). Weiss = 4.8:1
-   (AA); (0,1,1)+!important schlaegt (0,0,1). */
+   Link-Regel faerbte das Label grau-auf-orange (~2.6:1). Weiss = 4.28:1,
+   knapp unter AA; das Orange gehoert in die homepage.css (Backlog 1).
+   (0,1,1)+!important schlaegt (0,0,1). */
 a.btn-feedback {
   color: var(--hsbi-white) !important;
 }

@@ -278,9 +278,24 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   color: #000 !important;                                     /* schwarz auf tuerkis ~6.7:1 (AA) */
   border: 0;
 }
+/* Zitationsband: Links, "Cite Dataset" und "Learn about ..." folgen dem
+   Text des Bands. Vorher DOI-Links blau auf Tuerkis (2.75:1), "Cite Dataset"
+   #337ab7 (1.45:1), "Learn about ..." #707070 (1.58:1). */
+.bg-citation a,
+.bg-citation a:visited,
+.bg-citation a:hover,
+.bg-citation a:focus {
+  color: #000 !important;
+  text-decoration: underline;
+  text-decoration-color: currentColor !important;
+}
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus,
+.bg-citation div {
+  color: #000 !important;
+}
 .icon-dataset {
-  font-size: 7.5em;
-  line-height: 1.1;
   color: var(--uzk-blue) !important;
 }
 #search-row-panel {
@@ -288,6 +303,36 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-top: 3px solid var(--uzk-blue) !important;
   border-radius: 4px !important;
   padding: 15px 0;
+}
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer --uzk-blue auf das
+   Bootstrap-Blau (1.89:1).
+   Flaeche --uzk-blue, Ziffer weiss. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--uzk-blue) !important;
+  border-color: var(--uzk-blue) !important;
+  color: #fff !important;
+}
+/* Landing, "Recent Datasets": das Label ist in homepage.css #07529a/50 %
+   mit weissem Link; die a-Regel macht den Link dunkel (3.48:1). Label
+   deckend, Link weiss. .overview-image-container hebt auf (0,2,0) gegen
+   homepage.css (0,1,0). */
+.overview-image-container .grid-item-label {
+  background: var(--uzk-blue);
+}
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus {
+  color: #fff !important;
+}
+/* Feedback-Tab: die a-Regel faerbt das Label auf das Plattform-Orange
+   #c55b28 (2.01:1). Zurueck auf Weiss (4.28:1, knapp unter AA; das Orange
+   selbst gehoert in die homepage.css, Backlog 1). */
+a.btn-feedback,
+a.btn-feedback:visited {
+  color: #fff !important;
 }
 /* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
    instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in

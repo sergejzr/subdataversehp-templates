@@ -177,9 +177,24 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   color: #000 !important;          /* black on cyan 7.2:1 — white would fail (2.9:1) */
   border: 0;
 }
+/* Everything on the cyan band follows its black text. Before: DOI links
+   dark blue on cyan (2.63:1), "Cite Dataset" Bootstrap #337ab7 (1.56:1),
+   "Learn about ..." #707070 (1.70:1). */
+.bg-citation a,
+.bg-citation a:visited,
+.bg-citation a:hover,
+.bg-citation a:focus {
+  color: #000 !important;
+  text-decoration: underline;
+  text-decoration-color: currentColor !important;
+}
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus,
+.bg-citation div {
+  color: #000 !important;
+}
 .icon-dataset {
-  font-size: 7.5em;
-  line-height: 1.1;
   color: var(--hbrs-darkblue) !important;
 }
 #search-row-panel {
@@ -187,6 +202,36 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-top: 3px solid var(--hbrs-darkblue) !important;
   border-radius: 4px !important;
   padding: 15px 0;
+}
+/* Active page number: the global link rule turns the digit dark blue on
+   Bootstrap blue as soon as there are more than ten hits. Dark blue
+   fill, white digit (7.7:1). */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--hbrs-darkblue) !important;
+  border-color: var(--hbrs-darkblue) !important;
+  color: #fff !important;
+}
+/* Landing, "Recent Datasets": homepage.css paints the label #07529a at
+   50 % with a white link; the global link rule makes the link dark blue
+   (3.09:1). Opaque dark blue label, white link. The parent class lifts
+   to (0,2,0) against homepage.css (0,1,0). */
+.overview-image-container .grid-item-label {
+  background: var(--hbrs-darkblue);
+}
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus {
+  color: #fff !important;
+}
+/* Feedback tab: the global link rule turns the label dark blue on the
+   platform orange #c55b28 (1.79:1). Back to white (4.28:1, just below
+   AA; the orange itself belongs in homepage.css, backlog 1). */
+a.btn-feedback,
+a.btn-feedback:visited {
+  color: #fff !important;
 }
 /* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
    instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
@@ -294,9 +339,11 @@ button.repository-action-button:focus {
   cursor: pointer;
 }
 
-/* Question-mark tooltip icons: cyan as glyph accent on black (7.2:1). */
+/* Question-mark tooltip icons. At rest the icon sits on white, where cyan
+   reaches only 2.91:1, below the 3:1 for graphics (WCAG 1.4.11): dark
+   blue. Cyan stays on the black hover circle. */
 span.glyphicon-question-sign.tooltip-icon {
-  color: var(--hbrs-cyan) !important;
+  color: var(--hbrs-darkblue) !important;
 }
 span.glyphicon-question-sign.tooltip-icon:hover {
   color: white !important;

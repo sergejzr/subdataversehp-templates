@@ -194,9 +194,14 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border: 1px solid rgba(0, 0, 0, .08) !important;
   border-left: 4px solid var(--fhm-cyan) !important;     /* Cyan als Akzent */
 }
+/* Zitationsband: "Cite Dataset" ist ein Bootstrap-Linkbutton in #337ab7,
+   auf der hellen Flaeche nur 4.32:1. Im Band dieselbe Farbe wie die Links. */
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus {
+  color: var(--fhm-blue) !important;
+}
 .icon-dataset {
-  font-size: 7.5em;
-  line-height: 1.1;
   color: var(--fhm-blue) !important;
 }
 #search-row-panel {
@@ -204,6 +209,29 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-top: 3px solid var(--fhm-blue) !important;
   border-radius: 4px !important;
   padding: 15px 0;
+}
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer --fhm-blue auf das
+   Bootstrap-Blau, sobald es mehr als zehn Treffer gibt.
+   Flaeche --fhm-blue, Ziffer weiss. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--fhm-blue) !important;
+  border-color: var(--fhm-blue) !important;
+  color: #fff !important;
+}
+/* Feedback-Tab: die a-Regel faerbt das Label auf das Plattform-Orange
+   #c55b28 (3.05:1). Zurueck auf Weiss (4.28:1, knapp unter AA; das Orange
+   selbst gehoert in die homepage.css, Backlog 1). */
+a.btn-feedback,
+a.btn-feedback:visited {
+  color: #fff !important;
+}
+/* Collection-Kopf: die Affiliation "(Fachhochschule Muenster)" bringt
+   Dataverse inline in #888888 mit (3.54:1). Inline-Style, deshalb
+   !important. */
+.dataverseHeaderName > span {
+  color: var(--fhm-black) !important;
 }
 /* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
    instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
@@ -302,10 +330,11 @@ button.repository-action-button:focus {
 }
 
 /* Question-mark-Tooltip-Icons (zwei parallele Implementierungen im
-   Bestand, Struktur aus der Referenz uebernommen, Akzent = Cyan;
-   Cyan auf Schwarz ~8:1, unkritisch). */
+   Bestand, Struktur aus der Referenz uebernommen). Im Grundzustand liegt
+   das Icon auf Weiss, Cyan haette dort 2.42:1, unter den 3:1 fuer Grafik
+   (WCAG 1.4.11). Deshalb Blau; Cyan bleibt fuer den schwarzen Kreis. */
 span.glyphicon-question-sign.tooltip-icon {
-  color: var(--fhm-cyan) !important;
+  color: var(--fhm-blue) !important;
 }
 span.glyphicon-question-sign.tooltip-icon:hover {
   color: white !important;

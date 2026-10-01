@@ -211,9 +211,24 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   color: var(--thk-black) !important;                      /* 4.85:1 (AA) */
   border: 0;
 }
+/* Zitationsband: Links, "Cite Dataset" und "Learn about ..." folgen dem
+   Text des Bands. Vorher DOI-Links rot auf Orange (1.63:1), "Cite Dataset"
+   #337ab7 (1.29:1), "Learn about ..." #707070 (1.41:1). */
+.bg-citation a,
+.bg-citation a:visited,
+.bg-citation a:hover,
+.bg-citation a:focus {
+  color: var(--thk-black) !important;
+  text-decoration: underline;
+  text-decoration-color: currentColor !important;
+}
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus,
+.bg-citation div {
+  color: var(--thk-black) !important;
+}
 .icon-dataset {
-  font-size: 7.5em;
-  line-height: 1.1;
   color: var(--thk-red) !important;
 }
 #search-row-panel {
@@ -221,6 +236,29 @@ a.dataverseHeaderName, .navbar-default .navbar-brand {
   border-top: 3px solid var(--thk-red) !important;
   border-radius: 4px !important;
   padding: 15px 0;
+}
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer rot auf das
+   Bootstrap-Blau, sobald es mehr als zehn Treffer gibt.
+   Flaeche --thk-red, Ziffer weiss. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--thk-red) !important;
+  border-color: var(--thk-red) !important;
+  color: #fff !important;
+}
+/* Landing, "Recent Datasets": das Label ist in homepage.css #07529a/50 %
+   mit weissem Link; die a-Regel macht den Link dunkel (2.32:1). Label
+   deckend, Link weiss. .overview-image-container hebt auf (0,2,0) gegen
+   homepage.css (0,1,0). */
+.overview-image-container .grid-item-label {
+  background: var(--thk-red);
+}
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus {
+  color: #fff !important;
 }
 /* #custom-header: Regel entfernt (2026-08-05). Das Band traegt jetzt
    instanzweit das Testsystem-Ribbon (DVHP-TESTBANNER v2 in
@@ -348,7 +386,8 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 /* Feedback-Tab (a.btn-feedback in #feedbackTab): eigener Orange-Grund
    #c55b28 aus dem Bestand (structure.css, nicht diese Datei). Die globale
    Link-Regel `a{color:red !important}` faerbte das Label rot-auf-orange
-   (~1.6:1). Weiss = 4.8:1 (AA); (0,1,1)+!important schlaegt (0,0,1). */
+   (~1.6:1). Weiss = 4.28:1, knapp unter AA; das Orange gehoert in die
+   homepage.css (Backlog 1). (0,1,1)+!important schlaegt (0,0,1). */
 a.btn-feedback {
   color: #fff !important;
 }
