@@ -314,43 +314,45 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 
 /* ===========================================================================
    6. Logo
-   img/logo.svg: offizielle Wortmarke, Adobe-Illustrator-Export, 357x67px
-   (Seitenverhaeltnis 5.33:1), reine Pfade (kein <text> -> keine
-   Font-Abhaengigkeit), Fuellfarbe durchgaengig #004C97 = CD Blau 1, RGB
-   (kein CMYK). Laeuft unveraendert durch: svg_manipulator.py fasst nur
-   assets/pagedata/DP.svg an, keine Uni-Logos.
+   img/logo.svg: Wortmarke mit Zusatz "| DataPublication.nrw", vom Kontakt
+   am 2026-09-11 als feu_datapublicationnrw.svg geliefert (Wunsch vom
+   2026-08-26, analog zum Deposit-System der FernUni). Reine Pfade, kein
+   <text>, einfarbig #004C97 = CD Blau 1, RGB, viewBox 1300.12 x 154.22
+   (8.43:1). Abgeloest wurde die reine Wortmarke 357x67 (5.33:1), siehe
+   git-Historie. Laeuft unveraendert durch: svg_manipulator.py fasst nur
+   assets/pagedata/DP.svg an.
 
-   Kein Negativ-Logo vorhanden -> auf dunklen Flaechen (z.B. dem Hero, falls
-   ein dunkles Motiv gewaehlt wird) waere es nicht lesbar. Siehe §4/§7.5 im
-   Design-Profil.
+   Kein Negativ-Logo vorhanden -> auf dunklen Flaechen nicht lesbar
+   (Design-Profil §3/§7.5a).
 
    Hausregel (tooling/visual-audit/logo-hausregel.md §3): beide Achsen
-   bleiben `auto`, gedeckelt wird ueber max-width UND max-height. Was
-   zuerst greift, greift; die andere Achse rechnet der Browser
-   verhaeltnistreu nach (CSS 2.1 §10.4). Keine Achse hart setzen — sonst
-   staucht es, sobald der Deckel greift; object-fit wird nicht gebraucht.
-   Sonderfall, hier bindet KEIN Deckel: die SVG bringt eine intrinsische
-   Groesse von 357x67px mit und liegt damit knapp unter max-width: 360px.
-   Mit width:auto rendert sie in Naturgroesse 357x67 (gemessen
-   2026-08-20) — die einzige Uni, deren Logodatei schmaler ist als der
-   Deckel. Hausregel §4 fuehrt sie noch als "360x68, es bindet die
-   Breite"; dort zu korrigieren. Vorher 320px -> 60px, ein von uni-koeln
-   uebernommener Breitenwert, der dort eine ganz andere Hoehe meint —
-   Koeln ist 2.2:1, diese Wortmarke 5.33:1.
-   display: block statt inline — beseitigt die Basislinien-Luecke, erst
-   damit wirken margin-top/-bottom symmetrisch (§2). margin 18px steht so
-   in §4; die Logobox misst damit 67 + 36 = 103px. Die Formel aus §3.4
-   ergaebe mit der echten Hoehe (104 - 67)/2 = 18.5px und exakt 104px —
-   bewusst nicht eigenmaechtig gesetzt, das entscheidet §4. Die
-   Logohoehen duerfen sich zwischen den Hochschulen unterscheiden, das
-   Kopfband soll ueberall 104px hoch sein.
-   Beide Deckel muessen gesetzt werden (nicht `none`), weil
-   custom-stylesheet.css .header_logo auf max-width: 200px / height: 45px
-   zieht — und dieselbe Regel setzt padding-left: 20px. Zusammen mit
-   Bootstraps `* { box-sizing: border-box }` deckelte max-width damit die
-   BORDER-Box, das Logo kaeme 20px zu schmal heraus (gemessen an
-   fh-muenster, 2026-08-20). Deshalb content-box: die Deckel gelten dem
-   Bild, das Einrueckungs-Padding der Plattform bleibt erhalten.
+   bleiben `auto`, gedeckelt wird ueber max-width UND max-height.
+
+   §3a B1: Die gelieferte SVG hatte nur eine viewBox, keine width/height.
+   Im float-Header rendert Chrome so ein Bild 0x0 (gemessen an hsbi).
+   width/height sind deshalb aus der viewBox nachgetragen, sonst ist die
+   Datei byte-gleich mit der Lieferung. Damit hat sie eine intrinsische
+   Groesse und der Breitendeckel greift.
+
+   Deckel bleibt beim Hausmass 360px. Bei 8.43:1 bindet die Breite: das
+   Logo wird 360x42.7, der Zusatz "DataPublication.nrw" hat dann nur
+   8.3px Versalhoehe. Ein groesserer Deckel wurde am 2026-10-01 per
+   Preview-Injektion am Testsystem geprueft (1280px Viewport, Container
+   1170px) und verworfen: anonym (Navbar 616px) passen auch 500px, aber
+   eingeloggt (Add Data + Nutzername simuliert, Navbar 742-758px bei
+   14-Zeichen-Namen) bricht die Leiste schon bei 400px Deckel in zwei
+   Zeilen. Nur 360px bleibt einzeilig. Sehr lange Namen brechen auch so
+   um, das war mit der alten Wortmarke (377px Box) genauso.
+   Falls der Zusatz lesbarer sein soll: zweizeilige/gestapelte Variante
+   beim Kontakt erfragen, nicht den Deckel anheben.
+   Margin (104 - 42.7) / 2 = 30.65px, Logobox 104.0px.
+
+   display: block statt inline beseitigt die Basislinien-Luecke, erst damit
+   wirken margin-top/-bottom symmetrisch. Beide Deckel muessen gesetzt
+   werden (nicht `none`), weil custom-stylesheet.css .header_logo auf
+   max-width: 200px / height: 45px zieht und padding-left: 20px setzt.
+   content-box, damit die Deckel dem Bild gelten und nicht der Border-Box
+   inklusive Padding (sonst 20px zu schmal, gemessen an fh-muenster).
    ========================================================================== */
 img.header_logo[src*="dataverse_logo"] { display: none !important; }
 img.header_logo[src*="/at/fernuni-hagen/img/logo.svg"] {
@@ -361,8 +363,8 @@ img.header_logo[src*="/at/fernuni-hagen/img/logo.svg"] {
   height: auto !important;         /* Seitenverhaeltnis selbst ein      */
   max-width: 360px !important;     /* custom-stylesheet.css: 200px      */
   max-height: 80px !important;     /* custom-stylesheet.css: 45px       */
-  margin-top: 18px !important;     /* §4; Logobox 67 + 36 = 103px       */
-  margin-bottom: 18px !important;
+  margin-top: 30.65px !important;  /* (104 - 42.7) / 2 -> Box 104px     */
+  margin-bottom: 30.65px !important;
 }
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 
