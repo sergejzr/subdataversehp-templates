@@ -384,6 +384,29 @@ img.header_logo[src*="/at/fernuni-hagen/img/logo.svg"] {
   margin-top: 30.65px !important;  /* (104 - 42.7) / 2 -> Box 104px     */
   margin-bottom: 30.65px !important;
 }
+/* Mobil (< 768px): Bootstrap klappt die Navbar ein, in .navbar-header steht
+   VOR dem Logo der Hamburger (button.navbar-toggle, float: right, 43px).
+   Ein Block-Bild darf einen Float nicht ueberlappen (CSS 2.1 §9.5): passt
+   die Logobox (Bild + 20px Padding) nicht daneben, rutscht sie UNTER den
+   Button. Gemessen 2026-10-01 bei 375px: Logo-Oberkante 49.3px statt 30.65,
+   Navbar 137px, und die 377/380px-Box ragt 2-5px ueber den Viewport
+   (horizontaler Scroll). Betrifft genauso h-brs und fh-muenster; uni-koeln
+   (233px) passt neben den Button. logo-measure.js meldet es als
+   gap-asymmetric @375.
+   Fix: Breite an den Platz neben dem Button koppeln, 95px = 43 Toggle
+   + 20 Padding + 32 Luft (deckt auch einen 15px-Desktop-Scrollbar ab).
+   Hoehe folgt dem Seitenverhaeltnis, also Margin = 52px - Breite / (2 *
+   8.4303) -> Box bleibt bei jeder Breite 104px. min() haelt oberhalb von
+   455px den Hausdeckel 360px. Mechanik am 2026-10-01 per Injektion mit
+   der alten Wortmarke verifiziert: 375px -> neben dem Button, Luecke
+   25.7/25.4px, Navbar 106.6px, kein horizontaler Scroll. */
+@media (max-width: 767px) {
+  img.header_logo[src*="/at/fernuni-hagen/img/logo.svg"] {
+    max-width: min(360px, calc(100vw - 95px)) !important;
+    margin-top: calc(52px - min(360px, 100vw - 95px) / 16.8606) !important;
+    margin-bottom: calc(52px - min(360px, 100vw - 95px) / 16.8606) !important;
+  }
+}
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 
 /* ===========================================================================

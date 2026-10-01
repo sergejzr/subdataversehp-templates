@@ -433,6 +433,21 @@ img.header_logo[src*="/at/fh-muenster/img/logo.png"] {
   margin-top: 21px !important;     /* (104 - 62) / 2, Logobox 104px     */
   margin-bottom: 21px !important;
 }
+/* Mobil (< 768px): In .navbar-header steht VOR dem Logo der Hamburger
+   (float: right, 43px). Passt die Logobox nicht daneben, rutscht sie
+   darunter (CSS 2.1 §9.5). Gemessen 2026-10-01 bei 375px: Oberkante 49.3px
+   statt 21, Navbar 136px, 5px horizontaler Scroll. Breite deshalb an den
+   Platz neben dem Button koppeln: 95px = 43 Toggle + 20 Padding + 32 Luft.
+   Margin = 52px - Breite / (2 * 5.8408) -> Box bleibt 104px; min() haelt
+   ab 455px den Deckel 360px. Details: logo-hausregel.md, Nachtrag
+   2026-10-01. */
+@media (max-width: 767px) {
+  img.header_logo[src*="/at/fh-muenster/img/logo.png"] {
+    max-width: min(360px, calc(100vw - 95px)) !important;
+    margin-top: calc(52px - min(360px, 100vw - 95px) / 11.6816) !important;
+    margin-bottom: calc(52px - min(360px, 100vw - 95px) / 11.6816) !important;
+  }
+}
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 
 /* ===========================================================================

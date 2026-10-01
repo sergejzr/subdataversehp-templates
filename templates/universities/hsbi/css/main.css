@@ -642,6 +642,20 @@ img.header_logo[src*="/at/hsbi/img/logo.svg"] {
   margin-top: var(--hsbi-logo-gap) !important;
   margin-bottom: var(--hsbi-logo-gap) !important;
 }
+/* Mobil (< 768px): In .navbar-header steht VOR dem Logo der Hamburger
+   (float: right, 43px). Passt die Logobox nicht daneben, rutscht sie
+   darunter (CSS 2.1 §9.5). Gemessen 2026-10-01 bei 375px: Oberkante 49.3px
+   statt 17.15, Navbar 138px. Die CD-Breite 340px (Kap. 19.4) ist eine
+   Desktop-Groesse; mobil wird sie an den Platz neben dem Button gekoppelt:
+   95px = 43 Toggle + 20 Padding + 32 Luft. Hoehe und Abstand ziehen ueber
+   --hsbi-logo-h/-gap automatisch mit (alle drei auf :root deklariert, daher
+   genuegt es, --hsbi-logo-w umzudefinieren). Details: logo-hausregel.md,
+   Nachtrag 2026-10-01. */
+@media (max-width: 767px) {
+  :root {
+    --hsbi-logo-w: min(340px, calc(100vw - 95px));
+  }
+}
 .navigate-icon[src*="dp-logo"] { display: none !important; }
 
 /* ===========================================================================

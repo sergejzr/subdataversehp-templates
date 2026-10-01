@@ -394,6 +394,24 @@ img.header_logo[src*="/at/h-brs/img/logo-700w.png"] {
   margin-bottom: 20px !important;
   margin-right: 65px !important;   /* CD clear space: 1 circle dia.   */
 }
+/* Mobile (< 768px): .navbar-header puts the hamburger (float: right, 43px)
+   BEFORE the logo. If the logo box does not fit beside it, it drops below
+   (CSS 2.1 §9.5). Measured 2026-10-01 at 375px: top edge 49.3px instead of
+   20, navbar 138px, 5px horizontal scroll. So the width is tied to the
+   space next to the button: 95px = 43 toggle + 20 padding + 32 air.
+   The CD clear space (1 circle diameter = logo height) scales with the
+   logo, so w + w/5.5556 must fit: w = (100vw - 95px) / 1.18.
+   Margin = 52px - w / (2 * 5.5556) keeps the 104px band; min() keeps the
+   360px cap from 520px up. Details: logo-hausregel.md, addendum
+   2026-10-01. */
+@media (max-width: 767px) {
+  img.header_logo[src*="/at/h-brs/img/logo-700w.png"] {
+    max-width: min(360px, calc((100vw - 95px) / 1.18)) !important;
+    margin-top: calc(52px - min(360px, (100vw - 95px) / 1.18) / 11.1111) !important;
+    margin-bottom: calc(52px - min(360px, (100vw - 95px) / 1.18) / 11.1111) !important;
+    margin-right: calc(min(360px, (100vw - 95px) / 1.18) / 5.5556) !important;
+  }
+}
 
 /* ===========================================================================
    7. Chrome / structural carry-over (not CD-related, unchanged from base)
