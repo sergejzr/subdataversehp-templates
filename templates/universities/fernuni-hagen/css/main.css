@@ -111,7 +111,25 @@ a:hover, a:focus {
   color: var(--fuh-blue-mid) !important;
   text-decoration-color: var(--fuh-blue-mid) !important;
 }
-.navbar-nav > li > a:hover { color: #333333; }
+/* Navigationsleiste (Search / User Guide / Support / Log In) in CD-Schrift
+   und -Farbe, Wunsch des Kontakts vom 2026-08-26.
+   custom-stylesheet.css setzt .navbar-nav>li>a auf Exo2-Regular und
+   rgb(34,34,34) mit !important (0,1,2). Die allgemeine a-Regel oben (0,0,1)
+   verliert dagegen, die Leiste war deshalb bisher nicht im CD. Gleiche
+   Spezifitaet plus spaetere Ladeposition gewinnt; homepage.css fasst die
+   Navbar nicht an (geprueft 2026-10-01). Versalien und Schriftgroesse
+   bleiben Plattform-Chrome, siehe Dateikopf.
+   --fuh-blue auf Weiss 8.47:1, Hover --fuh-blue-mid 5.40:1 (AA).
+   Ersetzt die fruehere Zeile `.navbar-nav > li > a:hover { color: #333333; }`,
+   die ohne !important nie gegriffen hat. */
+.navbar-nav > li > a {
+  font-family: var(--fuh-font-sans) !important;
+  color: var(--fuh-blue) !important;
+}
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+  color: var(--fuh-blue-mid) !important;
+}
 
 /* Logout-Link: Hover/Fokus-Hinweis in CD-Blau, weisse Schrift (8.47:1).
    Attribut-Selektor wegen dynamischem JSF-Formular-Praefix; !important,
