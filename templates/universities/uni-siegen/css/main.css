@@ -324,7 +324,12 @@ span.glyphicon-question-sign.tooltip-icon:hover {
    Breite haengt ueber aspect-ratio an der Leistenhoehe (tan 20 Grad =
    0.364), der Winkel bleibt also bei jeder Hoehe, Breite und Zoomstufe
    exakt 20 Grad. Ein clip-path auf der Leiste selbst ginge nur mit fester
-   Hoehe. 40px Innenabstand halten die Texte von den Keilen fern
+   Hoehe. Die Keile ragen oben und unten 1px ueber die Leiste: deren Kanten
+   liegen meist auf Pixelbruchteilen (gemessen y = 2773.14, Hoehe 177.42),
+   und wo zwei geglaettete Kanten aufeinanderliegen, bleibt ein blauer
+   Haarstrich stehen, der mit dem Zoom wandert (Rueckmeldung 2026-10-02).
+   Der Ueberstand liegt auf Seitenweiss und ist unsichtbar.
+   40px Innenabstand halten die Texte von den Keilen fern
    (gemessen 2026-10-02: mindestens 34px bei 601px, 59px bei 1098px).
 
    Erst ab 601px (Umbruch der homepage.css). Darunter bleiben die drei
@@ -342,8 +347,8 @@ span.glyphicon-question-sign.tooltip-icon:hover {
   .statistics-footer::after {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: -1px;
+    bottom: -1px;
     aspect-ratio: 0.364 / 1;
     background: #fff;
     pointer-events: none;
