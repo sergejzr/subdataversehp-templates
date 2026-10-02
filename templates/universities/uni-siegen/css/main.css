@@ -316,22 +316,50 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 
 /* ===========================================================================
    5. Statistik-Fussleiste
-   Weiss auf dunkelblau 12.13:1. Darueber das Schraegflaechen-Band, das
-   CD-Formprinzip (Parallelogramme, 20 Grad geschert, Dachmarkenfarben).
+   Weiss auf dunkelblau 12.13:1. Linke und rechte Kante um 20 Grad
+   geschert, gleiche Neigung wie die Hero-Flaeche (§6). Das fruehere
+   Schraegflaechen-Band darueber ist entfernt (Rueckmeldung 2026-10-02).
+
+   Die Keile sind zwei Pseudo-Elemente in Seitenweiss (body #fff). Ihre
+   Breite haengt ueber aspect-ratio an der Leistenhoehe (tan 20 Grad =
+   0.364), der Winkel bleibt also bei jeder Hoehe, Breite und Zoomstufe
+   exakt 20 Grad. Ein clip-path auf der Leiste selbst ginge nur mit fester
+   Hoehe. 40px Innenabstand halten die Texte von den Keilen fern
+   (gemessen 2026-10-02: mindestens 34px bei 601px, 59px bei 1098px).
+
+   Erst ab 601px (Umbruch der homepage.css). Darunter bleiben die drei
+   Spalten nebeneinander und die Beschriftungen brechen mehrfach um: die
+   Leiste wird bei 320px 250px hoch, ein 20-Grad-Keil waere 91px breit und
+   laege ueber "Unique downloads in last 30 days". Bei starkem Browser-Zoom
+   greift dieselbe Grenze, die Leiste wird dann einfach rechteckig.
    ========================================================================== */
 .statistics-footer {
   background: var(--unis-dunkelblau) !important;
   color: #fff !important;
 }
-.statistics-footer::before {
-  content: "";
-  display: block;
-  height: 14px;
-  margin-bottom: 12px;
-  background-image: url("/at/uni-siegen/img/schraegflaechen.svg");
-  background-size: auto 100%;
-  background-repeat: repeat-x;
-  background-position: left center;
+@media (min-width: 601px) {
+  .statistics-footer::before,
+  .statistics-footer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    aspect-ratio: 0.364 / 1;
+    background: #fff;
+    pointer-events: none;
+  }
+  .statistics-footer::before {         /* Keil oben links */
+    left: 0;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+  .statistics-footer::after {          /* Keil unten rechts */
+    right: 0;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+  .statistics-footer .footer-repository-header-content {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 .statistics-footer a, .statistics-footer a:visited {
   color: #fff !important;
