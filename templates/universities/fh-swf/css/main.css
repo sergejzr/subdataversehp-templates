@@ -1,0 +1,497 @@
+/* ===========================================================================
+   FACHHOCHSCHULE SUEDWESTFALEN (fh-swf) — main.css
+   CD-Quelle: Corporate Design Handbuch FH SWF, Teil 1 Grundlagen &
+   Drucksachen (Stand Oktober 2017, geliefert vom Kontakt). Design-Profil:
+   Projekt-Doc claude/design-profil-fh-swf.md (2026-09-24).
+   Seitenangaben unten = gedruckte Seitenzahl im Handbuch.
+
+   Geschrieben 2026-10-05 nach dem Muster uni-siegen (9bec45f) und h-brs.
+
+   Ladereihenfolge: PrimeFaces/Bootstrap -> custom-stylesheet.css ->
+   DIESE DATEI (<head>, per /jslibs/hrz/gui.js) -> homepage.css (<body>,
+   laedt SPAETER und gewinnt bei Gleichstand, auch !important gegen
+   !important). Wo homepage.css selbst !important setzt, hilft nur hoehere
+   Spezifitaet (Elternklasse/ID davor), nie mehr !important.
+
+   CD-Regeln, die hier durchgehen:
+   - Primaerfarbe Blau #00509b (S.11) fuer Ueberschriften, Links, Buttons,
+     Textboxen. 8.01:1 auf Weiss.
+   - Spotfarbe Pink nur als Linie (S.11, S.13: Unterstrich unter
+     Ueberschriften und Fotos). Wert: das CD nennt RGB 190/0/110 = #be006e,
+     im Hex-Feld aber #aa0f91. Genommen ist der RGB-Wert, er deckt sich mit
+     dem gedruckten Farbfeld. Beim Kontakt offen.
+     Pink auf Blau 1.30:1: die beiden stossen nirgends aneinander.
+   - Sekundaerfarben (S.11) sind optional und werden nicht verwendet.
+   - Hausschrift Fedra (Typotheque) ist lizenzpflichtig, Einsatz liegt beim
+     Dezernat 5 (S.9). Ersatz laut CD (S.10): Arial. Fedra steht vorn im
+     Stack, ausgeliefert wird sie nicht; wer sie lokal hat, sieht sie.
+   - Gemischte Schreibweise, keine Versalien. homepage.css setzt uppercase
+     auf die Titelklassen, deshalb aktiv `text-transform: none`.
+   - Logo nur auf Weiss, nie auf Bild oder bunter Flaeche (S.7).
+   ========================================================================== */
+
+/* ===========================================================================
+   1. Custom Properties
+   ========================================================================== */
+:root {
+  --fhswf-blau:       #00509b;  /* 8.01:1 auf Weiss: Text, Links, Flaechen */
+  --fhswf-blau-tief:  #003f7a;  /* Hover. Kein CD-Wert, Blau ~20 % dunkler */
+  --fhswf-pink:       #be006e;  /* NUR Linie. 6.15:1, s. Kopf              */
+  --fhswf-grau:       #6f7072;  /* Primaergrau 70 % K, 4.96:1: Meta        */
+  --fhswf-ink:        #1a1a1a;  /* Fliesstext. Kein CD-Wert, Hausmuster    */
+  --fhswf-schatten:   0 2px 8px rgb(0 0 0 / 0.12);  /* Textboxen, S.13      */
+  --fhswf-font: "Fedra Sans Alt Std", "Fedra Sans", Arial, "Helvetica Neue",
+                Helvetica, sans-serif;
+}
+
+/* ===========================================================================
+   2. Fonts
+   Keine @font-face-Bloecke: Arial ist Systemschrift, Fedra wird nicht
+   ausgeliefert. Gibt es eine Fedra-Weblizenz, kommen hier woff2-Dateien
+   (selbst gehostet unter /at/fh-swf/fonts/) und eigene @font-face-Regeln
+   hin, der Stack in §1 bleibt.
+   ========================================================================== */
+
+/* ===========================================================================
+   3. Typografie
+   CD S.9: Headlines in Fedra Sans Condensed Bold. Mit Arial bleibt Bold.
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--fhswf-font) !important;
+  font-weight: 700 !important;
+  line-height: 1.2;
+  text-transform: none !important;
+  color: var(--fhswf-blau) !important;
+}
+.repository-title {               /* Farbe: §6, der Titel steht auf dem Hero */
+  word-wrap: break-word;
+  font-family: var(--fhswf-font) !important;
+  font-weight: 700 !important;
+  line-height: 1.1;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) */
+}
+/* Pinke Linie unter Ueberschriften (S.13). Kurzer Strich statt voller
+   Breite, so wie im Handbuch gezeigt. */
+.section-heading {
+  font-family: var(--fhswf-font) !important;
+  font-weight: 700 !important;
+  color: var(--fhswf-blau) !important;
+  padding-bottom: 8px;
+  position: relative;
+}
+.section-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 3px;
+  background: var(--fhswf-pink);
+}
+a, a:visited { color: var(--fhswf-blau) !important; }
+a:hover, a:focus {
+  color: var(--fhswf-blau-tief) !important;
+  text-decoration-color: var(--fhswf-pink) !important;
+}
+/* Bootstrap-Linkbuttons ("Cite Dataset", "View Styled Citation") stehen
+   sonst in #337ab7. */
+.btn-link, .btn-link:hover, .btn-link:focus {
+  color: var(--fhswf-blau) !important;
+}
+/* Plattform-Feedbackbutton: die a-Regel oben wuerde Blau auf Orange setzen.
+   Zurueck auf das Weiss der Plattform (4.28:1, Rest zentral). */
+a.btn-feedback, a.btn-feedback:visited {
+  color: #fff !important;
+}
+/* Navigationsleiste: Farbe im CD, Schrift, Groesse und Versalien bleiben
+   Plattform-Chrome. custom-stylesheet.css setzt .navbar-nav>li>a mit
+   !important auf (0,1,2); die Elternklasse ergibt (0,2,2). */
+.navbar-default .navbar-nav > li > a {
+  color: var(--fhswf-blau) !important;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: var(--fhswf-blau-tief) !important;
+}
+.caroussel_title {
+  font-family: var(--fhswf-font) !important;
+  font-weight: 700 !important;
+  color: var(--fhswf-blau) !important;
+}
+.stat-text {
+  font-family: var(--fhswf-font) !important;
+}
+.login-prompt {
+  font-family: var(--fhswf-font) !important;
+  color: var(--fhswf-ink) !important;
+}
+.interactive-list {
+  font-family: var(--fhswf-font) !important;
+  color: var(--fhswf-ink) !important;
+}
+.news-title,
+.repository-title2,
+.repository-small-title {
+  font-family: var(--fhswf-font) !important;
+  font-weight: 700 !important;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) */
+  color: var(--fhswf-blau) !important;
+}
+.repository-description {
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--fhswf-font) !important;   /* homepage.css: Exo2-Light */
+}
+.dataverse-item-title {
+  font-family: var(--fhswf-font) !important;
+  font-weight: 700 !important;
+  text-transform: none !important;   /* homepage.css: uppercase (plain) */
+}
+/* Card-Grid und Collection-Kopf: homepage.css setzt Roboto mit !important
+   auf .repository-info-block und .grid-item-footer. Die Elternklasse hebt
+   auf (0,2,0) und gewinnt ohne weiteres !important. */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--fhswf-font) !important;
+}
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  color: var(--fhswf-grau) !important;
+}
+
+/* ===========================================================================
+   4. Flaechen, Linien, Buttons
+   Textboxen laut CD S.13: konturlos, weiss oder blau, abgerundet, mit oder
+   ohne Schatten. Weiss mit Schatten fuer die Boxen mit viel Inhalt
+   (Zitation, Suchpanel), Blau fuer Hero und Statistikleiste.
+   ========================================================================== */
+/* #custom-header: BEWUSST KEINE Regel. Das Band traegt instanzweit das
+   Testsystem-Ribbon (custom-stylesheet.css, dvmode-gegated). */
+
+/* Navbar-Unterkante: pinke Linie auf Weiss (S.13). */
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 3px solid var(--fhswf-pink) !important;
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--fhswf-blau) !important;
+}
+/* Zitationsband (Suchtreffer und Datensatzseite): weisse Textbox mit
+   Schatten. Eine blaue Box ginge im Kontrast (Weiss darauf 8.01:1), aber
+   im Band haengen Dropdown-Menues ("Cite Dataset") mit weissem Grund, und
+   in der Trefferliste staende jede Zeile in Blau. */
+.bg-citation {
+  background: #fff !important;
+  color: var(--fhswf-ink) !important;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: var(--fhswf-schatten);
+}
+.bg-citation a, .bg-citation a:visited {
+  color: var(--fhswf-blau) !important;
+  text-decoration: underline;
+}
+.bg-citation div {               /* "Learn about ..." sonst #707070 */
+  color: var(--fhswf-ink) !important;
+}
+.icon-dataset,
+.icon-dataverse,
+.icon-file {
+  color: var(--fhswf-blau) !important;
+}
+#search-row-panel {
+  background-color: #fff !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  box-shadow: var(--fhswf-schatten);
+}
+/* Trefferkarten: structure.css codiert den Typ ueber die Rahmenfarbe,
+   Collection orange (Dataverse-Marke), Datensatz #428bca. Die Unterscheidung
+   bleibt, in den beiden Primaerfarben Blau und Grau. Gleicher Selektor wie
+   structure.css, diese Datei laedt spaeter. */
+table[id$="resultsTable"] td > div.dataverseResult {
+  border-color: var(--fhswf-grau);
+}
+table[id$="resultsTable"] td > div.datasetResult {
+  border-color: var(--fhswf-blau);
+}
+/* Aktive Seitenzahl: die a-Regel faerbt die Ziffer blau auf das
+   Bootstrap-Blau. */
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--fhswf-blau) !important;
+  border-color: var(--fhswf-blau) !important;
+  color: #fff !important;
+}
+
+/* Landing, "Recent Datasets": Label auf dem Vorschaubild deckend blau,
+   Link weiss (8.01:1). .overview-image-container hebt auf (0,2,0) gegen
+   homepage.css (0,1,0). */
+.overview-image-container .grid-item-label {
+  background: var(--fhswf-blau);
+}
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus {
+  color: #fff !important;
+}
+.grid-item-content .grid-item-author {
+  color: var(--fhswf-grau);      /* homepage.css #777: 4.48:1, grau 4.96:1 */
+}
+/* Karussellpfeile: Farbe steht inline im Template (#07529a), nur
+   !important kommt dagegen an. */
+.navigationarrow .glyphicon {
+  color: var(--fhswf-blau) !important;
+}
+
+.btn-primary {
+  background-image: none;
+  background-color: var(--fhswf-blau) !important;
+  border-color: var(--fhswf-blau) !important;
+  color: #fff !important;               /* 8.01:1 */
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: var(--fhswf-blau-tief) !important;
+  border-color: var(--fhswf-blau-tief) !important;
+  color: #fff !important;
+}
+button.btn-default, a.btn-default {
+  background-color: #fff !important;
+  border-color: var(--fhswf-blau) !important;
+  color: var(--fhswf-blau) !important;
+  font-family: var(--fhswf-font) !important;
+}
+button.btn-default:hover, a.btn-default:hover {
+  background-color: var(--fhswf-blau) !important;
+  border-color: var(--fhswf-blau) !important;
+  color: #fff !important;
+}
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+  font-family: var(--fhswf-font) !important;
+}
+/* Suchbutton: der generische button.btn-default-Block (0,1,1) malt ihn
+   weiss, die Lupe aus homepage.css ist aber weiss -> unsichtbar (gleicher
+   Fall wie Koeln/h-brs/Siegen). Elternklasse (0,2,1) setzt Blau zurueck. */
+.input-group-btn > button.btn-default {
+  background-color: var(--fhswf-blau) !important;
+  border-color: var(--fhswf-blau) !important;
+}
+.input-group-btn > button.btn-default .glyphicon {
+  color: #fff !important;
+}
+
+.btn-contact, .btn-share {
+  border-color: var(--fhswf-blau) !important;
+  color: var(--fhswf-blau) !important;
+}
+.btn-contact:hover, .btn-share:hover {
+  background-color: var(--fhswf-blau) !important;
+  color: #fff !important;
+}
+
+span.glyphicon-question-sign.tooltip-icon {
+  color: var(--fhswf-blau) !important;
+}
+span.glyphicon-question-sign.tooltip-icon:hover {
+  border-color: var(--fhswf-blau-tief) !important;
+  color: var(--fhswf-blau-tief) !important;
+}
+.customNavigation .glyphicon-question-sign {
+  color: var(--fhswf-blau) !important;
+  border-color: var(--fhswf-blau) !important;
+}
+.customNavigation .glyphicon-question-sign:hover {
+  color: var(--fhswf-blau-tief) !important;
+  border-color: var(--fhswf-blau-tief) !important;
+}
+
+/* ===========================================================================
+   5. Statistik-Fussleiste
+   Blaue Textbox (S.13), Weiss darauf 8.01:1.
+   ========================================================================== */
+.statistics-footer {
+  background: var(--fhswf-blau) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited {
+  color: #fff !important;
+  text-decoration: underline;
+}
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+  font-family: var(--fhswf-font) !important;  /* homepage.css: Roboto-Regular */
+}
+
+/* ===========================================================================
+   6. Hero — Platzhalter in Primaerblau
+
+   Kein Foto geliefert. img/hero.svg ist eine einfarbige Flaeche in
+   #00509b, damit die leere CSV-Spalte nicht auf das Plattform-Foto
+   (collection_root.jpg) zurueckfaellt. Titel und Beschreibung weiss
+   darauf, 8.01:1.
+
+   a) Overlay neutralisieren: die zwei 40-%-Gradienten der homepage.css
+      sind fuer Fotos gedacht und wuerden das CD-Blau verdunkeln.
+      ID-Elternselektor (1,1,0) schlaegt homepage.css (0,1,0).
+   b) Hero-Buttons: weisse Kontur, Hover weiss gefuellt mit blauer Schrift.
+      button.-Praefix + ID schlaegt die :hover-Regel der homepage.css.
+   c) Suchbutton im Hero: Blau auf Blau ginge unter. Weiss mit blauer Lupe,
+      Feld und Button lesen sich als eine Suchzeile.
+
+   Kommt spaeter ein Foto: Overlay pruefen und den Text in eine blaue
+   Textbox setzen (CD S.13, Muster uni-siegen §6). Pinke Linie dann als
+   Unterstrich am Foto moeglich, nie auf Blau.
+   ========================================================================== */
+#repository-header .repository-header-overlay {
+  background: none;
+}
+#repository-header .repository-title,
+#repository-header .repository-description {
+  color: #fff !important;
+}
+#repository-header .repository-description:empty {
+  display: none;
+}
+#repository-header button.repository-action-button {
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+  font-family: var(--fhswf-font) !important;
+  margin: 0 6px 6px 0;             /* mobil stapeln sie sich sonst ohne Luft */
+}
+#repository-header button.repository-action-button:hover,
+#repository-header button.repository-action-button:focus {
+  background-color: #fff !important;
+  border-color: #fff !important;
+  color: var(--fhswf-blau) !important;
+  cursor: pointer;
+}
+#repository-header .input-group-btn > button.btn-default {
+  background-color: #fff !important;
+  border-color: #fff !important;
+}
+#repository-header .input-group-btn > button.btn-default .glyphicon {
+  color: var(--fhswf-blau) !important;   /* Grafik, 8.01:1 */
+}
+#repository-header .input-group-btn > button.btn-default:hover,
+#repository-header .input-group-btn > button.btn-default:focus {
+  background-color: var(--fhswf-blau-tief) !important;
+  border-color: #fff !important;
+}
+#repository-header .input-group-btn > button.btn-default:hover .glyphicon,
+#repository-header .input-group-btn > button.btn-default:focus .glyphicon {
+  color: #fff !important;
+}
+
+/* ===========================================================================
+   7. Logo
+   Hausregel tooling/visual-audit/logo-hausregel.md §3/§4: beide Achsen
+   auto, gedeckelt ueber max-width UND max-height, Logobox 104px.
+
+   logo.svg: pfadtreu aus FH-SWF_Logo-RGB_3_eps.eps (gs -> pdftocairo),
+   Fuellungen auf die Werte der mitgelieferten RGB-PNG (#00509b, #000000,
+   #6f7072), viewBox = Artboard 496.46 x 153.4 (3.236:1, Marke beruehrt
+   alle Kanten). width/height am <svg> (§3a Fall B).
+
+   CD-Schutzzone S.6: dreifache Breite des kleinen Quaders. Quader 29.03
+   von 153.4 Einheiten Hoehe, Zone also 0.568 x Logohoehe. In der 104px-Box
+   bleibt bei 48px Hoehe (104 - 48) / 2 = 28px oben und unten, die Zone
+   braucht 27.3px. Daher 48px statt der ueblichen 80px: hoeher ginge nur mit
+   hoeherem Kopfband. Breite 155px, Mindestbreite laut CD 3 cm (~113px).
+   Seitlich: rechts 28px; links gibt die Plattform 20px padding, dazu 8px.
+   content-box, weil custom-stylesheet.css 20px padding-left setzt.
+   ========================================================================== */
+img.header_logo[src*="dataverse_logo"] { display: none !important; }
+img.header_logo[src*="/at/fh-swf/img/logo.svg"] {
+  display: block !important;
+  box-sizing: content-box !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 360px !important;     /* custom-stylesheet.css: 200px */
+  max-height: 48px !important;     /* custom-stylesheet.css: 45px; s. o. */
+  margin-top: 28px !important;
+  margin-bottom: 28px !important;
+  margin-left: 8px !important;     /* + 20px Plattform-Padding = Schutzzone */
+  margin-right: 28px !important;   /* CD-Schutzzone */
+}
+.navigate-icon[src*="dp-logo"] { display: none !important; }
+
+/* ===========================================================================
+   8. Chrome / strukturelle Uebernahme (nicht CD-bezogen)
+   ========================================================================== */
+.glyphicon {
+  font-size: 20px;
+}
+.text-danger {
+  font-size: 12px !important;
+  color: #ea1713;          /* semantische Fehlerfarbe, bleibt rot */
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+  line-height: 18px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  color: #000000;
+  font-weight: bold;
+  border: 0px none;
+}
+
+/* ===========================================================================
+   9. Global
+   ========================================================================== */
+body {
+  background-color: #fff !important;
+  box-sizing: border-box;
+  font-family: var(--fhswf-font) !important;
+  color: var(--fhswf-ink) !important;
+}
+
+/* ===========================================================================
+   10. Rueckweg zur /at/-Startseite (Element kommt aus js/main.js)
+
+   ACHTUNG: Dataverse setzt html{font-size:10px} (Bootstrap-3-Erbe).
+   1rem sind 10px, nicht 16px. Deshalb hier px statt rem.
+   Farbe zentral ueber --dp-home-accent, damit der Block in allen Uni-Ordnern
+   identisch ist.
+   ========================================================================== */
+:root {
+  --dp-home-accent: var(--fhswf-blau);
+}
+
+.dp-uni-home-cell {
+  vertical-align: middle;
+  padding: 0 0 0 20px;
+}
+
+a#dp-uni-home {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--dp-home-accent, #333333) !important;
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 2px solid var(--dp-home-accent, #333333);
+  border-radius: 2px;
+}
+
+a#dp-uni-home > span {
+  margin-right: 0.4em;
+}
+
+a#dp-uni-home:hover,
+a#dp-uni-home:focus {
+  background: var(--dp-home-accent, #333333);
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+a#dp-uni-home:focus-visible {
+  outline: 2px solid var(--dp-home-accent, #333333);
+  outline-offset: 3px;
+}

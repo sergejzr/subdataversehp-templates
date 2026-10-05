@@ -1,0 +1,5 @@
+DataPublication.nrw · Dieser Bereich befindet sich im Aufbau.
+
+HINWEIS: Diese Datei wird beim Basis-Template NICHT gerendert. Der Text der
+Landing kommt aus dem Description-Feld der Collection fh-swf in der
+Dataverse-GUI. Die Datei liegt nur bei, weil das Asset-Skelett sie erwartet.
