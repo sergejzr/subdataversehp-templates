@@ -20,7 +20,8 @@
      Ueberschriften und Fotos). Wert: das CD nennt RGB 190/0/110 = #be006e,
      im Hex-Feld aber #aa0f91. Genommen ist der RGB-Wert, er deckt sich mit
      dem gedruckten Farbfeld. Beim Kontakt offen.
-     Pink auf Blau 1.30:1: die beiden stossen nirgends aneinander.
+     Pink auf Blau 1.30:1: nie fuer Text. Als Linie im Titelbild setzt das
+     CD sie selbst auf den blauen Verlauf (S.14), siehe §6.
    - Sekundaerfarben (S.11) sind optional und werden nicht verwendet.
    - Hausschrift Fedra (Typotheque) ist lizenzpflichtig, Einsatz liegt beim
      Dezernat 5 (S.9). Ersatz laut CD (S.10): Arial. Fedra steht vorn im
@@ -328,31 +329,59 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 }
 
 /* ===========================================================================
-   6. Hero — Platzhalter in Primaerblau
+   6. Hero — Titelbild nach CD S.14
 
-   Kein Foto geliefert. img/hero.svg ist eine einfarbige Flaeche in
-   #00509b, damit die leere CSV-Spalte nicht auf das Plattform-Foto
-   (collection_root.jpg) zurueckfaellt. Titel und Beschreibung weiss
-   darauf, 8.01:1.
+   Das CD definiert das Titelbild als grossformatiges Foto aus der Hochschule
+   mit blauem Verlauf darueber, Headline im Bild und pinker Linie darunter.
+   Verlauf und Linie kommen deshalb aus dieser Datei, nicht aus dem Bild: ein
+   spaeteres Foto ist nur ein Dateitausch in der CSV-Spalte background.
 
-   a) Overlay neutralisieren: die zwei 40-%-Gradienten der homepage.css
-      sind fuer Fotos gedacht und wuerden das CD-Blau verdunkeln.
-      ID-Elternselektor (1,1,0) schlaegt homepage.css (0,1,0).
-   b) Hero-Buttons: weisse Kontur, Hover weiss gefuellt mit blauer Schrift.
+   img/hero.svg ist bis dahin ein Platzhalter: hellere Blaustufe (72 %
+   Primaerblau, #4781b7) mit konturlosen, abgerundeten Rahmen rechts, wie
+   die Fotorahmen im Folder-Layout (S.20). Den dunklen Teil links liefert
+   der Verlauf. Eine eigene Fassung im SVG gaebe es dann doppelt.
+
+   a) Verlauf ersetzt die zwei 40-%-Gradienten der homepage.css
+      (.repository-header-overlay, plain 0,1,0; ID-Elternselektor 1,1,0).
+      Bemessen fuer den unguenstigsten Fall, ein weisses Foto. Weiss auf
+      Primaerblau mit Deckkraft a: 0.9 -> 6.34:1, 0.8 -> 4.99:1,
+      0.6 -> 3.13:1. Gemessen 2026-10-05 (Hero 600px hoch): Buttons enden
+      bei 41 % (1440px) bzw. 51 % (1098px) der Heldenbreite, der Titel
+      (grosse Schrift, 3:1 genuegt) bei 67 % bzw. 57 %. Bei 67 % liegt der
+      Verlauf noch bei 0.69 (3.93:1). Bis 600px reichen die Buttons bis
+      75 %, dort laeuft der Verlauf fast gleichmaessig.
+   b) Pinke Linie unter dem Titel (S.13/S.14), Schmuckelement, kein Text.
+   c) Hero-Buttons: weisse Kontur, Hover weiss gefuellt mit blauer Schrift.
       button.-Praefix + ID schlaegt die :hover-Regel der homepage.css.
-   c) Suchbutton im Hero: Blau auf Blau ginge unter. Weiss mit blauer Lupe,
+   d) Suchbutton im Hero: Blau auf Blau ginge unter. Weiss mit blauer Lupe,
       Feld und Button lesen sich als eine Suchzeile.
-
-   Kommt spaeter ein Foto: Overlay pruefen und den Text in eine blaue
-   Textbox setzen (CD S.13, Muster uni-siegen §6). Pinke Linie dann als
-   Unterstrich am Foto moeglich, nie auf Blau.
    ========================================================================== */
 #repository-header .repository-header-overlay {
-  background: none;
+  background: linear-gradient(90deg,
+    rgb(0 80 155 / 0.9) 0%,
+    rgb(0 80 155 / 0.85) 55%,
+    rgb(0 80 155 / 0.65) 70%,
+    rgb(0 80 155 / 0) 100%);
+}
+@media (max-width: 600px) {
+  #repository-header .repository-header-overlay {
+    background: linear-gradient(90deg,
+      rgb(0 80 155 / 0.9) 0%,
+      rgb(0 80 155 / 0.82) 80%,
+      rgb(0 80 155 / 0.6) 100%);
+  }
 }
 #repository-header .repository-title,
 #repository-header .repository-description {
   color: #fff !important;
+}
+#repository-header .repository-title::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin-top: 14px;
+  background: var(--fhswf-pink);
 }
 #repository-header .repository-description:empty {
   display: none;
