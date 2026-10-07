@@ -298,6 +298,12 @@ Unigrün darunter, Versalien bleiben Plattform-Default (§2, offen).
 Grün ist auf diesem Dunkel also sogar als Linie tragfähig, anders als auf Weiß
 (§1).
 
+**Aktionsspalte im Hero.** Buttons und Suche teilen linke und rechte Kante.
+„View all datasets“ ist gefüllt (Grün, Ink-Schrift), der zweite Button
+(„Log in to add datasets“ bzw. eingeloggt „Add your dataset to …“) nur grüne
+Kontur mit weißer Schrift. Vorher waren beide identische grüne Flächen ohne
+Abstand und kaum zu unterscheiden.
+
 Bewusst in Kauf genommen: Die CD fällt aus dem Bildausschnitt. Grundfarbe und
 Ausschnitt sind auf genau dieses Foto abgestimmt. **Kommt ein neues Titelbild,
 wird §10 neu gebaut.** Geprüft per Playwright-Nachbau bei 375 / 1024 / 1280 /
