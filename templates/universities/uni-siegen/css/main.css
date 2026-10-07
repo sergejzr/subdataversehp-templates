@@ -410,6 +410,13 @@ span.glyphicon-question-sign.tooltip-icon:hover {
       :hover-Regel der homepage.css (0,2,0).
    d) Suchbutton im Hero: hellblau gefuellt, damit er sich von der Flaeche
       absetzt. Die weisse Lupe ist eine Grafik, 3:1 reicht (3.07:1).
+   e) Bildnachweis "Photo: (c) Universitaet Siegen" (Copyright.txt der
+      Lieferung). Desktop unten rechts, gegenueber der Flaeche; mobil reicht
+      die Flaeche fast ueber die volle Breite, dort oben rechts. right: 24px,
+      weil der Hero 100vw breit ist und rechts unter der Scrollleiste liegt
+      (gemessen 2026-10-07: Hero 1068px, sichtbar 1053px). Schwarz 60 %
+      darunter: auch ueber reinem Weiss bleibt weisser Text bei 5.74:1.
+      Umlaut und (c) als CSS-Escapes, unabhaengig vom Charset der Auslieferung.
    ========================================================================== */
 #repository-header .repository-header-overlay {
   background: none;
@@ -482,6 +489,26 @@ span.glyphicon-question-sign.tooltip-icon:hover {
 #repository-header .input-group-btn > button.btn-default:hover .glyphicon,
 #repository-header .input-group-btn > button.btn-default:focus .glyphicon {
   color: var(--unis-dunkelblau) !important;
+}
+#repository-header::after {
+  content: "Photo: \A9  Universit\E4t Siegen";
+  position: absolute;
+  right: 24px;
+  bottom: 8px;
+  z-index: 2;
+  padding: 2px 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #fff;
+  background: rgb(0 0 0 / 0.6);
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  #repository-header::after {
+    top: 8px;
+    bottom: auto;
+    right: 8px;
+  }
 }
 
 /* ===========================================================================
