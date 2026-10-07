@@ -170,6 +170,9 @@
   --buw-gruen-etikett: #7fad18;   /* Pantone 376 + K10, Logo-Etikette   */
   --buw-ink:           #1a1a1a;   /* neutrales Dunkel, keine Markenfarbe */
   --buw-weiss:         #ffffff;
+  --buw-hero-grund:    #0c1013;   /* Median des Fotohintergrunds von
+                                     wuppertal-bg.jpg, KEINE Markenfarbe;
+                                     nur im Hero (s. §10)                 */
 
   --buw-font-sans: "Open Sans", system-ui, -apple-system, "Segoe UI",
                    Arial, sans-serif;
@@ -431,7 +434,7 @@ a.btn-default:focus {
    Klassenregel (0,1,0) verloere. Darum beide Elternvarianten, wie bei
    uni-koeln und uni-siegen; welcher Container im Markup steht, haengt an
    der Template-Basis.
-   Die Buttons liegen ueber dem Titelbild mit dem Plattform-Overlay (s. §7);
+   Die Buttons liegen im Hero auf der dunklen Buehnenflaeche (s. §10);
    gruene Flaeche mit dunklem Label traegt dort ebenso wie auf Weiss. */
 .repository-action-button,
 #repository-header button.repository-action-button,
@@ -666,23 +669,11 @@ img.header_logo[src*="/at/uni-wuppertal/img/logo.svg"] {
 /* ===========================================================================
    8. Bewusst NICHT angefasst
 
-   .repository-header-overlay
-     homepage.css legt unbedingt zwei 40-%-Gradienten ueber den Hero.
-     Blaupause §3b: akzeptiert wie es ist. Bei H-BRS und Koeln war das
-     stoerend, weil dort ein helles generiertes SVG darunter liegt. Hier
-     liegt ein Foto (wuppertal-bg.jpg) — genau der Fall, fuer den das
-     Overlay gebaut wurde. Neutralisieren wuerde die Lesbarkeit der
-     Hero-Texte gegen ein unbekanntes Motiv neu aufmachen. Bleibt.
-
-   Hero-Titel und -Beschreibung
-     Plattform-Default ist Weiss, was ueber Foto + Overlay richtig ist.
-     Kein Eingriff, solange das Titelbild nicht final ist (s. u.).
-
-   Titelbild img/wuppertal-bg.jpg
-     Stammt von Torsten, noch nicht abgestimmt, zweiter Vorgesetzter hat
-     sich nicht geaeussert. Ein Angebot fuer ein selbst gebautes Motiv
-     liegt vor. Ohne Rueckmeldung nichts aendern — auch nicht die
-     Kompression oder die Groesse (3246x1375).
+   Titelbild img/wuppertal-bg.jpg (die Datei)
+     Stammt von Torsten. Die Datei bleibt unveraendert, auch Kompression
+     und Groesse (3246x1375). Seit 2026-10-07 wird der Hero ausschliesslich
+     per CSS gestaltet (§10); Overlay, Hero-Titel und -Beschreibung sind
+     dort angefasst und stehen deshalb nicht mehr in dieser Liste.
 
    text-transform auf Ueberschriften
      CD-Frage, im Leitfaden nicht beantwortet. S. §3.
@@ -742,5 +733,130 @@ a#dp-uni-home:focus {
 a#dp-uni-home:focus-visible {
   outline: 2px solid var(--dp-home-accent, #333333);
   outline-offset: 3px;
+}
+
+
+/* ===========================================================================
+   10. Hero: Titelbild als Buehne (2026-10-07)
+
+   Befund vorher. Der Textblock lag direkt auf Kopfarm und Plattern. Der
+   Kontrast war rechnerisch knapp (Titel p95 5.4:1 bei 1440px, 4.4:1 bei
+   375px), das eigentliche Problem war die Unruhe: Chromkanten liefen
+   durch die Buchstaben (Streuung der Leuchtdichte hinter dem Titel
+   0.055). Das Plattform-Overlay (zwei 40-%-Gradienten) half dagegen kaum
+   und legte einen grauen Schleier ueber das ganze Foto.
+
+   Jetzt. Das Foto rueckt nach rechts, links entsteht eine ruhige Flaeche
+   in --buw-hero-grund (#0c1013, Median des Stoffs, auf dem die Platte
+   liegt). Ein Verlauf blendet die linke Fotokante in diese Flaeche ueber.
+   Der Text steht bei jeder Breite auf ruhigem Grund:
+     #ffffff auf #0c1013 = 19.1:1   (Titel)
+     88 % Weiss auf #0c1013 = 14.9:1 (Beschreibung)
+     #89ba17 auf #0c1013 = 8.3:1    (Linie unter dem Titel)
+   Gruen darf hier also ausnahmsweise Linie auf Dunkel sein (vgl. §2).
+
+   Bewusst in Kauf genommen:
+   - Die CD faellt aus dem Bildausschnitt, das HDD-Motiv bleibt.
+   - Grundfarbe und Ausschnitt sind auf genau dieses Foto abgestimmt.
+     Kommt ein neues Titelbild, wird dieser Abschnitt neu gebaut.
+   - Die Bilddatei selbst bleibt unveraendert (s. §8).
+
+   a) Buehne: Foto in voller Hoehe, linke Kante bei 46vw (Tablet 50vw).
+      Der Verlauf deckt die Fotokante ab und laeuft bis 62vw (66vw) aus.
+      ID + Klasse (1,1,0) schlaegt .repository-header-background und
+      .repository-header-overlay aus homepage.css (je 0,1,0).
+   b) Textbreite min(80 %, 680px, 44vw) haelt den Block links der
+      Fotokante. Bei 1440px bricht der Titel dreizeilig um.
+   c) Titel Semibold statt Regular, Versalien bleiben Plattform-Default
+      (CD-Frage, s. §3). Titelgroesse ueber das geteilte Token
+      --dvhp-fs-title (homepage.css liest es nur), Muster uni-siegen.
+   d) Beschreibung: homepage.css setzt padding:10px, dadurch stand sie
+      10px eingerueckt gegenueber Titel und Buttons. Auf 0 gezogen.
+   e) Suchfeld: der Inline-Style margin:5px aus dem Template rueckte es
+      5px gegen die Buttons ein. Gegen Inline-Style hilft nur !important.
+   f) Mobil (<768px): Foto als Band oben (300px hoch), Text darunter auf
+      der Grundflaeche.
+
+   Gemessen per Playwright-Nachbau mit homepage.css vom Testsystem bei
+   375 / 1024 / 1280 / 1440 / 1920px: Hintergrund hinter Titel und
+   Beschreibung ueberall >= 19:1 gegen Weiss.
+   ========================================================================== */
+:root {
+  --dvhp-fs-title: clamp(26px, 1vw + 20px, 34px);
+}
+
+/* a) Buehne */
+#repository-header.repository-header-background {
+  background-color: var(--buw-hero-grund);
+  background-size: auto 100%;
+  background-position: left 46vw center;
+}
+#repository-header .repository-header-overlay {
+  background:
+    linear-gradient(90deg, var(--buw-hero-grund) 0, var(--buw-hero-grund) 46vw,
+                    rgb(12 16 19 / 0) 62vw),
+    linear-gradient(0deg, rgb(12 16 19 / 0.55), rgb(12 16 19 / 0) 30%);
+}
+
+/* b) Textbreite */
+#repository-header .repository-info-block {
+  width: min(80%, 680px, 44vw);
+}
+
+/* c) Titel und Linie */
+#repository-header .repository-title {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding-bottom: 0;
+}
+#repository-header .repository-title::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 4px;
+  margin: 18px 0 14px;
+  background: var(--buw-gruen);
+}
+
+/* d) Beschreibung */
+#repository-header .repository-description {
+  width: auto;
+  padding: 0 0 6px;
+  color: rgb(255 255 255 / 0.88);
+}
+
+/* e) Suchfeld */
+#repository-header #searchall2 {
+  margin-left: 0 !important;
+}
+
+/* Tablet: Foto weiter nach rechts, sonst laeuft der Titel ins Bild
+   (gemessen bei 1024px: 5 % der Titelflaeche unter 4.5:1). */
+@media (min-width: 768px) and (max-width: 1199px) {
+  #repository-header.repository-header-background {
+    background-position: left 50vw center;
+  }
+  #repository-header .repository-header-overlay {
+    background:
+      linear-gradient(90deg, var(--buw-hero-grund) 0, var(--buw-hero-grund) 50vw,
+                      rgb(12 16 19 / 0) 66vw),
+      linear-gradient(0deg, rgb(12 16 19 / 0.55), rgb(12 16 19 / 0) 30%);
+  }
+}
+
+/* f) Mobil */
+@media (max-width: 767px) {
+  #repository-header.repository-header-background {
+    background-size: auto 300px;
+    background-position: 22% top;
+  }
+  #repository-header .repository-header-overlay {
+    background: linear-gradient(0deg, var(--buw-hero-grund) 0,
+                                var(--buw-hero-grund) 52%,
+                                rgb(12 16 19 / 0) 70%);
+  }
+  #repository-header .repository-info-block {
+    width: 92%;
+  }
 }
 

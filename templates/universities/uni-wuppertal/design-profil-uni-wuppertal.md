@@ -273,16 +273,35 @@ kennt.
 
 ## 5. Gestaltungselemente
 
-**Titelbild `img/wuppertal-bg.jpg`** (3246×1375) — stammt von Torsten, **noch
-nicht final abgestimmt**, der zweite Vorgesetzte hat sich nicht geäußert. Ein
-Angebot für ein selbst gebautes Motiv liegt vor. **Ohne Rückmeldung nichts
-ändern**, auch nicht Kompression oder Größe.
+**Titelbild `img/wuppertal-bg.jpg`** (3246×1375) — stammt von Torsten. Die
+**Datei bleibt unverändert**, auch Kompression und Größe. Das HDD-Motiv ist
+gesetzt; gestaltet wird ausschließlich per CSS.
 
-**Hero-Overlay:** `homepage.css` legt unbedingt zwei 40-%-Gradienten über den
-Hero (Blaupause §3b). Bei H-BRS und uni-koeln war das störend, weil dort ein
-helles generiertes SVG darunterliegt. Hier liegt ein Foto — genau der Fall,
-für den das Overlay gebaut wurde. Bleibt stehen; Hero-Titel und -Beschreibung
-bleiben im weißen Plattform-Default, solange das Titelbild nicht final ist.
+**Hero „Bühne“ (2026-10-07, `css/main.css` §10).** Vorher lag der Text direkt
+auf Kopfarm und Plattern. Der Kontrast war rechnerisch knapp (Titel 5.4:1 bei
+1440px, 4.4:1 bei 375px), das eigentliche Problem war die Unruhe der
+Chromkanten hinter den Buchstaben. Das Plattform-Overlay half kaum und legte
+einen grauen Schleier über das Foto.
+
+Jetzt rückt das Foto nach rechts, links entsteht eine ruhige Fläche in
+`--buw-hero-grund: #0c1013` (Median des Fotohintergrunds, **keine
+Markenfarbe**). Ein Verlauf blendet die Fotokante ein; das Overlay der
+`homepage.css` ist dafür ersetzt. Titel in Semibold mit einer Linie in
+Unigrün darunter, Versalien bleiben Plattform-Default (§2, offen).
+
+| Paarung | Ratio |
+|---|---:|
+| `#ffffff` auf `#0c1013` (Titel) | 19.1:1 |
+| 88 % Weiß auf `#0c1013` (Beschreibung) | 14.9:1 |
+| `#89ba17` auf `#0c1013` (Linie) | 8.3:1 |
+
+Grün ist auf diesem Dunkel also sogar als Linie tragfähig, anders als auf Weiß
+(§1).
+
+Bewusst in Kauf genommen: Die CD fällt aus dem Bildausschnitt. Grundfarbe und
+Ausschnitt sind auf genau dieses Foto abgestimmt. **Kommt ein neues Titelbild,
+wird §10 neu gebaut.** Geprüft per Playwright-Nachbau bei 375 / 1024 / 1280 /
+1440 / 1920px und per CSS-Injektion auf dem Testsystem.
 
 ---
 
@@ -328,8 +347,8 @@ bleiben im weißen Plattform-Default, solange das Titelbild nicht final ist.
 2. **Schutzzone** — nennt der Leitfaden einen Modulwert? (§3)
 3. **Versalien** — führt die BUW Versalien in Überschriften? (§2)
 4. **Favicon klein** — gibt es eine für 16px vereinfachte Löwenvariante? (§4)
-5. **Titelbild** — Freigabe von Torsten und dem zweiten Vorgesetzten, oder
-   Annahme des Angebots für ein eigenes Motiv. (§5)
+5. **Titelbild** — Freigabe des Heros „Bühne“ (2026-10-07) durch Torsten und
+   den zweiten Vorgesetzten. (§5)
 6. **Mignon** — falls die Webfont-Lizenz für die Auslieferung durch das HRZ
    Bonn doch geklärt werden kann, ist der Wiedereinbau in `main.css` §1
    beschrieben. (§2)
