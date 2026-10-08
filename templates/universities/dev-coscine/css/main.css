@@ -1,0 +1,203 @@
+/* ===========================================================================
+   DataPublication.nrw development collections (dev-bridgit, dev-coscine)
+   main.css, identical in both folders.
+
+   Deliberately light branding in the DataPublication.nrw CD
+   (DataPublication-nrw-Erscheinungsbild/07-Farben/farbwerte.txt), no
+   university CD. Unlike the university folders this file does NOT hide the
+   consortium logo in the navbar (img.header_logo[src*="dataverse_logo"]):
+   that logo is the DataPublication.nrw wordmark and is the only logo here.
+
+   Structure and specificity strategy follow h-brs/css/main.css. Load order:
+   custom-stylesheet.css -> THIS FILE (appended by /jslibs/hrz/gui.js) ->
+   homepage.css (<body>, last). homepage.css wins equal-specificity ties,
+   so overrides use a parent selector rather than more !important.
+   ========================================================================== */
+
+/* 1. Custom properties ---------------------------------------------------- */
+:root {
+  --dpnrw-navy: #003064;      /* Nachtblau, main colour; white on it 13.4:1 */
+  --dpnrw-cyan: #29ABE2;      /* Cyanblau, accent: lines/surfaces only (2.6:1 on white) */
+  --dpnrw-midblue: #2E5C8A;   /* Mittelblau, hover shade (6.9:1 on white) */
+  --dpnrw-ink: #1a1a1a;
+  --dpnrw-font: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dp-home-accent: var(--dpnrw-navy);
+}
+
+/* 2. Self-hosted fonts (never Google Fonts). Open Sans, SIL OFL 1.1, same
+   files as the generator's landing preview. Relative URLs resolve against
+   this stylesheet, so the file works unchanged in both folders. */
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 400; font-display: swap;
+  src: local("Open Sans"), url("fonts/open-sans-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 600; font-display: swap;
+  src: local("Open Sans SemiBold"), url("fonts/open-sans-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 700; font-display: swap;
+  src: local("Open Sans Bold"), url("fonts/open-sans-latin-700-normal.woff2") format("woff2");
+}
+
+/* 3. Typography ------------------------------------------------------------ */
+body {
+  background-color: #fff !important;
+  font-family: var(--dpnrw-font) !important;
+  color: var(--dpnrw-ink) !important;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--dpnrw-font) !important;
+  font-weight: 600 !important;
+  color: var(--dpnrw-navy) !important;
+}
+.section-heading,
+.login-prompt {
+  font-family: var(--dpnrw-font) !important;
+  font-weight: 600 !important;
+  color: var(--dpnrw-navy) !important;
+}
+a, a:visited { color: var(--dpnrw-navy) !important; }
+a:hover, a:focus {
+  color: var(--dpnrw-midblue) !important;
+  text-decoration-color: var(--dpnrw-cyan) !important;
+}
+.caroussel_title,
+.stat-text,
+.interactive-list,
+.news-title,
+.repository-description,
+.repository-description2,
+.repository-small-description {
+  font-family: var(--dpnrw-font) !important;
+}
+.repository-title,
+.repository-title2,
+.repository-small-title,
+.dataverse-item-title {
+  font-family: var(--dpnrw-font) !important;
+  text-transform: none !important;   /* homepage.css sets uppercase */
+}
+/* homepage.css sets Roboto with !important on these; parent class wins. */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--dpnrw-font) !important;
+}
+
+/* 4. Hero: plain navy surface instead of a photo -------------------------
+   Without a background in unis.csv the generator falls back to the bonndata
+   photo, set inline by lozad; !important on an ID selector beats both. The
+   platform overlay is for white text on photos and is not needed here. */
+#repository-header.repository-header-background {
+  background-image: none !important;
+  background-color: var(--dpnrw-navy) !important;
+}
+/* Lower than the platform's 600px from tablet width up; the content block is
+   absolutely positioned, so on phones the full 600px is needed (measured at
+   375px: content 423px high). */
+@media (min-width: 601px) {
+  #repository-header.repository-header-background { min-height: 420px !important; }
+}
+#repository-header .repository-header-overlay { background: none; }
+#repository-header .repository-title,
+#repository-header .repository-description {
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+#repository-header .repository-description { font-weight: 400 !important; }
+/* Hero buttons: white outline on navy; hover inverts (navy on white). */
+#repository-header button.repository-action-button {
+  font-family: var(--dpnrw-font) !important;
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+}
+#repository-header button.repository-action-button:hover,
+#repository-header button.repository-action-button:focus {
+  background-color: #fff !important;
+  color: var(--dpnrw-navy) !important;
+}
+
+/* 5. Colour as fill / line ------------------------------------------------ */
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 4px solid var(--dpnrw-cyan) !important;   /* cyan as line */
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand { color: var(--dpnrw-navy) !important; }
+.icon-dataset { color: var(--dpnrw-navy) !important; }
+#search-row-panel {
+  border: 1px solid var(--dpnrw-navy) !important;
+  border-top: 3px solid var(--dpnrw-navy) !important;
+  border-radius: 4px !important;
+}
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--dpnrw-navy) !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: #fff !important;
+}
+.overview-image-container .grid-item-label { background: var(--dpnrw-navy); }
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus { color: #fff !important; }
+a.btn-feedback, a.btn-feedback:visited { color: #fff !important; }
+.btn-primary {
+  background-image: none;
+  background: var(--dpnrw-navy) !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--dpnrw-midblue) !important;
+  border-color: var(--dpnrw-midblue) !important;
+  color: #fff !important;
+}
+/* Search submit next to the input: navy fill keeps the white glyph visible
+   (white-on-white otherwise, Koeln finding). */
+.input-group-btn > button.btn-default {
+  background: var(--dpnrw-navy) !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+span.glyphicon-question-sign.tooltip-icon { color: var(--dpnrw-navy) !important; }
+
+/* 6. Statistics band: navy, white text (base sets black) ------------------ */
+.statistics-footer {
+  background: var(--dpnrw-navy) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+  font-family: var(--dpnrw-font) !important;
+}
+
+/* 7. Back link to the /at/ start page (element comes from js/main.js).
+   Dataverse sets html{font-size:10px}, hence px instead of rem. */
+.dp-uni-home-cell { vertical-align: middle; padding: 0 0 0 20px; }
+a#dp-uni-home {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--dp-home-accent, #333333) !important;
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 2px solid var(--dp-home-accent, #333333);
+  border-radius: 2px;
+}
+a#dp-uni-home > span { margin-right: 0.4em; }
+a#dp-uni-home:hover,
+a#dp-uni-home:focus {
+  background: var(--dp-home-accent, #333333);
+  color: #ffffff !important;
+  text-decoration: none;
+}
+a#dp-uni-home:focus-visible {
+  outline: 2px solid var(--dp-home-accent, #333333);
+  outline-offset: 3px;
+}
