@@ -1,6 +1,6 @@
 /* ===========================================================================
    DataPublication.nrw development collections (dev-bridgit, dev-coscine)
-   main.css, identical in both folders.
+   main.css. Identical in both folders except the project name in section 8.
 
    Deliberately light branding in the DataPublication.nrw CD
    (DataPublication-nrw-Erscheinungsbild/07-Farben/farbwerte.txt), no
@@ -200,4 +200,30 @@ a#dp-uni-home:focus {
 a#dp-uni-home:focus-visible {
   outline: 2px solid var(--dp-home-accent, #333333);
   outline-offset: 3px;
+}
+
+/* 8. Co-branding in the navbar: "DataPublication.nrw | Bridgit".
+   gui.js addLogos() rebuilds the consortium logo as <a href="/"><img></a>;
+   the project name is a pseudo-element after it, separated by a cyan rule.
+   Text only on purpose: a project logo needs an official file from the
+   team first. The empty alternative text ("/ \"\"") keeps screen readers
+   from reading it as part of the link to the DataPublication.nrw start
+   page. Hidden below 360px, where it would run into the menu button
+   (lockup measured 301px wide at a 375px viewport). */
+.navbar-header > a[href="/"]::after {
+  content: "Bridgit" / "";
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 14px;
+  padding: 4px 0 4px 14px;
+  border-left: 2px solid var(--dpnrw-cyan);
+  font-family: var(--dpnrw-font);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--dpnrw-navy);
+  white-space: nowrap;
+}
+@media (max-width: 359px) {
+  .navbar-header > a[href="/"]::after { display: none; }
 }
