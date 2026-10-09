@@ -1,0 +1,10 @@
+# Research data contact of this university, shown on /at/<label>/ in the
+# sidebar "Before your first dataset". Optional: as long as everything below
+# is commented out, the sidebar names the DataPublication.nrw team only.
+#
+# Enter only values the university has confirmed. The file is public: it is
+# copied to /at/<label>/txt/contact.toml like the rest of this folder.
+#
+# name  = "Research Data Management, University Library"
+# email = "fdm@example.org"              # functional mailbox, not a person
+# url   = "https://www.example.org/fdm"  # https only
