@@ -23,9 +23,9 @@
      Pink auf Blau 1.30:1: nie fuer Text. Als Linie im Titelbild setzt das
      CD sie selbst auf den blauen Verlauf (S.14), siehe §6.
    - Sekundaerfarben (S.11) sind optional und werden nicht verwendet.
-   - Hausschrift Fedra (Typotheque) ist lizenzpflichtig, Einsatz liegt beim
-     Dezernat 5 (S.9). Ersatz laut CD (S.10): Arial. Fedra steht vorn im
-     Stack, ausgeliefert wird sie nicht; wer sie lokal hat, sieht sie.
+   - Schrift weicht bewusst vom CD ab (dort Fedra, Ersatz Arial, S.9/10):
+     Der Kontakt wuenscht die Typografie von fh-swf.de (2026-10-09).
+     Ueberschriften Museo Sans 500, Fliesstext Open Sans, siehe §2.
    - Gemischte Schreibweise, keine Versalien. homepage.css setzt uppercase
      auf die Titelklassen, deshalb aktiv `text-transform: none`.
    - Logo nur auf Weiss, nie auf Bild oder bunter Flaeche (S.7).
@@ -41,41 +41,86 @@
   --fhswf-grau:       #6f7072;  /* Primaergrau 70 % K, 4.96:1: Meta        */
   --fhswf-ink:        #1a1a1a;  /* Fliesstext. Kein CD-Wert, Hausmuster    */
   --fhswf-schatten:   0 2px 8px rgb(0 0 0 / 0.12);  /* Textboxen, S.13      */
-  --fhswf-font: "Fedra Sans Alt Std", "Fedra Sans", Arial, "Helvetica Neue",
-                Helvetica, sans-serif;
+  --fhswf-font:      "Open Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --fhswf-font-head: "Museo Sans", "Open Sans", Arial, sans-serif;
 }
 
 /* ===========================================================================
    2. Fonts
-   Keine @font-face-Bloecke: Arial ist Systemschrift, Fedra wird nicht
-   ausgeliefert. Gibt es eine Fedra-Weblizenz, kommen hier woff2-Dateien
-   (selbst gehostet unter /at/fh-swf/fonts/) und eigene @font-face-Regeln
-   hin, der Stack in §1 bleibt.
+   Wie fh-swf.de: Museo Sans fuer Ueberschriften, Open Sans fuer Text.
+   Die Schriftdateien von fh-swf.de werden NICHT uebernommen: deren Lizenz
+   gilt nur fuer Websites, die die FH SWF betreibt.
+
+   Museo Sans (exljbris): nur der freie Schnitt 500. Die freie Lizenz
+   erlaubt @font-face nur mit der OpenType-Datei so, wie sie geliefert wird,
+   und nur mit dem Hinweis direkt ueber dem Block. Deshalb OTF statt woff2:
+   nicht umwandeln, nicht subsetten, Hinweis nicht entfernen. Die Schnitte
+   700/900 von fh-swf.de braeuchten eine gekaufte Webfont-Lizenz.
+
+   Open Sans: Latin-Subset aus uni-wuppertal/css/fonts/ (Bezugsquelle dort
+   dokumentiert), SIL OFL 1.1, Lizenz liegt als LICENSE-OFL-1.1.txt daneben.
+   Fuenf Schnitte: 400, 400 kursiv, 600 (Plattform-Absaetze), 700, 700 kursiv.
    ========================================================================== */
+
+/* A font by Jos Buivenga (exljbris) -> www.exljbris.com */
+@font-face {
+  font-family: "Museo Sans"; font-style: normal; font-weight: 500;
+  font-display: swap;
+  src: url("/at/fh-swf/css/fonts/MuseoSans_500.otf") format("opentype");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 400;
+  font-display: swap;
+  src: url("/at/fh-swf/css/fonts/OpenSans-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: italic; font-weight: 400;
+  font-display: swap;
+  src: url("/at/fh-swf/css/fonts/OpenSans-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 600;
+  font-display: swap;
+  src: url("/at/fh-swf/css/fonts/OpenSans-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 700;
+  font-display: swap;
+  src: url("/at/fh-swf/css/fonts/OpenSans-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: italic; font-weight: 700;
+  font-display: swap;
+  src: url("/at/fh-swf/css/fonts/OpenSans-BoldItalic.woff2") format("woff2");
+}
 
 /* ===========================================================================
    3. Typografie
-   CD S.9: Headlines in Fedra Sans Condensed Bold. Mit Arial bleibt Bold.
+   Ueberschriften in Museo Sans 500, dem einzigen freien Schnitt.
+   font-synthesis: none verhindert, dass der Browser ein Fett errechnet.
    ========================================================================== */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: var(--fhswf-font) !important;
-  font-weight: 700 !important;
+  font-family: var(--fhswf-font-head) !important;
+  font-weight: 500 !important;
+  font-synthesis: none;
   line-height: 1.2;
   text-transform: none !important;
   color: var(--fhswf-blau) !important;
 }
 .repository-title {               /* Farbe: §6, der Titel steht auf dem Hero */
   word-wrap: break-word;
-  font-family: var(--fhswf-font) !important;
-  font-weight: 700 !important;
+  font-family: var(--fhswf-font-head) !important;
+  font-weight: 500 !important;
+  font-synthesis: none;
   line-height: 1.1;
   text-transform: none !important;   /* homepage.css: uppercase (plain) */
 }
 /* Pinke Linie unter Ueberschriften (S.13). Kurzer Strich statt voller
    Breite, so wie im Handbuch gezeigt. */
 .section-heading {
-  font-family: var(--fhswf-font) !important;
-  font-weight: 700 !important;
+  font-family: var(--fhswf-font-head) !important;
+  font-weight: 500 !important;
+  font-synthesis: none;
   color: var(--fhswf-blau) !important;
   padding-bottom: 8px;
   position: relative;
@@ -115,8 +160,9 @@ a.btn-feedback, a.btn-feedback:visited {
   color: var(--fhswf-blau-tief) !important;
 }
 .caroussel_title {
-  font-family: var(--fhswf-font) !important;
-  font-weight: 700 !important;
+  font-family: var(--fhswf-font-head) !important;
+  font-weight: 500 !important;
+  font-synthesis: none;
   color: var(--fhswf-blau) !important;
 }
 .stat-text {
@@ -133,8 +179,9 @@ a.btn-feedback, a.btn-feedback:visited {
 .news-title,
 .repository-title2,
 .repository-small-title {
-  font-family: var(--fhswf-font) !important;
-  font-weight: 700 !important;
+  font-family: var(--fhswf-font-head) !important;
+  font-weight: 500 !important;
+  font-synthesis: none;
   text-transform: none !important;   /* homepage.css: uppercase (plain) */
   color: var(--fhswf-blau) !important;
 }
@@ -144,8 +191,9 @@ a.btn-feedback, a.btn-feedback:visited {
   font-family: var(--fhswf-font) !important;   /* homepage.css: Exo2-Light */
 }
 .dataverse-item-title {
-  font-family: var(--fhswf-font) !important;
-  font-weight: 700 !important;
+  font-family: var(--fhswf-font-head) !important;
+  font-weight: 500 !important;
+  font-synthesis: none;
   text-transform: none !important;   /* homepage.css: uppercase (plain) */
 }
 /* Card-Grid und Collection-Kopf: homepage.css setzt Roboto mit !important
