@@ -51,11 +51,13 @@
    Die Schriftdateien von fh-swf.de werden NICHT uebernommen: deren Lizenz
    gilt nur fuer Websites, die die FH SWF betreibt.
 
-   Museo Sans (exljbris): nur der freie Schnitt 500. Die freie Lizenz
-   erlaubt @font-face nur mit der OpenType-Datei so, wie sie geliefert wird,
-   und nur mit dem Hinweis direkt ueber dem Block. Deshalb OTF statt woff2:
-   nicht umwandeln, nicht subsetten, Hinweis nicht entfernen. Die Schnitte
-   700/900 von fh-swf.de braeuchten eine gekaufte Webfont-Lizenz.
+   Museo Sans (exljbris): nur der freie Schnitt 500, bezogen ueber
+   Fontspring (Web Font EULA 2.0, 10.000 Seitenaufrufe/Monat). Erlaubt ist
+   nur die mitgelieferte woff2, unveraendert; keine OTF im Web. Die Datei
+   liegt bewusst NICHT in diesem oeffentlichen Repo, die Lizenz verbietet
+   die Weitergabe mit dem Quellcode. Sie wird separat unter
+   /fonts/museo-sans/ ausgeliefert. Die Schnitte 700/900 von fh-swf.de
+   braeuchten eine gekaufte Webfont-Lizenz.
 
    Open Sans: Latin-Subset aus uni-wuppertal/css/fonts/ (Bezugsquelle dort
    dokumentiert), SIL OFL 1.1, Lizenz liegt als LICENSE-OFL-1.1.txt daneben.
@@ -66,7 +68,7 @@
 @font-face {
   font-family: "Museo Sans"; font-style: normal; font-weight: 500;
   font-display: swap;
-  src: url("/at/fh-swf/css/fonts/MuseoSans_500.otf") format("opentype");
+  src: url("/fonts/museo-sans/MuseoSans_500-webfont.woff2") format("woff2");
 }
 @font-face {
   font-family: "Open Sans"; font-style: normal; font-weight: 400;
