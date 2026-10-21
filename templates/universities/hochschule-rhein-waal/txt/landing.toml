@@ -1,0 +1,9 @@
+# Layout switches for the login/search box on /at/hochschule-rhein-waal/.
+# Read by the generator (subdataversehp, renderjinja.load_landing_options),
+# takes effect with its next rebuild. Public like the rest of this folder.
+#
+# Requested by HSRW on 2026-10-21: people search more often than they
+# deposit, and depositors log in via the HSRW SSO only.
+
+search_first = true              # search box above "Add your Dataset"
+other_institution_login = false  # no "Log in via another institution"
