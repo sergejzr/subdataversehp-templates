@@ -3,12 +3,13 @@
   V1 'Signet angeschnitten'
 
   Die Bildmarke aus img/logo.svg (Pfade .st2 und .st0), auf 1.72-fache
-  Hero-Hoehe skaliert, rechts und unten angeschnitten. Dahinter dieselbe
-  Marke kleiner in Blaugrau als Tiefenebene.
+  Hero-Hoehe skaliert, rechts und unten angeschnitten. Nur eine Marke: die
+  blaugraue Wiederholung als Tiefenebene ist auf Wunsch des HSRW-Marketings
+  entfernt (Rueckmeldung 2026-10-21).
 
   Farben: CD S.12, NICHT aus dem Logo gesampelt (das SVG fuehrt #36255d
   statt #35255C, siehe css/main.css Kopf).
-    #35255C Dunkelblau, #3973B9 Mittelblau, #9AB6C4 Blaugrau (nur Flaeche)
+    #35255C Dunkelblau, #3973B9 Mittelblau
   Grund #E3E3E3 Grau 15, wie der bisherige Platzhalter.
 
   Ruhezone x 0..1400: reiner Grund. Der Hero-Text faellt ueber jede
@@ -27,10 +28,6 @@
      role="img" aria-label="Hochschule Rhein-Waal, Bildmarke als Hintergrundmotiv">
   <title>HSRW Bildmarke angeschnitten</title>
   <rect width="2400" height="640" fill="#E3E3E3"/>
-  <g transform="translate(1646.37,-436.68) scale(13.8357)" opacity="0.5">
-    <path d="M32.59,72.69v-30.42l-10.5-13.07c-1.56-1.94-1.25-4.78.7-6.34,1.94-1.56,4.78-1.25,6.34.69l12.48,15.55v33.59c0,2.49-2.02,4.51-4.51,4.51-2.5,0-4.51-2.02-4.51-4.51" fill="#9AB6C4"/>
-    <path d="M63.36,20.72l-19.56,25.9-.07,40.05c0,2.49,2.01,4.51,4.5,4.52h0c2.49,0,4.5-2.02,4.51-4.5l.06-37.04,10.55-13.97v-14.96Z" fill="#9AB6C4"/>
-  </g>
   <g transform="translate(1193.09,-299.34) scale(11.0685)">
     <path d="M32.59,72.69v-30.42l-10.5-13.07c-1.56-1.94-1.25-4.78.7-6.34,1.94-1.56,4.78-1.25,6.34.69l12.48,15.55v33.59c0,2.49-2.02,4.51-4.51,4.51-2.5,0-4.51-2.02-4.51-4.51" fill="#35255C"/>
     <path d="M63.36,20.72l-19.56,25.9-.07,40.05c0,2.49,2.01,4.51,4.5,4.52h0c2.49,0,4.5-2.02,4.51-4.5l.06-37.04,10.55-13.97v-14.96Z" fill="#3973B9"/>
