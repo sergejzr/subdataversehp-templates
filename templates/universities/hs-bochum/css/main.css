@@ -1,0 +1,339 @@
+/* ===========================================================================
+   layout-dapu: neutral DataPublication.nrw default theme, main.css
+
+   For universities that have no CD materials yet. Light branding in the
+   DataPublication.nrw CD (DataPublication-nrw-Erscheinungsbild/07-Farben/
+   farbwerte.txt), no university colours, fonts or logos. Once a
+   university's CD materials arrive, its folder is replaced by a theme in
+   that CD; until then it holds an unmodified copy of this folder.
+
+   Label-agnostic: no file in this folder names a university or a label,
+   and every folder that uses it is byte-identical to layout-dapu
+   (diff -r must stay empty). Asset URLs are relative to this stylesheet.
+
+   Unlike the university themes this file does NOT hide the consortium logo
+   in the navbar (img.header_logo[src*="dataverse_logo"]): that logo is the
+   DataPublication.nrw wordmark and is the only logo here.
+
+   Load order: custom-stylesheet.css -> THIS FILE (appended by
+   /jslibs/hrz/gui.js) -> homepage.css (<body>, last). homepage.css wins
+   equal-specificity ties, including !important vs !important, so overrides
+   use a parent selector rather than more !important.
+   ========================================================================== */
+
+/* 1. Custom properties ---------------------------------------------------- */
+:root {
+  --dpnrw-navy: #003064;      /* Nachtblau, main colour; white on it 13.4:1 */
+  --dpnrw-cyan: #29ABE2;      /* Cyanblau, accent: lines/surfaces only (2.6:1 on white) */
+  --dpnrw-midblue: #2E5C8A;   /* Mittelblau, hover shade (6.9:1 on white) */
+  --dpnrw-anthracite: #0B2239; /* Anthrazitblau, dark surfaces */
+  --dpnrw-ink: #1a1a1a;
+  --dpnrw-font: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dp-home-accent: var(--dpnrw-navy);
+  /* Navbar bottom line. A university accent later is a one-line change. */
+  --dapu-accent-line: var(--dpnrw-cyan);
+}
+
+/* 2. Self-hosted fonts (never Google Fonts). Open Sans, SIL OFL 1.1, same
+   files as the generator's landing preview. No local() source: the page
+   must render from these files, not from whatever the viewer has
+   installed. */
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/open-sans-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("fonts/open-sans-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sans"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/open-sans-latin-700-normal.woff2") format("woff2");
+}
+
+/* 3. Typography ------------------------------------------------------------ */
+body {
+  background-color: #fff !important;
+  font-family: var(--dpnrw-font) !important;
+  color: var(--dpnrw-ink) !important;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--dpnrw-font) !important;
+  font-weight: 600 !important;
+  color: var(--dpnrw-navy) !important;
+}
+.section-heading,
+.login-prompt {
+  font-family: var(--dpnrw-font) !important;
+  font-weight: 600 !important;
+  color: var(--dpnrw-navy) !important;
+}
+a, a:visited { color: var(--dpnrw-navy) !important; }
+a:hover, a:focus {
+  color: var(--dpnrw-midblue) !important;
+  text-decoration-color: var(--dpnrw-cyan) !important;
+}
+.caroussel_title,
+.stat-text,
+.interactive-list,
+.news-title,
+.repository-description,
+.repository-description2,
+.repository-small-description {
+  font-family: var(--dpnrw-font) !important;
+}
+.repository-title,
+.repository-title2,
+.repository-small-title,
+.dataverse-item-title {
+  font-family: var(--dpnrw-font) !important;
+  text-transform: none !important;   /* homepage.css sets uppercase */
+}
+/* Headings on white: navy instead of the platform's #1a181b. The hero
+   title/description are white, see section 4. */
+.caroussel_title,
+.news-title,
+.repository-title2,
+.repository-small-title,
+.interactive-list {
+  color: var(--dpnrw-navy) !important;
+}
+/* homepage.css sets Roboto with !important on these; parent class wins. */
+.repository-header-content .repository-info-block,
+.grid-item-content .grid-item-footer,
+.grid-item-content .grid-item-footer .grid-item-date {
+  font-family: var(--dpnrw-font) !important;
+}
+
+/* 4. Hero: plain navy surface instead of a photo -------------------------
+   Without a background in unis.csv the generator paints the hero #003064
+   itself; the rule stays so the theme does not depend on that fallback.
+   The platform overlay is for white text on photos and is not needed. */
+#repository-header.repository-header-background {
+  background-image: none !important;
+  background-color: var(--dpnrw-navy) !important;
+}
+/* Lower than the platform's 600px from tablet width up; the content block is
+   absolutely positioned, so on phones the full 600px is needed (measured at
+   375px: content 423px high without the set-up badge). */
+@media (min-width: 601px) {
+  #repository-header.repository-header-background { min-height: 420px !important; }
+}
+#repository-header .repository-header-overlay { background: none; }
+#repository-header .repository-title,
+#repository-header .repository-description {
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+#repository-header .repository-description { font-weight: 400 !important; }
+/* Hero buttons: white outline on navy; hover inverts (navy on white). */
+#repository-header button.repository-action-button {
+  font-family: var(--dpnrw-font) !important;
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+}
+#repository-header button.repository-action-button:hover,
+#repository-header button.repository-action-button:focus {
+  background-color: #fff !important;
+  color: var(--dpnrw-navy) !important;
+}
+/* "Being set up" badge after the title (element comes from js/main.js).
+   A sibling of #repository-title, not a child, so it stays out of the
+   heading's accessible name. White on Anthrazitblau, cyan as line only.
+   Dataverse sets html{font-size:10px}, hence px instead of rem. */
+#repository-header #dp-setup-badge {
+  display: inline-block;
+  align-self: flex-start;
+  max-width: 100%;
+  margin: 0 0 12px;
+  padding: 4px 12px;
+  border: 1px solid var(--dpnrw-cyan);
+  border-radius: 999px;
+  background-color: var(--dpnrw-anthracite);
+  color: #fff;
+  font-family: var(--dpnrw-font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* 5. Colour as fill / line ------------------------------------------------ */
+.navbar-default {
+  background-color: #fff;
+  border-bottom: 4px solid var(--dapu-accent-line) !important;
+}
+a.dataverseHeaderName, .navbar-default .navbar-brand {
+  color: var(--dpnrw-navy) !important;
+  font-family: var(--dpnrw-font) !important;
+}
+.icon-dataset { color: var(--dpnrw-navy) !important; }
+#search-row-panel {
+  border: 1px solid var(--dpnrw-navy) !important;
+  border-top: 3px solid var(--dpnrw-navy) !important;
+  border-radius: 4px !important;
+}
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+  background-color: var(--dpnrw-navy) !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: #fff !important;
+}
+.overview-image-container .grid-item-label { background: var(--dpnrw-navy); }
+.grid-item-label a.grid-item-link,
+.grid-item-label a.grid-item-link:visited,
+.grid-item-label a.grid-item-link:hover,
+.grid-item-label a.grid-item-link:focus { color: #fff !important; }
+a.btn-feedback, a.btn-feedback:visited { color: #fff !important; }
+.btn-primary {
+  background-image: none;
+  background: var(--dpnrw-navy) !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: #fff !important;
+  font-family: var(--dpnrw-font) !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--dpnrw-midblue) !important;
+  border-color: var(--dpnrw-midblue) !important;
+  color: #fff !important;
+}
+/* Secondary buttons: white with navy text and border, hover fills navy.
+   Contact/Share are <a> elements; the a.-prefix (0,1,1) plus !important is
+   needed to beat the link colour rules in section 3. */
+button.btn-default,
+a.btn-default,
+a.btn-contact,
+a.btn-share {
+  font-family: var(--dpnrw-font) !important;
+  background-image: none !important;
+  background-color: #fff !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: var(--dpnrw-navy) !important;
+  text-shadow: none;
+}
+button.btn-default:hover, button.btn-default:focus,
+a.btn-default:hover, a.btn-default:focus,
+a.btn-contact:hover, a.btn-contact:focus,
+a.btn-share:hover, a.btn-share:focus {
+  background-color: var(--dpnrw-navy) !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+a.btn-contact .glyphicon, a.btn-share .glyphicon { color: inherit !important; }
+/* Search submit next to the input: navy fill keeps the white glyph visible
+   (white-on-white otherwise, Koeln finding). Parent class beats the
+   secondary-button block above. */
+.input-group-btn > button.btn-default {
+  background: var(--dpnrw-navy) !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+span.glyphicon-question-sign.tooltip-icon { color: var(--dpnrw-navy) !important; }
+
+/* 6. Native views ---------------------------------------------------------
+   Result-card meta line, the file table and the dataset-page tabs fall
+   back to Roboto / "Helvetica Neue" (custom-stylesheet.css, PrimeFaces
+   .ui-widget). Only the font is set; their grey text colours are platform
+   neutrals. */
+.card-title-icon-block,
+.ui-datatable,
+.ui-tabs .ui-tabs-nav li a {
+  font-family: var(--dpnrw-font) !important;
+}
+/* Citation block on the dataset page: light surface, navy text and border.
+   "Cite Dataset" is a Bootstrap link button in #337ab7; pulled into navy. */
+.bg-citation {
+  background: #fff !important;
+  color: var(--dpnrw-navy) !important;
+  border: 1px solid var(--dpnrw-navy) !important;
+  border-left-width: 4px !important;
+  font-family: var(--dpnrw-font) !important;
+}
+.bg-citation .btn-link,
+.bg-citation .btn-link:hover,
+.bg-citation .btn-link:focus {
+  color: var(--dpnrw-navy) !important;
+}
+
+/* 7. Bonndata blue hardcoded in the landing base template -----------------
+   Login links: #07529a, hovers #06467f / #053b6e / #eef4fa (plain, in a
+   <style> in <head>). The a.-prefix outranks both those rules and the
+   link colour rules in section 3. Without it the primary link's white
+   text would lose to a{color:navy!important}: navy on blue. */
+a.dp-login-link,
+a.dp-login-link:visited {
+  font-family: var(--dpnrw-font) !important;
+  background: #fff !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: var(--dpnrw-navy) !important;
+}
+a.dp-login-link:hover,
+a.dp-login-link:focus {
+  background: #fff !important;
+  border-color: var(--dpnrw-midblue) !important;
+  color: var(--dpnrw-midblue) !important;
+}
+a.dp-login-link-primary,
+a.dp-login-link-primary:visited {
+  background: var(--dpnrw-navy) !important;
+  border-color: var(--dpnrw-navy) !important;
+  color: #fff !important;
+}
+a.dp-login-link-primary:hover,
+a.dp-login-link-primary:focus {
+  background: var(--dpnrw-midblue) !important;
+  border-color: var(--dpnrw-midblue) !important;
+  color: #fff !important;
+}
+/* Carousel arrows: the glyphs carry an inline color: rgb(7, 82, 154), which
+   !important in a stylesheet beats. Hover was #929084; now navy fill with
+   a white glyph. Also covers the question-mark glyph by the carousel title. */
+.customNavigation .glyphicon { color: var(--dpnrw-navy) !important; }
+.customNavigation a.prev1,
+.customNavigation a.next1 { border-color: var(--dpnrw-navy) !important; }
+.customNavigation a.prev1:hover,
+.customNavigation a.next1:hover {
+  background-color: var(--dpnrw-navy) !important;
+}
+.customNavigation a.prev1:hover .glyphicon,
+.customNavigation a.next1:hover .glyphicon { color: #fff !important; }
+
+/* 8. Statistics band: navy, white text (base sets black) ------------------ */
+.statistics-footer {
+  background: var(--dpnrw-navy) !important;
+  color: #fff !important;
+}
+.statistics-footer a, .statistics-footer a:visited { color: #fff !important; text-decoration: underline; }
+.stat-number, .statistics-footer .stat-text {
+  color: #fff !important;
+  font-family: var(--dpnrw-font) !important;
+}
+
+/* 9. Back link to the /at/ start page (element comes from js/main.js).
+   Dataverse sets html{font-size:10px}, hence px instead of rem. */
+.dp-uni-home-cell { vertical-align: middle; padding: 0 0 0 20px; }
+a#dp-uni-home {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--dp-home-accent, #333333) !important;
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 2px solid var(--dp-home-accent, #333333);
+  border-radius: 2px;
+}
+a#dp-uni-home > span { margin-right: 0.4em; }
+a#dp-uni-home:hover,
+a#dp-uni-home:focus {
+  background: var(--dp-home-accent, #333333);
+  color: #ffffff !important;
+  text-decoration: none;
+}
+a#dp-uni-home:focus-visible {
+  outline: 2px solid var(--dp-home-accent, #333333);
+  outline-offset: 3px;
+}
