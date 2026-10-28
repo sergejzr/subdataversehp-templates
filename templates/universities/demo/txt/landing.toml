@@ -1,0 +1,10 @@
+# Layout switches for the login/search box on /at/demo/.
+# Read by the generator (subdataversehp, renderjinja.load_landing_options),
+# takes effect with its next rebuild. Public like the rest of this folder.
+#
+# The demo area is for looking around, nobody deposits here: search first,
+# no login links. js/main.js replaces the rest of the login box with a
+# hint where to publish instead.
+
+search_first = true
+other_institution_login = false
