@@ -9,7 +9,8 @@
      up" note, the hero shows no description (it repeats under "About this
      collection"), and the "Add your dataset" buttons (hero and collection
      cards) are hidden;
-   - section 11: the hint that replaces the login box (js/main.js).
+   - section 11: the hint that replaces the login box (js/main.js);
+   - section 12: the tour below the hero (js/main.js).
    Keep everything else in sync with layout-dapu (diff -r shows only these).
 
    The area stays on the test system for good: on prod every dataset would
@@ -516,4 +517,104 @@ a#dp-uni-home:focus-visible {
   color: var(--dpnrw-navy) !important;
   font-weight: 600;
   text-decoration: underline;
+}
+
+/* 12. Tour below the hero (element comes from js/main.js) -----------------
+   Four cards like the landing's workflow tiles: 2px Nachtblau border, the
+   DataPublication.nrw radius, 48px icons. The card heading is the link; its
+   ::after covers the card, so the whole card clicks. Same column as the hero
+   text. Headings need the id prefix to beat section 3 (h2/h3 600
+   !important). Hover/focus surface #eaf7fc is Cyanblau 10% on white:
+   Nachtblau text 12.0:1, Mittelblau 6.4:1. */
+#dp-demo-tour {
+  width: min(90vw, 1053px);   /* as the hero text: the hero is 100vw wide,
+                                 this sits inside the page container */
+  margin: 0 auto;
+  padding: 48px 0 8px;
+  font-family: var(--dpnrw-font);
+}
+#dp-demo-tour h2 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 700 !important;
+  line-height: 1.25;
+}
+#dp-demo-tour .dp-tour-lead {
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--dpnrw-ink);
+}
+#dp-demo-tour .dp-tour-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 560px) {
+  #dp-demo-tour .dp-tour-list { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  #dp-demo-tour .dp-tour-list { grid-template-columns: repeat(4, 1fr); }
+}
+#dp-demo-tour .dp-tour-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 2px solid var(--dpnrw-navy);
+  border-radius: 20px 20px 20px 4px;
+  background: #fff;
+}
+#dp-demo-tour .dp-tour-card:hover,
+#dp-demo-tour .dp-tour-card:focus-within { background: #eaf7fc; }
+#dp-demo-tour .dp-tour-card:focus-within {
+  outline: 3px solid var(--dpnrw-navy);
+  outline-offset: 3px;
+}
+#dp-demo-tour .dp-tour-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+#dp-demo-tour .dp-tour-head img {
+  flex: none;
+  width: 48px;
+  height: 48px;
+}
+#dp-demo-tour h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700 !important;
+  line-height: 1.3;
+}
+#dp-demo-tour h3 a {
+  color: var(--dpnrw-navy) !important;
+  text-decoration: none;
+}
+#dp-demo-tour h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+#dp-demo-tour h3 a:focus { outline: none; }   /* the card shows focus */
+#dp-demo-tour .dp-tour-card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--dpnrw-ink);
+}
+#dp-demo-tour .dp-tour-card p.dp-tour-target {
+  margin-top: auto;
+  padding-top: 12px;
+  font-weight: 600;
+  color: var(--dpnrw-midblue);
+}
+#dp-demo-tour .dp-tour-card:hover p.dp-tour-target {
+  text-decoration: underline;
+  text-decoration-color: var(--dpnrw-cyan);
 }

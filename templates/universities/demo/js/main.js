@@ -2,7 +2,8 @@
    demo: DataPublication.nrw demo area, main.js. layout-dapu's main.js with
    the demo note instead of the "being set up" badge, plus adaptForDemo():
    the login box becomes a hint where to publish, the sidebar heading
-   speaks to visitors.
+   speaks to visitors; and addDemoTour(): four cards below the hero, each
+   opening an example dataset.
 
    Diese Datei wird von /jslibs/hrz/gui.js dynamisch nachgeladen, also NACH
    DOMContentLoaded. Ein blosser DOMContentLoaded-Listener wuerde nie feuern,
@@ -132,10 +133,95 @@
     }
   }
 
+  /* Rundgang unter dem Hero, nur auf der Landing /at/demo/. Vier Karten in
+     der Reihenfolge der Workflow-Kacheln der Landing (Sammeln, Beschreiben,
+     Publizieren, Zitieren), mit deren Icons, je ein Beispieldatensatz.
+     Die Ziele haengen an DOIs und einer Datei-ID der Seed-Daten: nach einem
+     Neu-Seeden des Demo-Bereichs hier nachziehen. Die Ueberschrift der Karte
+     ist der Link; die ganze Karte klickt ueber a::after (main.css 12). */
+  var TOUR = [
+    { icon: "dpnrw-icon-sammeln-kachel-navy.svg",
+      title: "Preview the files",
+      text: "Data, codebook, chart and README together in one dataset.",
+      target: "River Water Temperature, 2023",
+      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/5X6QIH" },
+    { icon: "dpnrw-icon-beschreiben-kachel-navy.svg",
+      title: "Read the README",
+      text: "What is in the data, how it was collected and how to reuse it.",
+      target: "Commuting Mode and Travel Time, Survey 2025",
+      href: "/file.xhtml?fileId=858&version=1.0" },
+    { icon: "dpnrw-icon-publizieren-kachel-cyan.svg",
+      title: "Compare versions",
+      text: "Corrections become a new version. The Versions tab lists them.",
+      target: "Word Frequencies in Travel Letters",
+      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/RTCUO0&selectTab=versionsTab" },
+    { icon: "dpnrw-icon-zitieren-kachel-navy.svg",
+      title: "Cite and reuse",
+      text: "Each dataset comes with a DOI, a licence and a ready-made citation.",
+      target: "Daily Visitor Counts in Twelve Public Libraries",
+      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/B0ETEY" }
+  ];
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  function addDemoTour() {
+    try {
+      if (document.getElementById("dp-demo-tour")) return;
+      var hero = document.querySelector(".repository-header-container");
+      if (!hero || !hero.parentNode || !document.getElementById("repository-header")) return;
+
+      var section = el("section");
+      section.id = "dp-demo-tour";
+      section.setAttribute("aria-labelledby", "dp-demo-tour-title");
+      var heading = el("h2", "", "Four things to try");
+      heading.id = "dp-demo-tour-title";
+      section.appendChild(heading);
+      section.appendChild(el("p", "dp-tour-lead",
+        "Each card opens an example dataset that shows one part of a good publication."));
+
+      var list = el("ol", "dp-tour-list");
+      for (var i = 0; i < TOUR.length; i++) {
+        var item = TOUR[i];
+        var card = el("li", "dp-tour-card");
+        var head = el("div", "dp-tour-head");
+        var icon = el("img");
+        icon.src = "/at/demo/img/tour/" + item.icon;
+        icon.alt = "";
+        icon.width = 48;
+        icon.height = 48;
+        var title = el("h3");
+        var a = el("a", "", item.title);
+        a.href = item.href;
+        title.appendChild(a);
+        head.appendChild(icon);
+        head.appendChild(title);
+        card.appendChild(head);
+        card.appendChild(el("p", "", item.text));
+        var target = el("p", "dp-tour-target");
+        var arrow = el("span", "", "→ ");
+        arrow.setAttribute("aria-hidden", "true");
+        target.appendChild(arrow);
+        target.appendChild(document.createTextNode(item.target));
+        card.appendChild(target);
+        list.appendChild(card);
+      }
+      section.appendChild(list);
+      hero.parentNode.insertBefore(section, hero.nextSibling);
+    } catch (e) {
+      /* still bleiben */
+    }
+  }
+
   function init() {
     addHomeLink();
     addDemoBadge();
     adaptForDemo();
+    addDemoTour();
   }
 
   if (document.readyState === "loading") {
