@@ -10,7 +10,9 @@
      collection"), and the "Add your dataset" buttons (hero and collection
      cards) are hidden;
    - section 11: the hint that replaces the login box (js/main.js);
-   - section 12: the tour below the hero (js/main.js).
+   - section 12: the tour below the hero (js/main.js);
+   - section 13: the collections as a grid of cards instead of the
+     carousel, and less space above "About this collection".
    Keep everything else in sync with layout-dapu (diff -r shows only these).
 
    The area stays on the test system for good: on prod every dataset would
@@ -618,3 +620,105 @@ a#dp-uni-home:focus-visible {
   text-decoration: underline;
   text-decoration-color: var(--dpnrw-cyan);
 }
+
+/* 13. Collections below the tour: a grid instead of the carousel ---------
+   The demo has two faculties, so the owl carousel (three slots, arrows,
+   cards centred in their slots) only gets in the way. Its wrapper becomes a
+   grid: owl.js sets widths and transforms inline, hence !important; with
+   more collections the cards wrap into rows instead of scrolling. The empty
+   slot the template leaves for the area itself is hidden, as are the arrows
+   (homepage.js shows them from four slots or below 700px). Heading and
+   column as the tour above (min(90vw, 1053px)). Cards: light surface, the
+   DataPublication.nrw radius, logo left and name right; the link's ::after
+   covers the card. matchHeight sets an inline height, hence height:auto. */
+#dataversePresentationU { width: min(90vw, 1053px) !important; }
+#carouselBlocksWrapperMainPage > .col-md-3 {
+  padding: 40px 0 0 !important;
+  float: none;
+}
+#carouselBlocksWrapperMainPage .customNavigation > div {
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+#carouselBlocksWrapperMainPage .caroussel_title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+#carouselBlocksWrapperMainPage .dp-carousel-nav {
+  margin-top: 16px;
+  padding: 0 !important;
+}
+#carouselBlocksWrapperMainPage .dp-arrow { display: none !important; }
+#featuredDataversesList.owl-carousel,
+#featuredDataversesList .owl-wrapper-outer {
+  width: 100% !important;
+  margin: 0;
+  padding: 0;
+  float: none;
+  overflow: visible;
+}
+#featuredDataversesList .owl-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  width: 100% !important;
+  transform: none !important;
+}
+#featuredDataversesList .owl-item {
+  width: auto !important;
+  padding: 0 !important;
+  float: none;
+}
+#featuredDataversesList .owl-item:not(:has(.item)) { display: none; }
+#featuredDataversesList .item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100% !important;
+  margin: 0;
+  padding: 16px 20px;
+  border-radius: 20px 20px 20px 4px;
+  background-color: #f1f5f9 !important;
+  box-shadow: none;
+  text-align: left;
+  font-family: var(--dpnrw-font);
+}
+#featuredDataversesList .item:hover,
+#featuredDataversesList .item:focus-within { background-color: #eaf7fc !important; }
+#featuredDataversesList .item:focus-within {
+  outline: 3px solid var(--dpnrw-navy);
+  outline-offset: 3px;
+}
+#featuredDataversesList .item > a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--dpnrw-navy) !important;
+  text-decoration: none;
+}
+#featuredDataversesList .item > a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+#featuredDataversesList .item > a:focus { outline: none; }
+#featuredDataversesList .item img.grid-item-thumbnail {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+}
+#featuredDataversesList .item .show {
+  font-family: var(--dpnrw-font);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+#featuredDataversesList .item .pi-eye { display: none; }
+/* Less air between the cards and "About this collection" (70px + 48px). */
+#dataversePresentation { padding-top: 24px !important; }
