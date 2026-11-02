@@ -1,12 +1,14 @@
 /* ===========================================================================
    demo: DataPublication.nrw demo area on the test system, main.css
 
-   layout-dapu (neutral DataPublication.nrw theme) with two changes:
+   layout-dapu (neutral DataPublication.nrw theme) with these changes:
    - section 10: co-branding "DataPublication.nrw | Demo" in the navbar,
      same pattern as dev-bridgit/dev-coscine section 8;
-   - section 4: the hero badge is the demo note (#dp-demo-badge from
-     js/main.js) instead of layout-dapu's "being set up" badge, and the
-     "Add your dataset" buttons (hero and collection cards) are hidden;
+   - section 4: the status line in the hero is the demo note
+     (#dp-demo-badge from js/main.js) instead of layout-dapu's "being set
+     up" note, the hero shows no description (it repeats under "About this
+     collection"), and the "Add your dataset" buttons (hero and collection
+     cards) are hidden;
    - section 11: the hint that replaces the login box (js/main.js).
    Keep everything else in sync with layout-dapu (diff -r shows only these).
 
@@ -103,62 +105,192 @@ a:hover, a:focus {
   font-family: var(--dpnrw-font) !important;
 }
 
-/* 4. Hero: plain navy surface instead of a photo -------------------------
-   Without a background in unis.csv the generator paints the hero #003064
-   itself; the rule stays so the theme does not depend on that fallback.
-   The platform overlay is for white text on photos and is not needed. */
+/* 4. Hero ------------------------------------------------------------------
+   Same look as the DataPublication.nrw landing (/at/): Anthrazitblau band,
+   two Nachtblau tiles of the Bildmarke on the right, from 1100px up a small
+   Cyanblau tile (below that it could sit behind text). img/hero-tiles.svg
+   and img/hero-accent.svg share one viewBox, so the layers line up. Set
+   here, not in unis.csv: the generator's inline style (no background:
+   #003064) loses to !important.
+
+   In flow instead of absolute: homepage.css positions the container
+   absolutely and reserves its height with .header-spacing (600px, 900px on
+   phones), so the hero could not follow its content (a lower hero left a
+   gap of 180px). The full-bleed margins from homepage.css stay. The div.
+   prefix (0,1,1) beats homepage.css (0,1,0), which loads later. */
+div.repository-header-container { position: relative; }
+div.header-spacing { display: none; }
+
 #repository-header.repository-header-background {
-  background-image: none !important;
-  background-color: var(--dpnrw-navy) !important;
+  min-height: 0 !important;
+  background: url("../img/hero-tiles.svg") right top / auto 100% no-repeat,
+              var(--dpnrw-anthracite) !important;
 }
-/* Lower than the platform's 600px from tablet width up; the content block is
-   absolutely positioned, so on phones the full 600px is needed (measured at
-   375px: content 423px high without the set-up badge). */
-@media (min-width: 601px) {
-  #repository-header.repository-header-background { min-height: 420px !important; }
+@media (min-width: 1100px) {
+  #repository-header.repository-header-background {
+    background: url("../img/hero-accent.svg") right top / auto 100% no-repeat,
+                url("../img/hero-tiles.svg") right top / auto 100% no-repeat,
+                var(--dpnrw-anthracite) !important;
+  }
 }
 #repository-header .repository-header-overlay { background: none; }
-#repository-header .repository-title,
-#repository-header .repository-description {
-  color: #fff !important;
-  font-weight: 600 !important;
+#repository-header .repository-header-content {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  padding: 40px 0 44px;
 }
-#repository-header .repository-description { font-weight: 400 !important; }
-/* Hero buttons: white outline on navy; hover inverts (navy on white). */
-#repository-header button.repository-action-button {
+@media (min-width: 768px) {
+  #repository-header .repository-header-content { padding: 64px 0 72px; }
+}
+/* Text column on the content column below (90% of the page container,
+   1053px at 1440px). */
+#repository-header .repository-info-block {
+  display: block !important;   /* platform: flex column; a wrapping flex row
+                                   inside it got the height of two lines */
+  width: 90%;
+  max-width: 1053px;
+  margin: 0 auto;
+  padding: 0;
   font-family: var(--dpnrw-font) !important;
-  background-color: transparent !important;
-  border: 2px solid #fff !important;
+}
+#repository-header .divider-space { display: none; }
+
+/* Title as the landing's h1, eyebrow as its .eyebrow. Cyanblau on
+   Anthrazitblau 6.2:1, on the Nachtblau tiles 5.0:1. */
+#repository-header .repository-title {
+  margin: 0;
+  padding: 0;
   color: #fff !important;
+  font-size: clamp(30px, 21.6px + 2.4vw, 46px);
+  font-weight: 700 !important;
+  line-height: 1.15;
+}
+#repository-header .repository-kicker {
+  margin-bottom: 8px;
+  color: var(--dpnrw-cyan);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+#repository-header .repository-description {
+  width: auto;
+  max-width: 640px;
+  margin: 14px 0 0;
+  padding: 0;
+  color: #fff !important;
+  font-size: 17px;
+  font-weight: 400 !important;
+  line-height: 1.5;
+}
+
+/* Buttons and search in one row that wraps. The row and the search wrapper
+   have no class in the template, and their inline styles need !important.
+   Dataverse sets html{font-size:10px}, hence px instead of rem. */
+#repository-header .repository-info-block > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+#repository-header .repository-info-block > div:last-child > div {
+  display: flex !important;
+  flex: 1 1 320px;
+  max-width: 480px;   /* ends before the tiles at 1440px, also with two buttons */
+  width: auto !important;
+  margin: 0 !important;
+}
+/* Buttons as on the landing: white outline, the first one ("View all
+   datasets") filled Cyanblau with Nachtblau text (5.0:1). Hover: white. */
+#repository-header button.repository-action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 2px solid #fff !important;
+  border-radius: 12px 12px 12px 2px;
+  background-color: transparent !important;
+  color: #fff !important;
+  font-family: var(--dpnrw-font) !important;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+#repository-header button#header_browse_collection_button {
+  border-color: var(--dpnrw-cyan) !important;
+  background-color: var(--dpnrw-cyan) !important;
+  color: var(--dpnrw-navy) !important;
 }
 #repository-header button.repository-action-button:hover,
 #repository-header button.repository-action-button:focus {
+  border-color: #fff !important;
   background-color: #fff !important;
   color: var(--dpnrw-navy) !important;
 }
-/* Demo note after the title (element comes from js/main.js).
-   A sibling of #repository-title, not a child, so it stays out of the
-   heading's accessible name. White on Anthrazitblau, cyan as line only.
-   Dataverse sets html{font-size:10px}, hence px instead of rem. */
+#repository-header button.repository-action-button .pi { font-size: 14px !important; padding: 0 !important; }
+/* Search: white field, Cyanblau button with Nachtblau glyph. Placeholder
+   #5f6b78 on white 5.4:1 (Bootstrap's #999 has 2.8:1). */
+#repository-header input#searchall2 {
+  flex: 1 1 auto !important;
+  max-width: none !important;
+  height: 44px;
+  margin: 0 !important;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 12px 0 0 2px;
+  box-shadow: none;
+  color: var(--dpnrw-ink);
+  font-family: var(--dpnrw-font);
+  font-size: 16px;
+}
+#repository-header input#searchall2::placeholder { color: #5f6b78; opacity: 1; }
+#repository-header .repository-info-block .input-group-btn {
+  display: flex;
+  width: auto;
+  min-width: 0 !important;
+}
+#repository-header .input-group-btn > button.btn-default {
+  width: 52px;
+  height: 44px;
+  border: 0 !important;
+  border-radius: 0 12px 12px 0;
+  background: var(--dpnrw-cyan) !important;
+  color: var(--dpnrw-navy) !important;
+}
+#repository-header .input-group-btn > button.btn-default:hover,
+#repository-header .input-group-btn > button.btn-default:focus {
+  background: #fff !important;
+}
+#repository-header input#searchall2:focus-visible,
+#repository-header button:focus-visible {
+  outline: 3px solid var(--dpnrw-cyan);
+  outline-offset: 2px;
+}
+
 /* Nobody deposits in the demo area: no "Add your dataset" button in the
    hero, no "Log in to add datasets" on the collection cards (both are
    a[name="header_add_dataset_href"], the cards repeat the name). */
 body a[name="header_add_dataset_href"] { display: none !important; }
+/* No description in the hero: it repeats word for word under "About this
+   collection", and the status line already says what the area is. */
+#repository-header #repository-description { display: none !important; }
 
+/* Demo note after the title (element comes from js/main.js), styled as the
+   landing's status line. A sibling of #repository-title, not a child, so it
+   stays out of the heading's accessible name. */
 #repository-header #dp-demo-badge {
-  display: inline-block;
-  align-self: flex-start;
-  max-width: 100%;
-  margin: 0 0 12px;
-  padding: 4px 12px;
-  border: 1px solid var(--dpnrw-cyan);
-  border-radius: 999px;
-  background-color: var(--dpnrw-anthracite);
-  color: #fff;
+  max-width: 720px;
+  margin: 14px 0 0;
+  padding: 0;
+  color: var(--dpnrw-cyan);
   font-family: var(--dpnrw-font);
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* 5. Colour as fill / line ------------------------------------------------ */

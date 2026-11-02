@@ -78,7 +78,7 @@
       var badge = document.createElement("p");
       badge.id = "dp-demo-badge";
       badge.textContent =
-        "Demo area on the test system. All datasets here are invented examples.";
+        "Invented example datasets on the test system. Look around, no account needed.";
 
       title.parentNode.insertBefore(badge, title.nextSibling);
     } catch (e) {
