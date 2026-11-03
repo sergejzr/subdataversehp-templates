@@ -790,6 +790,9 @@ div.information-box {
     float: none;
     padding: 0;
   }
+  /* 12px between two text columns looks cramped; the sidebar stays on the
+     third column, the left column keeps 40px clear instead. */
+  #dataversePresentation > .col-md-8 { padding-right: 40px; }
 }
 body .featured-items-grid {
   grid-template-columns: 1fr;
