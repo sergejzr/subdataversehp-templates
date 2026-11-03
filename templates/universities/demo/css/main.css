@@ -12,7 +12,9 @@
    - section 11: the hint that replaces the login box (js/main.js);
    - section 12: the tour below the hero (js/main.js);
    - section 13: the collections as a grid of cards instead of the
-     carousel, and less space above "About this collection".
+     carousel, and less space above "About this collection";
+   - section 14: lower sections on the hero's column, section headings as
+     the tour's, no second search, no download count.
    Keep everything else in sync with layout-dapu (diff -r shows only these).
 
    The area stays on the test system for good: on prod every dataset would
@@ -502,12 +504,14 @@ a#dp-uni-home:focus-visible {
 }
 
 /* 11. Hint instead of the login box (element comes from js/main.js).
-   Navy links on white: 13.4:1. Dataverse sets html{font-size:10px}, hence
-   px instead of rem. */
+   Light surface with the DataPublication.nrw radius, as the collection
+   cards (section 13); Nachtblau links on #f1f5f9: 11.9:1. Dataverse sets
+   html{font-size:10px}, hence px instead of rem. */
 .information-box #dp-demo-publish-hint {
-  margin-top: 16px;
-  padding: 12px 16px;
-  border-left: 3px solid var(--dpnrw-cyan);
+  margin-top: 8px;
+  padding: 16px 20px;
+  border-radius: 20px 20px 20px 4px;
+  background: #f1f5f9;
   font-family: var(--dpnrw-font);
   font-size: 15px;
   line-height: 1.5;
@@ -722,3 +726,31 @@ a#dp-uni-home:focus-visible {
 #featuredDataversesList .item .pi-eye { display: none; }
 /* Less air between the cards and "About this collection" (70px + 48px). */
 #dataversePresentation { padding-top: 24px !important; }
+
+/* 14. About, hint, recent datasets and statistics -------------------------
+   The lower sections on the column of hero, tour and collections: the
+   template sets max-width:1100px;width:80% inline on their wrappers and
+   15px padding inside, hence + 30px. Section headings as the tour's h2
+   (section 3 sets 600 !important on .section-heading, body. outranks it).
+   The info box keeps only the hint: no second search (the hero has one),
+   no grey box. The statistics drop "Unique downloads in last 30 days":
+   on the test system it stays at 0 and says nothing in a showcase. */
+#dataversePresentation,
+.main-overview-section .content-centered > div[style*="max-width:1100px"] {
+  width: calc(min(90vw, 1053px) + 30px) !important;
+  max-width: none !important;
+}
+body .section-heading {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  line-height: 1.25;
+}
+.information-box > .input-group,
+.information-box > br { display: none; }
+div.information-box {
+  padding: 0 !important;
+  background: none;
+  box-shadow: none;
+}
+#stat-overview .stat-block:nth-child(3) { display: none; }
+#stat-overview .statistics-content { grid-template-columns: repeat(2, 1fr) !important; }
