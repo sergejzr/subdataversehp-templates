@@ -14,7 +14,8 @@
    - section 13: the collections as a grid of cards instead of the
      carousel, and less space above "About this collection";
    - section 14: lower sections on the hero's column, section headings as
-     the tour's, no second search, no download count.
+     the tour's, no second search, no download count;
+   - section 15: one grid for the whole page (the tour's four columns).
    Keep everything else in sync with layout-dapu (diff -r shows only these).
 
    The area stays on the test system for good: on prod every dataset would
@@ -664,10 +665,16 @@ a#dp-uni-home:focus-visible {
 }
 #featuredDataversesList .owl-wrapper {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: 1fr;   /* the tour's columns, see section 15 */
   gap: 12px;
   width: 100% !important;
   transform: none !important;
+}
+@media (min-width: 560px) {
+  #featuredDataversesList .owl-wrapper { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  #featuredDataversesList .owl-wrapper { grid-template-columns: repeat(4, 1fr); }
 }
 #featuredDataversesList .owl-item {
   width: auto !important;
@@ -754,3 +761,43 @@ div.information-box {
 }
 #stat-overview .stat-block:nth-child(3) { display: none; }
 #stat-overview .statistics-content { grid-template-columns: repeat(2, 1fr) !important; }
+
+/* 15. One grid for the whole page ------------------------------------------
+   Everything below the hero snaps to the tour's columns: four from 960px,
+   two from 560px, one below, 12px gaps. Collections (section 13) and
+   Recent Datasets use the same breakpoints (homepage.css: 4/3/2/1 columns
+   at other widths, 30px gap). About and "How publishing works" share the
+   row half and half from 900px, so the sidebar starts on the third column
+   and both headings sit on one line (the sidebar h3 gets the 48px top
+   space of .section-heading and the same size). Below 900px they stack. */
+#dataversePresentation > .col-md-4 > div { padding-left: 0 !important; }
+#dataversePresentation > .col-md-4 h3 {
+  margin: 48px 0 16px;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  line-height: 1.25;
+}
+@media (min-width: 900px) {
+  #dataversePresentation {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+    width: min(90vw, 1053px) !important;
+  }
+  #dataversePresentation > .col-md-8,
+  #dataversePresentation > .col-md-4 {
+    width: auto;
+    float: none;
+    padding: 0;
+  }
+}
+body .featured-items-grid {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 560px) {
+  body .featured-items-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  body .featured-items-grid { grid-template-columns: repeat(4, 1fr); }
+}
