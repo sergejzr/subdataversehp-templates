@@ -136,30 +136,30 @@
   /* Rundgang unter dem Hero, nur auf der Landing /at/demo/. Vier Karten in
      der Reihenfolge der Workflow-Kacheln der Landing (Sammeln, Beschreiben,
      Publizieren, Zitieren), mit deren Icons, je ein Beispieldatensatz.
-     Die Ziele haengen an DOIs und einer Datei-ID der Seed-Daten: nach einem
-     Neu-Seeden des Demo-Bereichs hier nachziehen. Die Ueberschrift der Karte
+     Die Ziele haengen an DOIs und einer Datei-ID der Seed-Daten (Seed vom
+     2026-11-03): nach einem Neu-Seeden des Demo-Bereichs hier nachziehen. Die Ueberschrift der Karte
      ist der Link; die ganze Karte klickt ueber a::after (main.css 12). */
   var TOUR = [
     { icon: "dpnrw-icon-sammeln-kachel-navy.svg",
       title: "Preview the files",
-      text: "Data, codebook, chart and README together in one dataset.",
-      target: "River Water Temperature, 2023",
-      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/5X6QIH" },
+      text: "Data, code and a figure in separate folders, with the README on top.",
+      target: "Tensile Tests of 3D-Printed PLA Specimens",
+      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/7IWKJY" },
     { icon: "dpnrw-icon-beschreiben-kachel-navy.svg",
       title: "Read the README",
       text: "What is in the data, how it was collected and how to reuse it.",
-      target: "Commuting Mode and Travel Time, Survey 2025",
-      href: "/file.xhtml?fileId=858&version=1.0" },
+      target: "River Water Temperature, 2023",
+      href: "/file.xhtml?fileId=879&version=1.0" },
     { icon: "dpnrw-icon-publizieren-kachel-cyan.svg",
       title: "Compare versions",
       text: "Corrections become a new version. The Versions tab lists them.",
       target: "Word Frequencies in Travel Letters",
-      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/RTCUO0&selectTab=versionsTab" },
+      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/MIQDXS&selectTab=versionsTab" },
     { icon: "dpnrw-icon-zitieren-kachel-navy.svg",
       title: "Cite and reuse",
       text: "Each dataset comes with a DOI, a licence and a ready-made citation.",
       target: "Daily Visitor Counts in Twelve Public Libraries",
-      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/B0ETEY" }
+      href: "/dataset.xhtml?persistentId=doi:10.83693/DAPU-TEST.NRW/9XLRQU" }
   ];
 
   function el(tag, className, text) {
